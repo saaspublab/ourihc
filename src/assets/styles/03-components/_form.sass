@@ -1,0 +1,146 @@
+label
+    display: block
+    margin-bottom: .25rem
+    cursor: text
+    color: $primary
+    font-size: .825em
+
+    small
+        font-size: .65em
+        text-transform: uppercase
+
+input:not([type="radio"])
+    appearance: none
+    box-sizing: border-box
+    width: 100%
+    margin: .175rem 0 .75rem 0
+    padding: .75rem 1rem
+    border: $border-width solid $primary
+    border-radius: 0 $border-radius $border-radius $border-radius
+    background-color: transparent
+    color: $primary
+    font-family: $family-sans-serif
+    outline: none
+    font-size: 1.25em
+
+    &::placeholder
+        color: lighten($black, 25%)
+
+    &.input--has-errors
+        border-radius: 0
+    
+    &[type=checkbox]
+        appearance: checkmark
+    
+    &[disabled]
+        cursor: not-allowed
+
+textarea
+    @extend input
+    height: 125px
+    resize: none
+
+select, .select
+    @extend input
+
+    &[multiple]
+        overflow-y: scroll
+
+        option:checked
+            padding-left: .75rem
+            
+            &:before
+                content: '\2713 '
+
+.select--multi
+    cursor: text
+
+    & > div
+        border: none
+        outline: none
+        cursor: pointer
+
+        & > div:nth-of-type(2)
+            cursor: pointer
+            
+            & > span
+                background-color: $primary
+            
+            & > div
+                color: $primary
+
+input, textarea, select, .select
+    &.ng-touched.ng-invalid
+        border: $border-width solid $primary
+
+.form-control--error
+    border-radius: 0
+    transition: all 0.5s ease-in-out
+
+.form--disclaimer
+    p
+        margin: 0
+        font-size: .675em
+
+.form--actions
+    margin-top: 1rem
+
+button[type=submit]
+    border-radius: 0
+
+fieldset
+  // max-width: 500px
+  padding: .5rem 1.0875rem 1.45rem
+
+legend
+  padding: 0 1rem
+
+// Radio custom styles
+
+.radio
+    margin: 0.5rem
+
+    input[type="radio"]
+        position: absolute
+        opacity: 0
+
+        + label
+            &:before
+                content: ''
+                background: transparent
+                border-radius: 100%
+                border: 1px solid darken($white, 25%)
+                display: inline-block
+                width: 1.4em
+                height: 1.4em
+                position: relative
+                top: 0.075em
+                margin-right: 1em
+                vertical-align: top
+                cursor: pointer
+                text-align: center
+                transition: all 250ms ease
+
+        &:checked
+            + label
+                &:before
+                    background-color: $primary
+                    box-shadow: inset 0 0 0 4px $white
+
+        &:focus
+            + label
+                &:before
+                    outline: none
+                    border-color: $black
+
+        &:disabled
+            + label
+                &:before
+                    box-shadow: inset 0 0 0 4px $white
+                    border-color: darken($white, 25%)
+                    background: darken($white, 25%)
+
+        + label
+            &:empty
+                &:before
+                    margin-right: 0

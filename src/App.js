@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 
-function App() {
+import './App.sass'
+
+import Header from './components/Header.js'
+import Home from './pages/Home.js'
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className="wrapper">
+        <Header className="header" />
+
+        <main className="bodyContent">
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </main>
+
+        <footer className="footer">
+          <p>© {new Date().getFullYear()} Jay Sella and SAAS Inter-House Council</p>
+          <p>All Rights Reserved</p>
+        </footer>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+function NoMatch() {
+  return (
+    <>
+      <h2>Error.</h2>
+      <p><Link to="/" className="button button--primary button--bordered button--rounded button--has-shadow button--has-icon">Restart Site <span>&rarr;</span></Link></p>
+    </>
+  )
+}
