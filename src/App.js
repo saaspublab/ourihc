@@ -9,7 +9,8 @@ import {
 import './App.sass'
 
 import Header from './components/Header.js'
-import Home from './pages/Home.js'
+// import Home from './pages/Home.js'
+import Nope from './pages/Nope.js'
 
 export default function App() {
   return (
@@ -20,8 +21,11 @@ export default function App() {
         <main className="bodyContent">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Nope />
             </Route>
+            {/* <Route exact path="/">
+              <Home />
+            </Route> */}
             <Route path="*">
               <NoMatch />
             </Route>

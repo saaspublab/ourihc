@@ -23,10 +23,15 @@
   max-width: 960px
   padding: 0 1.0875rem 1.45rem
 
+  h2, p
+    &::selection
+      background: rgba($primary, .15)
+
 .footer
   margin: 10rem auto 0 auto
   max-width: 960px
   padding: 0 1.0875rem 1.45rem
+  color: rgba($black, .1)
   
   p:not(:last-of-type)
     margin-bottom: .5em
