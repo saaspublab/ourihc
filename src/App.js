@@ -44,8 +44,9 @@ export default function App() {
 function NoMatch() {
   return (
     <>
-      <h2>Error.</h2>
-      <p><Link to="/" className="button button--primary button--bordered button--rounded button--has-shadow button--has-icon">Restart Site <span>&rarr;</span></Link></p>
+      <h2>Well, well, well...</h2>
+      <p>You see, you're trying to find some hidden treasure. Much to your dismay, you're not getting anything at this location...</p>
+      <p><Link to="/" className="button button--primary button--bordered button--rounded button--has-shadow button--has-icon">Go home <span>&rarr;</span></Link></p>
     </>
   )
 }
