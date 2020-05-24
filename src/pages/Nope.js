@@ -18,7 +18,7 @@ class Home extends Component {
 		return (
 			<div className={styles.wrapper}>
 				<h2>{greetingMessage + '!'}</h2>
-				<p>Something's in store... you'll have to check back later</p>
+				<p>Something's in store... you'll just have to check back later.</p>
 			</div>
 		)
 	}
