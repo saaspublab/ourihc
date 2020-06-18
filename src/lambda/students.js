@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
 
-const headers = {
+const responseHeaders = {
   'Access-Control-Allow-Origin': 'https://www.ourihc.com',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
@@ -11,6 +11,15 @@ const fetchHeaders = {
   'x-apikey': process.env.X_API_KEY,
 };
 
+/**
+ * Fetch students from database based on provided query. If no query is specified, return all students]
+ *
+ * @method fetchStudents
+ * @param query {string}
+ * @param method {string}
+ *
+ * @return {object}
+ */
 async function fetchStudents(query, method) {
   const response = await fetch(`${process.env.API_URL}/students${query}`, {
     method,
@@ -24,34 +33,6 @@ exports.handler = async (event) => {
   const path = event.path.replace(/api\/[^/]+/, '');
   const segments = path.split('/').filter((e) => e);
 
-  // function newForm(oldForm) {
-  //   switch (oldForm) {
-  //     case 'A':
-  //       return 'I';
-
-  //     case 'I':
-  //       return 'II';
-
-  //     case 'II':
-  //       return 'III';
-
-  //     case 'III':
-  //       return 'IV';
-
-  //     case 'IV':
-  //       return 'V';
-
-  //     case 'V':
-  //       return 'VI';
-
-  //     case 'VI':
-  //       return 'GR';
-
-  //     default:
-  //       return '??';
-  //   }
-  // }
-
   switch (event.httpMethod) {
     case 'GET':
       /* GET /api/lunch */
@@ -63,21 +44,62 @@ exports.handler = async (event) => {
 
           return {
             statusCode: 200,
+            responseHeaders,
             body: JSON.stringify({
+              meta: {
+                totalStudents: response.length,
+                totalStudentsByForm: {
+                  a: response.filter(
+                    (student) => student.form.toLowerCase() === 'a'
+                  ).length,
+                  i: response.filter(
+                    (student) => student.form.toLowerCase() === 'i'
+                  ).length,
+                  ii: response.filter(
+                    (student) => student.form.toLowerCase() === 'ii'
+                  ).length,
+                  iii: response.filter(
+                    (student) => student.form.toLowerCase() === 'iii'
+                  ).length,
+                  iv: response.filter(
+                    (student) => student.form.toLowerCase() === 'iv'
+                  ).length,
+                  v: response.filter(
+                    (student) => student.form.toLowerCase() === 'v'
+                  ).length,
+                  vi: response.filter(
+                    (student) => student.form.toLowerCase() === 'vi'
+                  ).length,
+                },
+                totalStudentsByHouse: {
+                  alban: response.filter(
+                    (student) => student.house.toLowerCase() === 'alban'
+                  ).length,
+                  austin: response.filter(
+                    (student) => student.house.toLowerCase() === 'austin'
+                  ).length,
+                  main: response.filter(
+                    (student) => student.house.toLowerCase() === 'main'
+                  ).length,
+                  moore: response.filter(
+                    (student) => student.house.toLowerCase() === 'moore'
+                  ).length,
+                },
+              },
               data: response,
             }),
           };
         } catch (err) {
           return {
             statusCode: err.statusCode || 500,
+            responseHeaders,
             body: JSON.stringify({
               error: err.message,
             }),
           };
         }
-
-        // return console.log(process.env);
       }
+
       /* GET /api/lunch/[house] */
       if (segments.length === 1) {
         const house =
@@ -91,6 +113,7 @@ exports.handler = async (event) => {
 
           return {
             statusCode: 200,
+            responseHeaders,
             body: JSON.stringify({
               meta: {
                 totalStudents: response.length,
@@ -125,13 +148,16 @@ exports.handler = async (event) => {
           return {
             statusCode: err.statusCode || 500,
             body: JSON.stringify({
+              responseHeaders,
               error: err.message,
             }),
           };
         }
       }
+
       return {
         statusCode: 500,
+        responseHeaders,
         body: 'too many segments in GET request',
       };
 
@@ -139,6 +165,7 @@ exports.handler = async (event) => {
     default:
       return {
         statusCode: 500,
+        responseHeaders,
         body: 'unrecognized HTTP Method, must be one of GET/POST/PUT/DELETE',
       };
   }
