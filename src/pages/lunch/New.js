@@ -42,6 +42,8 @@ function Lunch() {
   const [students, setStudents] = useState({});
   const [errors, setError] = useState({});
 
+  console.log(errors);
+
   useEffect(() => {
     document.title = 'New Lunch Cleanup Assignments';
   }, []);

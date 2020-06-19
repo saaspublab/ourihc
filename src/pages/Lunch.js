@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './lunch.module.sass';
 
 const moment = require('moment');
 
-const houses = ['all', 'alban', 'austin', 'main', 'moore'];
+// const houses = ['all', 'alban', 'austin', 'main', 'moore'];
 
 // function getDistinctObjectValues(array) {
 //   const flags = [];
@@ -19,48 +20,48 @@ const houses = ['all', 'alban', 'austin', 'main', 'moore'];
 // }
 
 function Lunch() {
-  const [currentHouse, setCurrentHouse] = useState('');
-  const [errors, setError] = useState({});
-  const [students, setStudents] = useState({});
-  const [assignments, setAssignments] = useState({});
+  // const [currentHouse, setCurrentHouse] = useState('');
+  // const [errors, setError] = useState({});
+  // const [students, setStudents] = useState({});
+  // const [assignments, setAssignments] = useState({});
 
-  function fetchAssignments(q) {
-    let query = q;
-    if (!query) {
-      query = '';
-    }
-    fetch(`/api/assignments/${query}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setAssignments(res);
-        console.log(res);
-      })
-      .catch((err) => {
-        setError(err);
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
-  }
+  // function fetchAssignments(q) {
+  //   let query = q;
+  //   if (!query) {
+  //     query = '';
+  //   }
+  //   fetch(`/api/assignments/${query}`)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setAssignments(res);
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       setError(err);
+  //       // eslint-disable-next-line no-console
+  //       console.error(err);
+  //     });
+  // }
 
   useEffect(() => {
     document.title = 'Lunch Cleanup Dashboard';
     // fetchAssignments();
   }, []);
 
-  function changeHouse(newHouse) {
-    setCurrentHouse(newHouse);
+  // function changeHouse(newHouse) {
+  //   setCurrentHouse(newHouse);
 
-    fetch(`/api/students/${currentHouse}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setStudents(res);
-      })
-      .catch((err) => {
-        setError(err);
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
-  }
+  //   fetch(`/api/students/${currentHouse}`)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setStudents(res);
+  //     })
+  //     .catch((err) => {
+  //       setError(err);
+  //       // eslint-disable-next-line no-console
+  //       console.error(err);
+  //     });
+  // }
 
   return (
     <div className={styles.wrapper}>
