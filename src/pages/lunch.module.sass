@@ -1,0 +1,80 @@
+@import '../assets/styles/01-abstracts/abstracts.sass'
+
+h4
+  margin: 30px 0 15px 0
+  color: $primary
+
+.actions
+  display: grid
+  grid-template-columns: repeat(2, 1fr)
+  grid-column-gap: 3em
+
+  a
+    display: block
+    
+.day
+  background: $white
+  padding: 30px 20px
+
+  h4
+    margin: 0 0 1em 0
+
+  p
+    margin: 0
+
+  &:not(:last-of-type)
+    margin-bottom: 2rem
+
+.assignments
+  display: flex
+  justify-content: flex-start
+
+  article
+    background: $white
+    border: 1px solid $primary
+    border-radius: $border-radius
+
+    &:not(:first-of-type)
+      margin-left: 10px
+    
+    header
+      background: $primary
+      color: $white
+      padding: 15px 20px
+
+      h6
+        margin: 0
+    
+    .inner
+      padding: 18px 18px
+    
+    .separator
+      width: 100%; 
+      text-align: left
+      border-bottom: 1px solid $maroon
+      line-height: 0.1em
+      margin: 35px 0 15px
+
+      span
+        background: $white
+        color: $primary
+        padding: 0 10px 0 0
+    
+    p
+      margin: 0
+
+      &:not(:first-of-type)
+        margin-top: 5px
+      
+      &:not(:last-of-type)
+        margin-bottom: 5px
+    
+      span
+        background: $primary
+        border-radius: $border-radius
+        color: $white
+        padding: 0 7px
+        margin-left: 15px
+        font-size: .8em
+        font-weight: bold
+        float: right

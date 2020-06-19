@@ -7,13 +7,13 @@
         border-color: darken($bg, 7.5%)
         background: darken($bg, 7.5%)
         
-    &.button--has-shadow
+    &.shadow
         box-shadow: 0px 8px 15px rgba($bg, .25)
 
         &:hover
             box-shadow: 0px 8px 15px rgba($bg, .4)
 
-=button-bordered($bg, $color2: $whitest)
+=button-hollow($bg, $color2: $whitest)
     border: 2px solid $bg
     color: $bg
     transition: all 0.15s ease-in-out
@@ -34,10 +34,17 @@
     &:hover
         color: darken($color, 7.5%)
 
+.button-grid
+    display: flex
+    overflow-x: auto
+
+    button, .button
+        &:not(:last-child)
+            margin-right: .75em
+
 button, .button
     display: inline-block
-    padding: 0 7.5px
-    color: $black
+    padding: 0 5px
     font-family: $family-sans-serif
     font-size: 15px
     font-weight: 600
@@ -47,55 +54,44 @@ button, .button
     cursor: pointer
     box-sizing: border-box
 
-    &:not(.button--link)
+    &:not(.link)
         text-transform: uppercase
-        padding: 7.5px 20px
+        padding: 5px 15px
         background-color: transparent
         border-radius: 0
-        border: 1px solid $black
         letter-spacing: .1rem
         text-align: center
     
-    &.button--rounded
+    &.round
         border-radius: $border-radius
-        font-size: 13px
-
-        &:not(.button--link)
-            padding: 7.5px 20px
-
-            &.button--large
-                padding: 7px 30px
-                font-size: .8em
-
-        &.button--rounded-three
-            border-top-left-radius: 0
+        font-size: 14px
         
-        &.button--large
+        &.large
             border-radius: $border-radius * 2
     
-    &.button--xtra-small
+    &.xtra-small
         font-size: 10px
 
-        &:not(.button--link)
+        &:not(.link)
             padding: 4px 8px
 
-    &.button--small
+    &.small
         font-size: 12px
 
-        &:not(.button--link)
+        &:not(.link)
             padding: 5px 11.75px
 
-    &.button--large
+    &.large
         font-size: 18px
 
-        &:not(.button--link)
+        &:not(.link)
             padding: 10px 30px
             border-width: 3px !important
 
-    &.button--full
+    &.full
         width: 100%
 
-    &.button--has-icon
+    &.has-icon
         svg, span
             display: inline-block
             transition: transform .5s ease
@@ -104,12 +100,12 @@ button, .button
             svg, span
                 transform: translateX(7.5px)
 
-        &.button--small
+        &.small
             &:hover
                 svg, span
                     transform: translateX(3.5px)
 
-        &.button--large
+        &.large
             svg, span
                 margin-left: 7.5px
 
@@ -123,82 +119,82 @@ button, .button
                 svg, span
                     transform: translateX(-7.5px)
 
-            &.button--small
+            &.small
                 &:hover
                     svg, span
                         transform: translateX(-3.5px)
 
-            &.button--large
+            &.large
                 svg, span
                     margin-right: 7.5px
                     margin-left: 0
 
-    &:disabled, &.button--disabled
+    &:disabled, &.disabled
         cursor: not-allowed
         opacity: .75
 
         &:hover
             opacity: .75
 
-        &.button--has-icon
+        &.has-icon
             &:hover
-                fa-icon
+                span
                     transform: none !important
 
-    &.button--primary
+    &.primary
         +button-clear($primary)
 
-        &:not(.button--clear)
+        &:not(.clear)
             +button-link($primary)
 
-            &:not(.button--link)
-                +button-bordered($primary)
+            &:not(.link)
+                +button-hollow($primary)
 
-                &:not(.button--bordered)
+                &:not(.hollow)
                     +button($primary)
 
-    &.button--white
+    &.white
         +button-clear($white)
 
-        &:not(.button--clear)
+        &:not(.clear)
             +button-link($white)
 
-            &:not(.button--link)
-                +button-bordered($white, $primary)
+            &:not(.link)
+                +button-hollow($white, $primary)
 
-                &:not(.button--bordered)
+                &:not(.hollow)
                     +button($white, $primary)
 
-    &.button--success
+    &.success
         +button-clear($success)
 
-        &:not(.button--clear)
+        &:not(.clear)
             +button-link($success)
 
-            &:not(.button--link)
-                +button-bordered($success, $white)
+            &:not(.link)
+                +button-hollow($success, $white)
 
-                &:not(.button--bordered)
+                &:not(.hollow)
                     +button($success, $white)
 
-    &.button--danger
+    &.danger
         +button-clear($danger)
 
-        &:not(.button--clear)
+        &:not(.clear)
             +button-link($danger)
 
-            &:not(.button--link)
-                +button-bordered($danger, $white)
+            &:not(.link)
+                +button-hollow($danger, $white)
 
-                &:not(.button--bordered)
+                &:not(.hollow)
                     +button($danger, $white)
 
 +mobile
-    .button.button--large
+    .button.large
         padding: 7.5px 15px
         font-size: .875em
 
 +tablet
-    .button.button--large
+    .button.large
         padding: 8.75px 20px
         font-size: .9em

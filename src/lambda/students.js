@@ -2,7 +2,7 @@ require('dotenv').config();
 const fetch = require('node-fetch');
 
 const responseHeaders = {
-  'Access-Control-Allow-Origin': 'https://www.ourihc.com',
+  'Access-Control-Allow-Origin': process.env.CORS_URL,
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 const fetchHeaders = {
