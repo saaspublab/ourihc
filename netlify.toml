@@ -15,32 +15,32 @@
 [[redirects]]
   from = "/quarter"
   to = "https://docs.google.com/drawings/d/1i9vdWauHwfNQdq6gZLVxEd02Fms94IkixeOzV5QDXds/template/preview"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/half"
   to = "https://docs.google.com/drawings/d/1D3wiuL5N2ZOjRWTpvnmQklB8SaCiOie1s_z1dKFDtIA/template/preview"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/full"
   to = "https://docs.google.com/drawings/d/1ZhRgBxDK5k_vfzj-QSQbmYjIBa7b4voJh9GU-bGMWNA/template/preview"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/buy-spread"
   to = "https://www.saintanselms.org/parents2/parent-spread"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/spread-help"
   to = "https://support.google.com/docs/answer/179740"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/send-spread"
   to = "https://docs.google.com/forms/d/e/1FAIpQLScT-pL94mSZYSwINd0O3GpOerCwCqxk7NWboMuXbZ10veDDtA/viewform"
-  status = "302"
+  status = 302
 
 [[redirects]]
   from = "/*"
