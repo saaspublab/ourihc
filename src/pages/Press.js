@@ -45,6 +45,7 @@ export const useInput = (initialValue) => {
 
 function Press() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const { value: name, bind: bindName, reset: resetName } = useInput('');
   const {
@@ -58,34 +59,55 @@ function Press() {
   );
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
-
     const form = evt.target;
 
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        name: `${name}`,
-        'student-form': `${studentForm}`,
-        email: `${email}`,
-        message: `${message}`,
-      }),
-    })
-      .then(() => {
-        // Reset form fields
-        resetName();
-        resetStudentForm();
-        resetEmail();
-        resetMessage();
+    if (!(name && studentForm && email && message)) {
+      setError('All fields are required.');
+    } else if (name.length < 3) {
+      setError('Please enter a valid name');
+    } else if (studentForm === 'unknown') {
+      setError('Please select your form.');
+    } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setError('Please enter a valid email address.');
+    } else if (message.length < 10) {
+      setError(
+        "Please elaborate a bit more on your idea so we can better understand your interests. (You'll need to enter at least 10 characters to submit this form)"
+      );
+    } else {
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': form.getAttribute('name'),
+          name: `${name}`,
+          'student-form': `${studentForm}`,
+          email: `${email}`,
+          message: `${message}`,
+        }),
       })
-      .then(() => {
-        // Show message saying the form was submitted
-        // and hide the form
-        setSubmitted(true);
-      })
-      .catch((error) => alert(error));
+        .then((response) => {
+          if (!response.ok) {
+            setError('The server responded with a non-2xx code.');
+            setSubmitted(false);
+          } else {
+            // Reset form fields
+            resetName();
+            resetStudentForm();
+            resetEmail();
+            resetMessage();
+
+            // Show message saying the form was submitted
+            // and hide the form
+            setSubmitted(true);
+          }
+        })
+        .catch((err) => {
+          setError(err);
+          setSubmitted(false);
+        });
+    }
+
+    evt.preventDefault();
   };
 
   return (
@@ -161,61 +183,110 @@ function Press() {
             </p>
           </div>
         ) : (
-          <form
-            method="post"
-            name="priory-press-interest"
-            netlify
-            netlify-honeypot="bot-field"
-            onSubmit={handleSubmit}
-          >
-            <input type="hidden" name="bot-field" />
+          <>
+            {error && (
+              <div className="background--off-white">
+                <h2 className="heading">
+                  Oh no! There was an issue recording your interest...
+                </h2>
+                <pre>{error}</pre>
+                <p>
+                  Unfortunately an error was encountered. Please try again. If
+                  the issue persists, please reach out to us on Instagram{' '}
+                  <a
+                    href="//www.instagram.com/inter.house.council/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    @inter.house.council
+                  </a>{' '}
+                  and pass along the above diagnostic information.
+                </p>
+              </div>
+            )}
+            <form
+              method="post"
+              name="priory-press-interest"
+              onSubmit={handleSubmit}
+            >
+              <input type="hidden" name="bot-field" />
 
-            <label htmlFor="name">
-              Name
-              <input
-                type="text"
-                name="name"
-                placeholder="Samuel Serif"
-                {...bindName}
-              />
-            </label>
+              <label htmlFor="name">
+                Name
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Samuel Serif"
+                  required
+                  minLength={3}
+                  {...bindName}
+                />
+              </label>
 
-            <label htmlFor="studentForm">
-              Form (Fall 2020 - Spring 2021)
-              <select name="studentForm" {...bindStudentForm}>
-                <option disabled value="unknown">
-                  Click to select &rarr;
-                </option>
-                <option value="a">A</option>
-                <option value="i">I</option>
-                <option value="ii">II</option>
-                <option value="iii">III</option>
-                <option value="iv">IV</option>
-                <option value="v">V</option>
-                <option value="vi">VI</option>
-              </select>
-            </label>
+              <label htmlFor="studentForm">
+                Form (Fall 2020 - Spring 2021)
+                <select name="studentForm" {...bindStudentForm} required>
+                  <option disabled value="unknown">
+                    Click to select &rarr;
+                  </option>
+                  <option value="a">A</option>
+                  <option value="i">I</option>
+                  <option value="ii">II</option>
+                  <option value="iii">III</option>
+                  <option value="iv">IV</option>
+                  <option value="v">V</option>
+                  <option value="vi">VI</option>
+                </select>
+              </label>
 
-            <label htmlFor="email">
-              Email Address
-              <input
-                type="email"
-                name="email"
-                placeholder="samuel.serif@example.com"
-                {...bindEmail}
-              />
-            </label>
+              <label htmlFor="email">
+                Email Address
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="samuel.serif@example.com"
+                  required
+                  {...bindEmail}
+                />
+              </label>
 
-            <label htmlFor="message">
-              What are you interested in writing about? Do you have a title or
-              short description?
-              <textarea name="message" {...bindMessage} />
-            </label>
+              <label htmlFor="message">
+                What are you interested in writing about? Do you have a title or
+                short description?
+                <textarea
+                  name="message"
+                  {...bindMessage}
+                  required
+                  pattern=".{10,500}"
+                />
+              </label>
 
-            <button type="submit" className="button primary round has-icon">
-              Send <span>&rarr;</span>
-            </button>
-          </form>
+              {error && (
+                <div className="background--off-white">
+                  <h2 className="heading">
+                    Oh no! There was an issue recording your interest...
+                  </h2>
+                  <pre>{error}</pre>
+                  <p>
+                    Unfortunately an error was encountered. Please try again. If
+                    the issue persists, please reach out to us on Instagram{' '}
+                    <a
+                      href="//www.instagram.com/inter.house.council/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      @inter.house.council
+                    </a>{' '}
+                    and pass along the above diagnostic information.
+                  </p>
+                </div>
+              )}
+
+              <button type="submit" className="button primary round has-icon">
+                Record My Interest! <span>&rarr;</span>
+              </button>
+            </form>
+          </>
         )}
       </section>
     </div>
