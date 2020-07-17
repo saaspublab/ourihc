@@ -43,7 +43,9 @@ export const useInput = (initialValue) => {
   };
 };
 
-function Press(props) {
+function Press() {
+  const [submitted, setSubmitted] = useState(false);
+
   const { value: name, bind: bindName, reset: resetName } = useInput('');
   const {
     value: studentForm,
@@ -57,26 +59,33 @@ function Press(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
     const form = evt.target;
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
         'form-name': form.getAttribute('name'),
-        name,
-        studentForm,
-        email,
-        message,
+        name: `${name}`,
+        'student-form': `${studentForm}`,
+        email: `${email}`,
+        message: `${message}`,
       }),
     })
-      // .then(() => navigateTo(form.getAttribute('action')))
+      .then(() => {
+        // Reset form fields
+        resetName();
+        resetStudentForm();
+        resetEmail();
+        resetMessage();
+      })
+      .then(() => {
+        // Show message saying the form was submitted
+        // and hide the form
+        setSubmitted(true);
+      })
       .catch((error) => alert(error));
-
-    // Reset form fields
-    resetName();
-    resetStudentForm();
-    resetEmail();
-    resetMessage();
   };
 
   return (
@@ -85,32 +94,27 @@ function Press(props) {
       <h1 style={{ display: 'none', visibility: 'hidden' }}>
         The Priory Press
       </h1>
-      <p>First off, {`${greetingMessage}!`}</p>
+      <p>
+        First off, {`${greetingMessage}`} and thanks for your interest in{' '}
+        <b>The Priory Press</b>!
+      </p>
 
       <section className="content--block bordered">
-        <h3 className="heading">
-          What is <u>The Priory Press</u>?
-        </h3>
+        <h3 className="heading">What is it?</h3>
         <p>
           <b>The Priory Press</b> is a student-led group that specializes in
-          publishing the thoughts, creativity, and passion of Abbey students to
-          our broader St. Anselm's community.
-        </p>
-        <p>
-          However,{' '}
-          <mark>
-            this only works when our students rise to the occasion and share
-            their thoughts
-          </mark>{' '}
-          with their fellow brothers.
+          publishing the <mark>thoughts, creativity, and passion</mark> of Abbey
+          students to our broader St. Anselm's community.
         </p>
       </section>
 
       <section className="content--block bordered">
         <h3 className="heading">What are we seeking?</h3>
         <p>
-          <mark>We're looking to capture more voices</mark> from more students,
-          so we hope that everybody in our community can be heard.
+          This only works when our students rise to the occasion and share their
+          thoughts with their fellow brothers.{' '}
+          <mark>We're looking to ignite and capture more involvement</mark> from
+          more students, empowering each student in our community to be heard.
         </p>
       </section>
 
@@ -128,7 +132,7 @@ function Press(props) {
       </section>
 
       <section className="content--block bordered">
-        <h3 className="heading">Are you interested yet?</h3>
+        <h3 className="heading">Interested yet?</h3>
         <p>
           If so,{' '}
           <mark>
@@ -140,60 +144,78 @@ function Press(props) {
       </section>
 
       <section className="content--block">
-        <form
-          method="post"
-          name="contact"
-          netlify-honeypot="bot-field"
-          data-netlify="true"
-          onSubmit={handleSubmit}
-        >
-          <input type="hidden" name="bot-field" />
+        {submitted ? (
+          <div className="background--off-white">
+            <h2 className="heading">Thanks for your reaching out!</h2>
+            <p>
+              Your interest has been recorded and we look forward to working
+              with you. If you have any questions, don't hesitate to reach out
+              to us on Instagram{' '}
+              <a
+                href="//www.instagram.com/inter.house.council/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @inter.house.council
+              </a>
+            </p>
+          </div>
+        ) : (
+          <form
+            method="post"
+            name="priory-press-interest"
+            netlify
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+          >
+            <input type="hidden" name="bot-field" />
 
-          <label htmlFor="name">
-            Name
-            <input
-              type="text"
-              name="name"
-              placeholder="Samuel Serif"
-              {...bindName}
-            />
-          </label>
+            <label htmlFor="name">
+              Name
+              <input
+                type="text"
+                name="name"
+                placeholder="Samuel Serif"
+                {...bindName}
+              />
+            </label>
 
-          <label htmlFor="name">
-            Form (Fall 2020 - Spring 2021)
-            <select {...bindStudentForm}>
-              <option disabled value="unknown">
-                Click to select &rarr;
-              </option>
-              <option value="a">A</option>
-              <option value="i">I</option>
-              <option value="ii">II</option>
-              <option value="iii">III</option>
-              <option value="iv">IV</option>
-              <option value="v">V</option>
-              <option value="vi">VI</option>
-            </select>
-          </label>
+            <label htmlFor="name">
+              Form (Fall 2020 - Spring 2021)
+              <select {...bindStudentForm}>
+                <option disabled value="unknown">
+                  Click to select &rarr;
+                </option>
+                <option value="a">A</option>
+                <option value="i">I</option>
+                <option value="ii">II</option>
+                <option value="iii">III</option>
+                <option value="iv">IV</option>
+                <option value="v">V</option>
+                <option value="vi">VI</option>
+              </select>
+            </label>
 
-          <label htmlFor="email" {...bindEmail}>
-            Email Address
-            <input
-              type="email"
-              name="email"
-              placeholder="samuel.serif@example.com"
-            />
-          </label>
+            <label htmlFor="email" {...bindEmail}>
+              Email Address
+              <input
+                type="email"
+                name="email"
+                placeholder="samuel.serif@example.com"
+              />
+            </label>
 
-          <label htmlFor="message" {...bindMessage}>
-            What are you interested in writing about? Do you have a title or
-            short description?
-            <textarea name="message" />
-          </label>
+            <label htmlFor="message" {...bindMessage}>
+              What are you interested in writing about? Do you have a title or
+              short description?
+              <textarea name="message" />
+            </label>
 
-          <button type="submit" className="button primary round has-icon">
-            Send <span>&rarr;</span>
-          </button>
-        </form>
+            <button type="submit" className="button primary round has-icon">
+              Send <span>&rarr;</span>
+            </button>
+          </form>
+        )}
       </section>
     </div>
   );
