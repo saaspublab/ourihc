@@ -6,6 +6,7 @@ import './App.sass';
 import Header from './components/Header';
 // import Home from './pages/Home';
 import Nope from './pages/Nope';
+import Press from './pages/Press';
 
 // Lunch assignment pages
 import Lunch from './pages/Lunch';
@@ -22,6 +23,9 @@ export default function App() {
           <Switch>
             <Route exact path="/">
               <Nope />
+            </Route>
+            <Route exact path="/press">
+              <Press />
             </Route>
             <Route exact path="/lunch">
               <Lunch />

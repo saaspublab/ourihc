@@ -19,6 +19,10 @@
       "error",
       { "forbid": ["<", ">", "{", "}"] }
     ],
+    "react/jsx-props-no-spreading": [
+      1,
+      { "html": "ignore", "custom": "enforce" }
+    ],
     "prettier/prettier": "error",
     "quotes": [2, "single", { "avoidEscape": true }]
   }

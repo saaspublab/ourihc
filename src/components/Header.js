@@ -6,7 +6,7 @@ function Header() {
     <header className="header">
       <div>
         <h1>
-          <a href="/">IHC</a>
+          <a href="/">Our IHC</a>
         </h1>
       </div>
     </header>
