@@ -180,9 +180,9 @@ function Press() {
               />
             </label>
 
-            <label htmlFor="name">
+            <label htmlFor="studentForm">
               Form (Fall 2020 - Spring 2021)
-              <select {...bindStudentForm}>
+              <select name="studentForm" {...bindStudentForm}>
                 <option disabled value="unknown">
                   Click to select &rarr;
                 </option>
@@ -196,19 +196,20 @@ function Press() {
               </select>
             </label>
 
-            <label htmlFor="email" {...bindEmail}>
+            <label htmlFor="email">
               Email Address
               <input
                 type="email"
                 name="email"
                 placeholder="samuel.serif@example.com"
+                {...bindEmail}
               />
             </label>
 
-            <label htmlFor="message" {...bindMessage}>
+            <label htmlFor="message">
               What are you interested in writing about? Do you have a title or
               short description?
-              <textarea name="message" />
+              <textarea name="message" {...bindMessage} />
             </label>
 
             <button type="submit" className="button primary round has-icon">
