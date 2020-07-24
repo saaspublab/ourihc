@@ -22,8 +22,6 @@ if (currentHour >= 4 && currentHour < 12) {
 }
 
 function Discord() {
-  const [visited, setVisited] = useState(false);
-
   return (
     <div className={[styles.wrapper, 'page--purple'].join(' ')}>
       <img
