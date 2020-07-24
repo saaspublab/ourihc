@@ -7,6 +7,7 @@ import Header from './components/Header';
 // import Home from './pages/Home';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
+import Discord from './pages/Discord';
 
 // Lunch assignment pages
 import Lunch from './pages/Lunch';
@@ -26,6 +27,9 @@ export default function App() {
             </Route>
             <Route exact path="/press">
               <Press />
+            </Route>
+            <Route exact path="/discord">
+              <Discord />
             </Route>
             <Route exact path="/lunch">
               <Lunch />
