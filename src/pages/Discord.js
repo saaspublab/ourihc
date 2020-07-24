@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
 import styles from './nope.module.sass';
 
 import abbeyDiscordLogo from '../assets/images/abbeydiscord.svg';
