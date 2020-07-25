@@ -35,7 +35,7 @@ function capitalizeFirstLetter(string) {
 
 function Lunch() {
   const [currentHouse, setCurrentHouse] = useState('');
-  const [currentDays, setCurrentDays] = useState([]);
+  const [currentDays, setCurrentDays] = useState(days);
   const [currentLoungeStatus, setCurrentLoungeStatus] = useState('open');
 
   const [loadingStudents, setLoadingStudents] = useState(false);
@@ -145,7 +145,7 @@ function Lunch() {
         </>
       )}
 
-      {currentDays && currentDays.length > 0 && (
+      {currentHouse && currentDays && currentDays.length > 0 && (
         <>
           <h4>Is the lounge open?</h4>
           <div className="button-grid">
