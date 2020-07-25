@@ -44,7 +44,7 @@ exports.handler = async (event) => {
 
           return {
             statusCode: 200,
-            responseHeaders,
+            headers: responseHeaders,
             body: JSON.stringify({
               meta: {
                 totalStudents: response.length,
@@ -92,7 +92,7 @@ exports.handler = async (event) => {
         } catch (err) {
           return {
             statusCode: err.statusCode || 500,
-            responseHeaders,
+            headers: responseHeaders,
             body: JSON.stringify({
               error: err.message,
             }),
@@ -113,7 +113,7 @@ exports.handler = async (event) => {
 
           return {
             statusCode: 200,
-            responseHeaders,
+            headers: responseHeaders,
             body: JSON.stringify({
               meta: {
                 totalStudents: response.length,
@@ -148,7 +148,7 @@ exports.handler = async (event) => {
           return {
             statusCode: err.statusCode || 500,
             body: JSON.stringify({
-              responseHeaders,
+              headers: responseHeaders,
               error: err.message,
             }),
           };
@@ -157,7 +157,7 @@ exports.handler = async (event) => {
 
       return {
         statusCode: 500,
-        responseHeaders,
+        headers: responseHeaders,
         body: 'too many segments in GET request',
       };
 
@@ -165,7 +165,7 @@ exports.handler = async (event) => {
     default:
       return {
         statusCode: 500,
-        responseHeaders,
+        headers: responseHeaders,
         body: 'unrecognized HTTP Method, must be one of GET/POST/PUT/DELETE',
       };
   }
