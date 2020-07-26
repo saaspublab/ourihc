@@ -5,6 +5,7 @@ import './App.sass';
 
 import Header from './components/Header';
 // import Home from './pages/Home';
+// import Points from './pages/Points';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
 import Discord from './pages/Discord';
@@ -23,6 +24,9 @@ export default function App() {
         <main className="bodyContent">
           <Switch>
             <Route exact path="/">
+              <Nope />
+            </Route>
+            <Route exact path="/points">
               <Nope />
             </Route>
             <Route exact path="/press">

@@ -1,0 +1,46 @@
+@import '../assets/styles/01-abstracts/abstracts.sass'
+
+.points
+  display: grid
+  grid-template-columns: 100%
+  grid-gap: 1rem
+
+  +tablet
+    grid-template-columns: repeat(4, 1fr)
+  
+  *
+    margin: 0
+    padding: 0
+
+  .house
+    padding: 1rem
+    background-color: $white
+    border-radius: $border-radius
+  
+  h2
+    +tablet
+      display: none
+    
+    .alban
+      color: $black
+    
+    .austin
+      color: purple
+
+  img
+    width: 100%
+
+    +mobile
+      display: none
+
+  p
+    margin: .75rem 0
+    font-size: 2em
+    font-weight: bold
+
+    +tablet
+      text-align: center
+
+.footer
+  margin-top: 1rem
+  text-align: right

@@ -1,27 +1,34 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './page.module.sass'
+import React from 'react';
+// import { Link } from 'react-router-dom';
+// import styles from './page.module.sass';
 
-const currentHour = new Date().getHours()
+import Points from './Points';
 
-const greetingMessage =
-    currentHour >= 4 && currentHour < 12 ? // after 4:00AM and before 12:00PM
-        'Good morning' :
-        currentHour >= 12 && currentHour <= 17 ? // after 12:00PM and before 6:00pm
-            'Good afternoon' :
-            currentHour > 17 || currentHour < 4 ? // after 5:59pm or before 4:00AM (to accommodate night owls)
-                'Good evening' : // if for some reason the calculation didn't work
-                'Welcome'
+const currentHour = new Date().getHours();
+let greetingMessage;
 
-class Home extends Component {
-    render() {
-        return (
-            <div>
-                <h1>{greetingMessage}!</h1>
-                <p>Nothing to see here...</p>
-                {/* <Link to="/logs"  className="button button--primary button--link button--rounded button--has-shadow button--has-icon">Open Logs <span>&rarr;</span></Link> */}
-            </div>
-        )
-    }
+if (currentHour >= 4 && currentHour < 12) {
+  // after 4:00AM and before 12:00PM
+  greetingMessage = 'Good morning';
+} else if (currentHour >= 12 && currentHour <= 17) {
+  // after 12:00PM and before 6:00pm
+  greetingMessage = 'Good afternoon';
+} else if (currentHour > 17 || currentHour < 4) {
+  // after 5:59pm or before 4:00AM (to accommodate night owls)
+  greetingMessage = 'Good evening';
+} else {
+  // if for some reason the calculation didn't work
+  greetingMessage = 'Welcome';
 }
-export default Home
+
+function Home() {
+  return (
+    <div>
+      <h1>{greetingMessage}!</h1>
+      <p>Where does your house stand?</p>
+
+      <Points />
+    </div>
+  );
+}
+export default Home;
