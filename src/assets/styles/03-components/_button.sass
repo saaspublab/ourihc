@@ -1,11 +1,15 @@
-=button($bg, $color: $whitest)
+@use "sass:color"
+@use "../01-abstracts/mixins"
+@use "../01-abstracts/variables"
+
+=button($bg, $color: variables.$whitest)
     background: $bg
     color: $color
     transition: all 0.15s ease-in-out
 
     &:hover
-        border-color: darken($bg, 7.5%)
-        background: darken($bg, 7.5%)
+        border-color: color.adjust($bg, $lightness: -7.5%)
+        background: color.adjust($bg, $lightness: -7.5%)
         
     &.shadow
         box-shadow: 0px 8px 15px rgba($bg, .25)
@@ -13,7 +17,7 @@
         &:hover
             box-shadow: 0px 8px 15px rgba($bg, .4)
 
-=button-hollow($bg, $color2: $whitest)
+=button-hollow($bg, $color2: variables.$whitest)
     border: 2px solid $bg
     color: $bg
     transition: all 0.15s ease-in-out
@@ -32,7 +36,7 @@
     transition: all 0.15s ease-in-out
 
     &:hover
-        color: darken($color, 7.5%)
+        color: color.adjust($color, $lightness: -7.5%)
 
 .button-grid
     display: flex
@@ -45,7 +49,7 @@
 button, .button
     display: inline-block
     padding: 0 5px
-    font-family: $family-sans-serif
+    font-family: variables.$family-sans-serif
     font-size: 15px
     font-weight: 600
     text-decoration: none
@@ -63,11 +67,11 @@ button, .button
         text-align: center
     
     &.round
-        border-radius: $border-radius
+        border-radius: variables.$border-radius
         font-size: 14px
         
         &.large
-            border-radius: $border-radius * 2
+            border-radius: variables.$border-radius * 2
     
     &.xtra-small
         font-size: 10px
@@ -142,59 +146,59 @@ button, .button
                     transform: none !important
 
     &.primary
-        +button-clear($primary)
+        +button-clear(variables.$primary)
 
         &:not(.clear)
-            +button-link($primary)
+            +button-link(variables.$primary)
 
             &:not(.link)
-                +button-hollow($primary)
+                +button-hollow(variables.$primary)
 
                 &:not(.hollow)
-                    +button($primary)
+                    +button(variables.$primary)
 
     &.white
-        +button-clear($white)
+        +button-clear(variables.$white)
 
         &:not(.clear)
-            +button-link($white)
+            +button-link(variables.$white)
 
             &:not(.link)
-                +button-hollow($white, $primary)
+                +button-hollow(variables.$white, variables.$primary)
 
                 &:not(.hollow)
-                    +button($white, $primary)
+                    +button(variables.$white, variables.$primary)
 
     &.success
-        +button-clear($success)
+        +button-clear(variables.$success)
 
         &:not(.clear)
-            +button-link($success)
+            +button-link(variables.$success)
 
             &:not(.link)
-                +button-hollow($success, $white)
+                +button-hollow(variables.$success, variables.$white)
 
                 &:not(.hollow)
-                    +button($success, $white)
+                    +button(variables.$success, variables.$white)
 
     &.danger
-        +button-clear($danger)
+        +button-clear(variables.$danger)
 
         &:not(.clear)
-            +button-link($danger)
+            +button-link(variables.$danger)
 
             &:not(.link)
-                +button-hollow($danger, $white)
+                +button-hollow(variables.$danger, variables.$white)
 
                 &:not(.hollow)
-                    +button($danger, $white)
+                    +button(variables.$danger, variables.$white)
 
-+mobile
++mixins.mobile
     .button.large
         padding: 7.5px 15px
         font-size: .875em
 
-+tablet
++mixins.tablet
     .button.large
         padding: 8.75px 20px
         font-size: .9em

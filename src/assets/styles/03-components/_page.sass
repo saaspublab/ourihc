@@ -1,24 +1,26 @@
+@use "../01-abstracts/variables"
+
 .page
   &--purple
     .heading
-      color: $purple
+      color: variables.$purple
     
     hr
-      background: rgba($purple, .25)
-      height: $border-width
+      background: rgba(variables.$purple, .25)
+      height: variables.$border-width
     
     .content--block
       padding: 2rem 0
 
       &.bordered
-        border-top: 3px solid rgba($purple, .25)
+        border-top: 3px solid rgba(variables.$purple, .25)
     
       p:last-of-type
         margin: 0
 
 .background
   &--off-white
-    background: $white
+    background: variables.$white
     margin-bottom: 1rem
     padding: 2rem
-    border-radius: $border-radius
+    border-radius: variables.$border-radius

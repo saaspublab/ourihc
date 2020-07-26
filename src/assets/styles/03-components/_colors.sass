@@ -1,17 +1,20 @@
+@use "../01-abstracts/mixins"
+@use "../01-abstracts/variables"
+
 .color
   &--alban
-    color: $alban
+    color: variables.$alban
   
   &--austin
-    color: $austin
+    color: variables.$austin
   
   &--main
-    color: $main
+    color: variables.$main
   
   &--moore
-    color: $moore
+    color: variables.$moore
 
 .color--tablet
-  +mobile
+  +mixins.mobile
     color: unset
   

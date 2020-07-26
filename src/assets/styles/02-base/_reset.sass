@@ -1,3 +1,5 @@
+@use "../01-abstracts/variables"
+
 html
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
   -ms-text-size-adjust: 100%
@@ -51,7 +53,7 @@ mark
   background-color: rgba(#FFDC00, .75)
   color: #000
   padding: .1em .375em
-  border-radius: $border-radius 0 $border-radius 0
+  border-radius: variables.$border-radius 0 variables.$border-radius 0
 
 small
   font-size: 80%
@@ -161,7 +163,7 @@ html
 
 body
   color: hsla(0, 0%, 0%, 0.8)
-  font-family: $family-sans-serif
+  font-family: variables.$family-sans-serif
   font-weight: normal
   word-wrap: break-word
   font-kerning: normal
@@ -191,7 +193,7 @@ h1
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-serif
+  font-family: variables.$family-serif
   font-weight: bold
   text-rendering: optimizeLegibility
   font-size: 2.25rem
@@ -207,7 +209,7 @@ h2
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-serif
+  font-family: variables.$family-serif
   font-weight: bold
   text-rendering: optimizeLegibility
   font-size: 1.62671rem
@@ -223,7 +225,7 @@ h3
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-serif
+  font-family: variables.$family-serif
   font-weight: bold
   text-rendering: optimizeLegibility
   font-size: 1.38316rem
@@ -239,7 +241,7 @@ h4
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-sans-serif
+  font-family: variables.$family-sans-serif
   text-transform: uppercase
   font-weight: bold
   text-rendering: optimizeLegibility
@@ -256,7 +258,7 @@ h5
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-sans-serif
+  font-family: variables.$family-sans-serif
   text-transform: uppercase
   font-weight: bold
   text-rendering: optimizeLegibility
@@ -273,7 +275,7 @@ h6
   padding-top: 0
   margin-bottom: 1.45rem
   color: inherit
-  font-family: $family-sans-serif
+  font-family: variables.$family-sans-serif
   text-transform: uppercase
   font-weight: bold
   text-rendering: optimizeLegibility

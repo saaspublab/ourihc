@@ -1,8 +1,11 @@
+@use "sass:color"
+@use "../01-abstracts/variables"
+
 label
     display: block
     margin-bottom: .25rem
     cursor: text
-    color: $primary
+    color: variables.$primary
     font-size: .825em
 
     small
@@ -15,16 +18,16 @@ input:not([type="radio"])
     width: 100%
     margin: .175rem 0 .75rem 0
     padding: .75rem 1rem
-    border: $border-width solid $primary
-    border-radius: 0 $border-radius $border-radius $border-radius
+    border: variables.$border-width solid variables.$primary
+    border-radius: 0 variables.$border-radius variables.$border-radius variables.$border-radius
     background-color: transparent
-    color: $primary
-    font-family: $family-sans-serif
+    color: variables.$primary
+    font-family: variables.$family-sans-serif
     outline: none
     font-size: 1.25em
 
     &::placeholder
-        color: lighten($black, 25%)
+        color: color.adjust(variables.$black, $lightness: 25%)
 
     &.input--has-errors
         border-radius: 0
@@ -64,14 +67,14 @@ select, .select
             cursor: pointer
             
             & > span
-                background-color: $primary
+                background-color: variables.$primary
             
             & > div
-                color: $primary
+                color: variables.$primary
 
 input, textarea, select, .select
     &.ng-touched.ng-invalid
-        border: $border-width solid $primary
+        border: variables.$border-width solid variables.$primary
 
 .form-control--error
     border-radius: 0
@@ -109,7 +112,7 @@ legend
                 content: ''
                 background: transparent
                 border-radius: 100%
-                border: 1px solid darken($white, 25%)
+                border: 1px solid color.adjust(variables.$white, $lightness: -25%)
                 display: inline-block
                 width: 1.4em
                 height: 1.4em
@@ -124,21 +127,21 @@ legend
         &:checked
             + label
                 &:before
-                    background-color: $primary
-                    box-shadow: inset 0 0 0 4px $white
+                    background-color: variables.$primary
+                    box-shadow: inset 0 0 0 4px variables.$white
 
         &:focus
             + label
                 &:before
                     outline: none
-                    border-color: $black
+                    border-color: variables.$black
 
         &:disabled
             + label
                 &:before
-                    box-shadow: inset 0 0 0 4px $white
-                    border-color: darken($white, 25%)
-                    background: darken($white, 25%)
+                    box-shadow: inset 0 0 0 4px variables.$white
+                    border-color: color.adjust(variables.$white, $lightness: -25%)
+                    background: color.adjust(variables.$white, $lightness: -25%)
 
         + label
             &:empty
