@@ -42,7 +42,7 @@ function Lunch() {
   const [students, setStudents] = useState({});
   const [errors, setError] = useState({});
 
-  console.log(errors);
+  // console.log(errors);
 
   useEffect(() => {
     document.title = 'New Lunch Cleanup Assignments';
@@ -79,12 +79,11 @@ function Lunch() {
       .then((res) => res.json())
       .then((res) => {
         setStudents(res);
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         setError(err);
-        // eslint-disable-next-line no-console
-        console.error(err);
+        // console.error(err);
       });
 
     setLoadingStudents(false);
@@ -189,6 +188,15 @@ function Lunch() {
       )}
 
       {loadingStudents && <h4>Loading, please wait...</h4>}
+
+      {/* TODO: properly implement error display */}
+      {errors && (
+        <div>
+          <p>
+            <b>There was an error {errors}</b>
+          </p>
+        </div>
+      )}
 
       {students && students.data && (
         <>
