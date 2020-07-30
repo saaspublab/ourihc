@@ -67,7 +67,15 @@ function Lunch() {
   async function loadStudents() {
     setLoadingStudents(true);
 
-    await fetch(`/api/students/${currentHouse}`)
+    let fetchUrl = '';
+
+    if (currentHouse === 'all') {
+      fetchUrl = '/api/students';
+    } else {
+      fetchUrl = `/api/students/${currentHouse}`;
+    }
+
+    await fetch(fetchUrl)
       .then((res) => res.json())
       .then((res) => {
         setStudents(res);

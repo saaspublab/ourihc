@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
   'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
 };
 const fetchHeaders = {
   'cache-control': 'no-cache',
@@ -12,7 +13,8 @@ const fetchHeaders = {
 };
 
 /**
- * Fetch students from database based on provided query. If no query is specified, return all students]
+ * Fetch students from database based on provided query.
+ * If no query is specified, return all students.
  *
  * @method fetchStudents
  * @param query {string}
@@ -35,7 +37,7 @@ exports.handler = async (event) => {
 
   switch (event.httpMethod) {
     case 'GET':
-      /* GET /api/lunch */
+      /* GET /api/students */
       if (segments.length === 0) {
         try {
           const response = await fetchStudents('', 'get').then((res) =>
@@ -46,6 +48,7 @@ exports.handler = async (event) => {
             statusCode: 200,
             headers: responseHeaders,
             body: JSON.stringify({
+              success: true,
               meta: {
                 totalStudents: response.length,
                 totalStudentsByForm: {
@@ -94,13 +97,14 @@ exports.handler = async (event) => {
             statusCode: err.statusCode || 500,
             headers: responseHeaders,
             body: JSON.stringify({
+              success: false,
               error: err.message,
             }),
           };
         }
       }
 
-      /* GET /api/lunch/[house] */
+      /* GET /api/students/[house] */
       if (segments.length === 1) {
         const house =
           segments[0].charAt(0).toUpperCase() + segments[0].substr(1);
@@ -111,10 +115,22 @@ exports.handler = async (event) => {
             'get'
           ).then((res) => res.json());
 
+          if (response.length === 0) {
+            return {
+              statusCode: 500,
+              headers: responseHeaders,
+              body: JSON.stringify({
+                success: false,
+                error: `Unable to find students that match the requested query: "${segments[0]}"`,
+              }),
+            };
+          }
+
           return {
             statusCode: 200,
             headers: responseHeaders,
             body: JSON.stringify({
+              success: true,
               meta: {
                 totalStudents: response.length,
                 totalStudentsByForm: {
@@ -147,8 +163,9 @@ exports.handler = async (event) => {
         } catch (err) {
           return {
             statusCode: err.statusCode || 500,
+            headers: responseHeaders,
             body: JSON.stringify({
-              headers: responseHeaders,
+              success: false,
               error: err.message,
             }),
           };
@@ -156,17 +173,29 @@ exports.handler = async (event) => {
       }
 
       return {
-        statusCode: 500,
+        statusCode: 400,
         headers: responseHeaders,
-        body: 'too many segments in GET request',
+        body: JSON.stringify({
+          success: false,
+          error: 'Bad request: too many segments in GET request',
+        }),
+      };
+
+    case 'OPTIONS':
+      return {
+        statusCode: 204,
+        headers: responseHeaders,
       };
 
     /* Fallthrough case */
     default:
       return {
-        statusCode: 500,
+        statusCode: 405,
         headers: responseHeaders,
-        body: 'unrecognized HTTP Method, must be one of GET/POST/PUT/DELETE',
+        body: JSON.stringify({
+          success: false,
+          error: 'HTTP method not allowed; must be one of GET/OPTIONS',
+        }),
       };
   }
 };

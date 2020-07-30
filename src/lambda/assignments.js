@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
   'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
 };
 const fetchHeaders = {
   'cache-control': 'no-cache',
@@ -12,7 +13,8 @@ const fetchHeaders = {
 };
 
 /**
- * Fetch assignments from database based on provided query. If no query is specified, return all assignments]
+ * Fetch assignments from database based on provided query.
+ * If no query is specified, return all assignments.
  *
  * @method fetchAssignments
  * @param query {string}
@@ -46,6 +48,7 @@ exports.handler = async (event) => {
             statusCode: 200,
             headers: responseHeaders,
             body: JSON.stringify({
+              success: true,
               meta: {
                 totalAssignments: response.length,
               },
@@ -57,6 +60,7 @@ exports.handler = async (event) => {
             statusCode: err.statusCode || 500,
             headers: responseHeaders,
             body: JSON.stringify({
+              success: false,
               error: err.message,
             }),
           };
@@ -78,6 +82,7 @@ exports.handler = async (event) => {
       //       statusCode: 200,
       //       headers: responseHeaders,
       //       body: JSON.stringify({
+      //         success: true,
       //         meta: {
       //           totalStudents: response.length,
       //           totalStudentsByForm: {
@@ -110,8 +115,9 @@ exports.handler = async (event) => {
       //   } catch (err) {
       //     return {
       //       statusCode: err.statusCode || 500,
+      //       headers: responseHeaders,
       //       body: JSON.stringify({
-      //         headers: responseHeaders,
+      //         success: false,
       //         error: err.message,
       //       }),
       //     };
@@ -119,17 +125,29 @@ exports.handler = async (event) => {
       // }
 
       return {
-        statusCode: 500,
+        statusCode: 400,
         headers: responseHeaders,
-        body: 'too many segments in GET request',
+        body: JSON.stringify({
+          success: false,
+          error: 'Bad request: too many segments in GET request',
+        }),
+      };
+
+    case 'OPTIONS':
+      return {
+        statusCode: 204,
+        headers: responseHeaders,
       };
 
     /* Fallthrough case */
     default:
       return {
-        statusCode: 500,
+        statusCode: 405,
         headers: responseHeaders,
-        body: 'unrecognized HTTP Method, must be one of GET/POST/PUT/DELETE',
+        body: JSON.stringify({
+          success: false,
+          error: 'HTTP method not allowed; must be one of GET/OPTIONS',
+        }),
       };
   }
 };
