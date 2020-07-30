@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint src/** --no-error-on-unmatched-pattern",
+    "lint": "eslint \"src/**/*.js\" --no-error-on-unmatched-pattern",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
