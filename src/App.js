@@ -5,7 +5,7 @@ import './App.sass';
 
 import Header from './components/Header';
 // import Home from './pages/Home';
-// import Points from './pages/Points';
+import Points from './pages/Points';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
 import Discord from './pages/Discord';
@@ -27,7 +27,7 @@ export default function App() {
               <Nope />
             </Route>
             <Route exact path="/points">
-              <Nope />
+              <Points />
             </Route>
             <Route exact path="/press">
               <Press />
