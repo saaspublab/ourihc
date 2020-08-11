@@ -5,6 +5,7 @@ import './App.sass';
 
 import Header from './components/Header';
 // import Home from './pages/Home';
+import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
@@ -19,46 +20,54 @@ export default function App() {
   return (
     <Router>
       <div className="wrapper">
-        <Header className="header" />
+        <Switch>
+          <Route exact path="/points/embed">
+            <PointsEmbed />
+          </Route>
+          <Route path="*">
+            <Header className="header" />
 
-        <main className="bodyContent">
-          <Switch>
-            <Route exact path="/">
-              <Nope />
-            </Route>
-            <Route exact path="/points">
-              <Points />
-            </Route>
-            <Route exact path="/press">
-              <Press />
-            </Route>
-            <Route exact path="/discord">
-              <Discord />
-            </Route>
-            <Route exact path="/lunch">
-              <Lunch />
-            </Route>
-            <Route exact path="/lunch/current">
-              <LunchCurrent />
-            </Route>
-            <Route exact path="/lunch/new">
-              <LunchNew />
-            </Route>
-            {/* <Route exact path="/home">
-              <Home />
-            </Route> */}
-            <Route path="*">
-              <NoMatch />
-            </Route>
-          </Switch>
-        </main>
+            <main className="bodyContent">
+              <Switch>
+                <Route exact path="/">
+                  <Nope />
+                </Route>
+                <Route exact path="/points">
+                  <Points />
+                </Route>
+                <Route exact path="/press">
+                  <Press />
+                </Route>
+                <Route exact path="/discord">
+                  <Discord />
+                </Route>
+                <Route exact path="/lunch">
+                  <Lunch />
+                </Route>
+                <Route exact path="/lunch/current">
+                  <LunchCurrent />
+                </Route>
+                <Route exact path="/lunch/new">
+                  <LunchNew />
+                </Route>
+                {/* <Route exact path="/home">
+                  <Home />
+                </Route> */}
+                <Route path="*">
+                  <NoMatch />
+                </Route>
+              </Switch>
+            </main>
 
-        <footer className="footer">
-          <p>
-            © {new Date().getFullYear()} Jay Sella and SAAS Inter-House Council
-          </p>
-          <p>All Rights Reserved</p>
-        </footer>
+            <footer className="footer">
+              <p>
+                © {new Date().getFullYear()} Jay Sella and SAAS Inter-House
+                Council
+              </p>
+              <p>All Rights Reserved</p>
+            </footer>
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
