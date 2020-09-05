@@ -9,6 +9,7 @@ import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
+import PressInfo from './pages/press/Info';
 import Discord from './pages/Discord';
 
 // Lunch assignment pages
@@ -37,6 +38,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/press">
                   <Press />
+                </Route>
+                <Route exact path="/press/info">
+                  <PressInfo />
                 </Route>
                 <Route exact path="/discord">
                   <Discord />
