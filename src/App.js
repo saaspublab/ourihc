@@ -5,6 +5,7 @@ import './App.sass';
 
 import Header from './components/Header';
 // import Home from './pages/Home';
+import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Nope from './pages/Nope';
@@ -32,6 +33,9 @@ export default function App() {
               <Switch>
                 <Route exact path="/">
                   <Nope />
+                </Route>
+                <Route exact path="/hunt">
+                  <Hunt />
                 </Route>
                 <Route exact path="/points">
                   <Points />
