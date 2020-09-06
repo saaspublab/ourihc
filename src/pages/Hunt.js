@@ -4,8 +4,14 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useStickyState from '../components/UseStickyState';
 import styles from './nope.module.sass';
 
-const houses = ['Alban', 'Austin', 'Main', 'Moore'];
-const passwords = ['Alban', 'Austin', 'SemperDominatus', 'QuiAudetVincit'];
+const houses = ['Unknown (New Students)', 'Alban', 'Austin', 'Main', 'Moore'];
+const passwords = [
+  'Abbey2020',
+  'AudacesFortunaIuvat',
+  'SemperOptimi',
+  'SemperDominatus',
+  'QuiAudetVincit',
+];
 
 function Hunt() {
   const [house, pickHouse] = useStickyState('', 'house');
@@ -21,34 +27,35 @@ function Hunt() {
         day ends. Only members of your house can check your house's progress.
       </p>
 
-      {house.length === 0 && (
-        <section className="content--block bordered">
-          <h3 className="heading">Which House are you in?</h3>
-          <p>
-            <i>
-              Once you make a selection you will not be able to change it.
-              Remember that viewing another house's board may disqualify you and
-              all of your house.
-            </i>
-          </p>
+      {house.length === 0 ||
+        (house.length > 1 && !houses.includes(house) && (
+          <section className="content--block bordered">
+            <h3 className="heading">Which House are you in?</h3>
+            <p>
+              <i>
+                Once you make a selection you will not be able to change it.
+                Remember that viewing another house's board may disqualify you
+                and all of your house.
+              </i>
+            </p>
 
-          <br />
+            <br />
 
-          {houses.map((h) => (
-            <button
-              key={`${h}-${Math.random()}`}
-              onClick={() => pickHouse(h)}
-              type="button"
-              className="button hollow primary round has-icon"
-              style={{ marginRight: '1rem' }}
-            >
-              {h} <span>&rarr;</span>
-            </button>
-          ))}
-        </section>
-      )}
+            {houses.map((h) => (
+              <button
+                key={`${h}-${Math.random()}`}
+                onClick={() => pickHouse(h)}
+                type="button"
+                className="button hollow primary round has-icon"
+                style={{ marginRight: '1rem', marginBottom: '1rem' }}
+              >
+                {h} <span>&rarr;</span>
+              </button>
+            ))}
+          </section>
+        ))}
 
-      {houses.length > 1 && (
+      {house.length > 1 && houses.includes(house) && (
         <>
           {houses.map((h, i) => (
             <>
@@ -93,7 +100,11 @@ function Hunt() {
                   </p>
                   <br />
                   <a
-                    href={`//padlet.com/ourihc/hdhunt_${h}`}
+                    href={`//padlet.com/ourihc/hdhunt_${
+                      h === 'Unknown (New Students)'
+                        ? 'unknown'
+                        : h.toLowerCase()
+                    }`}
                     target="blank"
                     rel="noopener noreferrer nofollow"
                     className="button primary round has-icon"
