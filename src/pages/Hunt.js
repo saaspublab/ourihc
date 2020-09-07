@@ -14,7 +14,7 @@ const passwords = [
 ];
 
 function Hunt() {
-  const [house, pickHouse] = useStickyState('unset', 'house');
+  const [house, pickHouse] = useStickyState('', 'house');
   const [copied, setCopied] = useState(false);
 
   return (
@@ -27,34 +27,32 @@ function Hunt() {
         day ends. Only members of your house can check your house's progress.
       </p>
 
-      {!house ||
-        house.length <= 1 ||
-        (house.length > 1 && !houses.includes(house) && (
-          <section className="content--block bordered">
-            <h3 className="heading">Which House are you in?</h3>
-            <p>
-              <i>
-                Once you make a selection you will not be able to change it.
-                Remember that viewing another house's board may disqualify you
-                and all of your house.
-              </i>
-            </p>
+      {(!house || !houses.includes(house)) && (
+        <section className="content--block bordered">
+          <h3 className="heading">Which House are you in?</h3>
+          <p>
+            <i>
+              Once you make a selection you will not be able to change it.
+              Remember that viewing another house's board may disqualify you and
+              all of your house.
+            </i>
+          </p>
 
-            <br />
+          <br />
 
-            {houses.map((h) => (
-              <button
-                key={`${h}-${Math.random()}`}
-                onClick={() => pickHouse(h)}
-                type="button"
-                className="button hollow primary round has-icon"
-                style={{ marginRight: '1rem', marginBottom: '1rem' }}
-              >
-                {h} <span>&rarr;</span>
-              </button>
-            ))}
-          </section>
-        ))}
+          {houses.map((h) => (
+            <button
+              key={`${h}-${Math.random()}`}
+              onClick={() => pickHouse(h)}
+              type="button"
+              className="button hollow primary round has-icon"
+              style={{ marginRight: '1rem', marginBottom: '1rem' }}
+            >
+              {h} <span>&rarr;</span>
+            </button>
+          ))}
+        </section>
+      )}
 
       {house.length > 1 && houses.includes(house) && (
         <>
