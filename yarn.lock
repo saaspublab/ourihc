@@ -9486,9 +9486,9 @@ react-lazy-load-image-component@^1.5.0:
     lodash.throttle "^4.1.1"
 
 react-papaparse@^3.4.0:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/react-papaparse/-/react-papaparse-3.7.3.tgz#dba989871c5d1283d5635ee02f16a60cfef49730"
-  integrity sha512-9cHQtWNEXiqX7hrfmAhMvd3fELz7amMz5YDheWsEEsowtdB7pmr8BW8D1FuZMOk44dbtHrDCNjXUHwhMkdZ8yw==
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-papaparse/-/react-papaparse-3.8.0.tgz#493752590c88096a1f59c191808298123fd223f1"
+  integrity sha512-JAzUIiUUOTrkyl1xbKp2jqEC1azs7pqCcVp4jC2DymvYF/bNQ1L09o9B3DJn18tAPfrBw+YLOrhWead5xLWdgA==
   dependencies:
     "@types/papaparse" "^5.0.4"
     papaparse "^5.2.0"
