@@ -14,7 +14,7 @@ const passwords = [
 ];
 
 function Hunt() {
-  const [house, pickHouse] = useStickyState('', 'house');
+  const [house, pickHouse] = useStickyState('unset', 'house');
   const [copied, setCopied] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ function Hunt() {
         day ends. Only members of your house can check your house's progress.
       </p>
 
-      {house.length === 0 ||
+      {house.length < 1 ||
         (house.length > 1 && !houses.includes(house) && (
           <section className="content--block bordered">
             <h3 className="heading">Which House are you in?</h3>
