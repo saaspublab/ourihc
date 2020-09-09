@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
+import Stories from './pages/Stories';
 import Nope from './pages/Nope';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
@@ -39,6 +40,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/points">
                   <Points />
+                </Route>
+                <Route exact path="/stories">
+                  <Stories />
                 </Route>
                 <Route exact path="/press">
                   <Press />
