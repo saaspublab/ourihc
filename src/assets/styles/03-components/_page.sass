@@ -21,6 +21,28 @@
       p:last-of-type
         margin: 0
 
+  &--maroon
+    .heading
+      color: $maroon
+    
+    hr
+      background: rgba($maroon, .25)
+      height: $border-width
+    
+    .content--block
+      padding: 2rem 0
+
+      &.bordered
+        border-top: 3px solid rgba($maroon, .25)
+      
+      &.full
+        +desktop
+          width: calc(100% + 8rem)
+          margin-left: -4rem
+    
+      p:last-of-type
+        margin: 0
+
 .background
   &--off-white
     background: $white

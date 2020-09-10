@@ -972,7 +972,7 @@ function Join() {
   }
 
   return (
-    <div className={[styles.wrapper, 'page--purple'].join(' ')}>
+    <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
       <h4>House Day 2020:</h4>
       <h1>Important Information</h1>
       <p>
@@ -980,24 +980,65 @@ function Join() {
         page will bring you up-to-speed with everything you need to know before
         the festivities kick off.
       </p>
+      <p>
+        At the bottom of this page, you must enter your school email address.
+      </p>
+
+      <section className="content--block bordered">
+        <h3 className="heading">Schedule</h3>
+        <p>
+          House Day will <b>start promptly at 9:00 AM</b> Friday morning. Please
+          start connecting to Zoom around 8:45 AM to ensure you don't miss
+          anything.
+        </p>
+
+        <br />
+
+        <ul>
+          <li>
+            <b>8:45 AM</b>: Start connecting to Zoom
+          </li>
+          <li>
+            <b>9:00 AM</b>: Prompt start
+          </li>
+          <li>
+            <b>12:15 PM</b>: 10-minute snack break
+          </li>
+          <li>
+            <b>1:30 PM</b>: Point tally and announcement of the winner from
+            Headmaster Dr. Power
+          </li>
+        </ul>
+      </section>
+
+      <section className="content--block bordered">
+        <h3 className="heading">What do I need?</h3>
+        <p>If you have a camera, make sure to turn it on!</p>
+        <p>
+          <b>Returning students:</b> make sure to wear your house shirt!
+        </p>
+        <p>
+          <b>New students:</b> you will be drafted into your house live during
+          the event. Wear your PE shirt, if you have it.
+        </p>
+      </section>
 
       {(!email ||
         !assignments.filter((e) => e.emailAddress === email).length > 0) && (
         <section className="content--block bordered">
-          <h3 className="heading">
-            What is your <strong>school</strong> email address?
-          </h3>
+          <h3 className="heading">Your School Email Address + Zoom Links</h3>
 
           <p>
             <b>IMPORTANT:</b> once you type your email address, you will not be
-            able to edit it.
+            able to edit it. Entering an email address that is not your own may
+            disqualify you from all activities.
           </p>
 
           <br />
 
           <form style={{ margin: 0 }}>
             <label htmlFor="email">
-              Email Address
+              School Email Address
               <input
                 type="email"
                 name="email"
