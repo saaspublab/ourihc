@@ -919,11 +919,11 @@ const assignments = [
 ];
 
 const links = [
-  '//zoom.us/main',
-  '//zoom.us/group1',
-  '//zoom.us/group2',
-  '//zoom.us/group3',
-  '//zoom.us/group4',
+  'https://saintanselms.zoom.us/j/97646281901?pwd=cW01d05LTmV5NmlCd1BvUTIvZ2hoUT09',
+  'https://saintanselms.zoom.us/j/98405501386?pwd=RHhKTkpTdFY5SEJoOWF1d0gyYk1kUT09',
+  'https://saintanselms.zoom.us/j/97672684220?pwd=VmEvTmJ1ODU0anVCRWgzQUVRWFladz09',
+  'https://saintanselms.zoom.us/j/92911504282?pwd=WlMrb1hXMnFPQVFjV3hmUU4wdEZZQT09',
+  'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 ];
 
 const currentHour = new Date().getHours();
@@ -1056,7 +1056,7 @@ function Join() {
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                   >
-                    https:{links[0]}
+                    {links[0]}
                   </a>
                 </li>
                 <li>
@@ -1068,7 +1068,7 @@ function Join() {
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                   >
-                    https:{links[assignedGroup]}
+                    {links[assignedGroup]}
                   </a>
                 </li>
               </ol>
