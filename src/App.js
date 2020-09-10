@@ -5,11 +5,12 @@ import './App.sass';
 
 import Header from './components/Header';
 // import Home from './pages/Home';
+import Nope from './pages/Nope';
 import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Stories from './pages/Stories';
-import Nope from './pages/Nope';
+import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
 import Discord from './pages/Discord';
@@ -43,6 +44,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/stories">
                   <Stories />
+                </Route>
+                <Route exact path="/join">
+                  <Join />
                 </Route>
                 <Route exact path="/press">
                   <Press />
