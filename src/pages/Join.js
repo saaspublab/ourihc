@@ -142,7 +142,7 @@ const assignments = [
   },
   {
     assignedGroup: 1,
-    emailAddress: 'jpaci@saintanselms.org',
+    emailAddress: 'japaci@saintanselms.org',
   },
   {
     assignedGroup: 1,
@@ -614,7 +614,7 @@ const assignments = [
   },
   {
     assignedGroup: 3,
-    emailAddress: 'bconstantino@saintanselms.org',
+    emailAddress: 'bcostantino@saintanselms.org',
   },
   {
     assignedGroup: 3,
@@ -726,7 +726,7 @@ const assignments = [
   },
   {
     assignedGroup: 4,
-    emailAddress: 'lconstantino@saintanselms.org',
+    emailAddress: 'lcostantino@saintanselms.org',
   },
   {
     assignedGroup: 4,
