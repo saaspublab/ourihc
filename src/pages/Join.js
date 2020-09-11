@@ -1013,13 +1013,13 @@ function Join() {
 
       <section className="content--block bordered">
         <h3 className="heading">What do I need?</h3>
-        <p>If you have a camera, make sure to turn it on!</p>
+        <p>If you have a camera, make sure to turn it on for Zoom!</p>
         <p>
           <b>Returning students:</b> make sure to wear your house shirt!
         </p>
         <p>
           <b>New students:</b> you will be drafted into your house live during
-          the event. Wear your PE shirt, if you have it.
+          the event. Remember to bring your unopened package with you!
         </p>
       </section>
 
