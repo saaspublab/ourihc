@@ -8,21 +8,6 @@
   status = 200
 
 [[redirects]]
-  from = "/AwardsStream"
-  to = "https://www.youtube.com/watch?v=7UBZp9w0f0s"
-  status = 301
-
-[[redirects]]
-  from = "/trailer"
-  to = "https://youtu.be/wPyHqT10sQw"
-  status = 302
-
-[[redirects]]
-  from = "/video"
-  to = "https://www.youtube.com/watch?v=llnVDwznJ-8"
-  status = 302
-
-[[redirects]]
   from = "/quarter"
   to = "https://docs.google.com/drawings/d/1i9vdWauHwfNQdq6gZLVxEd02Fms94IkixeOzV5QDXds/template/preview"
   status = 302
