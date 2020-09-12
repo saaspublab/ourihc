@@ -35,16 +35,6 @@ function Discord() {
       >
         View House Day Week Playlist <span>&rarr;</span>
       </a>
-
-      <br />
-      <br />
-
-      <p>
-        <i>
-          *NOTE: this playlist will be updated to include videos from earlier in
-          the week. Check back later today!
-        </i>
-      </p>
     </div>
   );
 }
