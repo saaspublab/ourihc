@@ -39,7 +39,7 @@ function Discord() {
       <p>If you haven't yet joined, you're missing out. Let's get connected.</p>
 
       <a
-        href="https://discord.gg/vP2HZkg"
+        href="https://discord.gg/rFZmm8S"
         target="_blank"
         rel="noopener noreferrer"
         className="button primary round has-icon"
