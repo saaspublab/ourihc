@@ -13,6 +13,11 @@
   status = 302
 
 [[redirects]]
+  from = "/survey"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLScw0zlQYDZrTDz_p63I4SzBt2tuzkZH1dGwdRT-XtfUZawscA/viewform"
+  status = 302
+
+[[redirects]]
   from = "/quarter"
   to = "https://docs.google.com/drawings/d/1i9vdWauHwfNQdq6gZLVxEd02Fms94IkixeOzV5QDXds/template/preview"
   status = 302
