@@ -13,8 +13,8 @@
   status = 302
 
 [[redirects]]
-  from = "/survey"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLScw0zlQYDZrTDz_p63I4SzBt2tuzkZH1dGwdRT-XtfUZawscA/viewform"
+  from = "/reopening"
+  to = "https://mailchi.mp/793b5b4c7afc/st-anselms-abbey-school-weekly-bulletin-april-28-1321923"
   status = 302
 
 [[redirects]]
