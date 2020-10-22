@@ -1,109 +1,112 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import useStickyState from '../components/UseStickyState';
+import React from 'react';
+// import React, { useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import useStickyState from '../components/UseStickyState';
 import styles from './nope.module.sass';
 
-const links = [
-  'https://saintanselms.zoom.us/j/98405501386?pwd=RHhKTkpTdFY5SEJoOWF1d0gyYk1kUT09',
-  'https://saintanselms.zoom.us/j/97672684220?pwd=VmEvTmJ1ODU0anVCRWgzQUVRWFladz09',
-  'https://saintanselms.zoom.us/j/92911504282?pwd=WlMrb1hXMnFPQVFjV3hmUU4wdEZZQT09',
-  'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
-];
+// const links = [
+//   'https://saintanselms.zoom.us/j/98405501386?pwd=RHhKTkpTdFY5SEJoOWF1d0gyYk1kUT09',
+//   'https://saintanselms.zoom.us/j/97672684220?pwd=VmEvTmJ1ODU0anVCRWgzQUVRWFladz09',
+//   'https://saintanselms.zoom.us/j/92911504282?pwd=WlMrb1hXMnFPQVFjV3hmUU4wdEZZQT09',
+//   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
+// ];
 
-const currentHour = new Date().getHours();
-let greetingMessage;
+// const currentHour = new Date().getHours();
+// let greetingMessage;
 
-if (currentHour >= 4 && currentHour < 12) {
-  // after 4:00AM and before 12:00PM
-  greetingMessage = 'Good morning';
-} else if (currentHour >= 12 && currentHour <= 17) {
-  // after 12:00PM and before 6:00pm
-  greetingMessage = 'Good afternoon';
-} else if (currentHour > 17 || currentHour < 4) {
-  // after 5:59pm or before 4:00AM (to accommodate night owls)
-  greetingMessage = 'Good evening';
-} else {
-  // if for some reason the calculation didn't work
-  greetingMessage = 'Welcome';
-}
+// if (currentHour >= 4 && currentHour < 12) {
+//   // after 4:00AM and before 12:00PM
+//   greetingMessage = 'Good morning';
+// } else if (currentHour >= 12 && currentHour <= 17) {
+//   // after 12:00PM and before 6:00pm
+//   greetingMessage = 'Good afternoon';
+// } else if (currentHour > 17 || currentHour < 4) {
+//   // after 5:59pm or before 4:00AM (to accommodate night owls)
+//   greetingMessage = 'Good evening';
+// } else {
+//   // if for some reason the calculation didn't work
+//   greetingMessage = 'Welcome';
+// }
 
-export const useInput = (initialValue) => {
-  const [value, setValue] = useStickyState(initialValue, 'email');
+// export const useInput = (initialValue) => {
+//   const [value, setValue] = useStickyState(initialValue, 'email');
 
-  return {
-    value,
-    setValue,
-    bind: {
-      value,
-      onChange: (event) => {
-        setValue(event.target.value);
-      },
-    },
-  };
-};
+//   return {
+//     value,
+//     setValue,
+//     bind: {
+//       value,
+//       onChange: (event) => {
+//         setValue(event.target.value);
+//       },
+//     },
+//   };
+// };
 
-function getLinkByHouse(house) {
-  let linkIndex;
+// function getLinkByHouse(house) {
+//   let linkIndex;
 
-  switch (house) {
-    case 'Alban':
-      linkIndex = 0;
-      break;
+//   switch (house) {
+//     case 'Alban':
+//       linkIndex = 0;
+//       break;
 
-    case 'Austin':
-      linkIndex = 1;
-      break;
+//     case 'Austin':
+//       linkIndex = 1;
+//       break;
 
-    case 'Main':
-      linkIndex = 2;
-      break;
+//     case 'Main':
+//       linkIndex = 2;
+//       break;
 
-    case 'Moore':
-      linkIndex = 3;
-      break;
+//     case 'Moore':
+//       linkIndex = 3;
+//       break;
 
-    default:
-      break;
-  }
+//     default:
+//       break;
+//   }
 
-  return links[linkIndex];
-}
+//   return links[linkIndex];
+// }
 
 function Join() {
-  const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
-  const [students, setStudents] = useState({});
+  // const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
+  // const [students, setStudents] = useState({});
 
-  async function fetchStudents() {
-    await fetch('/api/emails/')
-      .then((res) => res.json())
-      .then((res) => {
-        setStudents(res.data);
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
-  }
+  // async function fetchStudents() {
+  //   await fetch('/api/emails/')
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setStudents(res.data);
+  //     })
+  //     .catch((err) => {
+  //       // eslint-disable-next-line no-console
+  //       console.error(err);
+  //     });
+  // }
 
-  useEffect(() => {
-    fetchStudents();
-  }, []);
+  // useEffect(() => {
+  //   fetchStudents();
+  // }, []);
 
-  let house;
-  let nickname;
+  // let house;
+  // let nickname;
 
-  if (
-    students.length > 1 &&
-    email.length > 1 &&
-    students.filter((e) => e.emailAddress === email).length > 0
-  ) {
-    house = students.find((obj) => obj.emailAddress === email).house;
-    nickname = students.find((obj) => obj.emailAddress === email).nickname;
-  }
+  // if (
+  //   students.length > 1 &&
+  //   email.length > 1 &&
+  //   students.filter((e) => e.emailAddress === email).length > 0
+  // ) {
+  //   house = students.find((obj) => obj.emailAddress === email).house;
+  //   nickname = students.find((obj) => obj.emailAddress === email).nickname;
+  // }
 
   return (
     <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
-      <h4>Tuesday, September 15, 2020</h4>
+      <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p>
+      {/* <h4>Tuesday, September 15, 2020</h4>
       <h1>House Meetings</h1>
       <p>
         <strong>
@@ -112,9 +115,9 @@ function Join() {
         </strong>{' '}
         During these meetings, each House's members meet, stratagize, and
         discuss events in their race to the House Cup.
-      </p>
+      </p> */}
 
-      {!students ||
+      {/* {!students ||
         (!students.length && (
           <section className="content--block bordered">
             <h3 className="heading">Loading... Please wait...</h3>
@@ -219,7 +222,7 @@ function Join() {
               </p>
             </section>
           </>
-        )}
+        )} */}
     </div>
   );
 }
