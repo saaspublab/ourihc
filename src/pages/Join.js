@@ -11,6 +11,9 @@ import styles from './nope.module.sass';
 //   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 // ];
 
+const link =
+  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+
 // const currentHour = new Date().getHours();
 // let greetingMessage;
 
@@ -104,18 +107,32 @@ function Join() {
 
   return (
     <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
-      <h4>There are no events currently using this system.</h4>
-      <p>Please check back later.</p>
-      {/* <h4>Tuesday, September 15, 2020</h4>
-      <h1>House Meetings</h1>
+      {/* <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p> */}
+      <h4>Friday, October 30, 2020</h4>
+      <h1>Annual Costume Contest</h1>
       <p>
-        <strong>
-          At 3:00 PM this Tuesday (9/15), each student will be required to
-          attend a 30-minute House Meeting.
-        </strong>{' '}
-        During these meetings, each House's members meet, stratagize, and
-        discuss events in their race to the House Cup.
-      </p> */}
+        <b>
+          On Friday at 3:00 PM, wear your best Halloween costume and join us as
+          the IHC hosts our Annual Costume Contest live from campus.
+        </b>{' '}
+        The top two contestants will receive a prize. Each appropriately
+        costumed participant can help their House earn points!
+      </p>
+
+      <p>
+        Be fun. Be creative. Be smart. <b>Be there.</b>
+      </p>
+
+      <section className="content--block bordered">
+        <p>To access the Zoom meeting, click the link below.</p>
+
+        <p>
+          <a href={link} target="_blank" rel="noopener noreferrer nofollow">
+            {link}
+          </a>
+        </p>
+      </section>
 
       {/* {!students ||
         (!students.length && (
