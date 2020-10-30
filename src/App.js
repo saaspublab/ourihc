@@ -14,6 +14,7 @@ import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
 import Discord from './pages/Discord';
+import Cans from './pages/Cans';
 
 // Lunch assignment pages
 import Lunch from './pages/Lunch';
@@ -35,6 +36,9 @@ export default function App() {
               <Switch>
                 <Route exact path="/">
                   <Nope />
+                </Route>
+                <Route exact path="/cans">
+                  <Cans />
                 </Route>
                 <Route exact path="/hunt">
                   <Hunt />
