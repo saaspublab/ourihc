@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { readRemoteFile } from 'react-papaparse';
 import styles from '../pages/points.module.sass';
 
@@ -55,7 +55,7 @@ function PointsEmbed() {
       <div className={styles.points}>
         {(fileData &&
           fileData.data.map((entry, i) => (
-            <React.Fragment key={entry[0].toLowerCase()}>
+            <Fragment key={entry[0].toLowerCase()}>
               {i < 4 && (
                 <div className={styles.house}>
                   <h2 className={`color--${entry[0].toLowerCase()}`}>
@@ -72,7 +72,7 @@ function PointsEmbed() {
                   </p>
                 </div>
               )}
-            </React.Fragment>
+            </Fragment>
           ))) || <h3>Loading points data...</h3>}
       </div>
 

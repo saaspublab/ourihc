@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './nope.module.sass';
 
 import abbeyDiscordLogo from '../assets/images/abbeydiscord.svg';

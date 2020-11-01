@@ -3,7 +3,11 @@
     "browser": true,
     "es2020": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -11,19 +15,53 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-one-expression-per-line": [0, { "allow": "single-child" }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/jsx-one-expression-per-line": [
+      0,
+      {
+        "allow": "single-child"
+      }
+    ],
     "react/no-unescaped-entities": [
       "error",
-      { "forbid": ["<", ">", "{", "}"] }
+      {
+        "forbid": [
+          "<",
+          ">",
+          "{",
+          "}"
+        ]
+      }
     ],
     "react/jsx-props-no-spreading": [
       1,
-      { "html": "ignore", "custom": "enforce" }
+      {
+        "html": "ignore",
+        "custom": "enforce"
+      }
     ],
     "prettier/prettier": "error",
-    "quotes": [2, "single", { "avoidEscape": true }]
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
   }
 }

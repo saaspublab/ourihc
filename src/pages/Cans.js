@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './nope.module.sass';
 
 import foodDrive from '../assets/images/foodDrive.svg';

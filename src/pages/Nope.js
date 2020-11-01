@@ -1,5 +1,3 @@
-import React from 'react';
-// import { Link } from 'react-router-dom';
 import styles from './nope.module.sass';
 
 const currentHour = new Date().getHours();
