@@ -28,18 +28,18 @@ function Cans() {
         <h1>Annual Canned Food Drive</h1>
         <p>
           {`${greetingMessage}`}! This year, we are stepping up our canned food
-          drive.
+          drive with two great ways to help our community.
         </p>
         <p>
-          <b>Beginning today</b>, we are accepting monetary donations for canned
-          goods to be purchased and donated on your behalf. Visit the school's
-          website to make a donation through PayPal. Make sure to enter your
-          child's House in the "special instructions to the seller" field to
-          earn House points!
+          First, we are accepting monetary donations for non-perishable goods to
+          be purchased and donated on your behalf. Visit the link below to make
+          a secure donation through the school's PayPal. Make sure to enter your
+          House in the "special instructions to the seller" field to earn House
+          points!
         </p>
         <p>
           <a
-            href="https://www.saintanselms.org/students"
+            href="https://www.paypal.com/donate/?hosted_button_id=ZMQHDNUDKTS9W"
             target="_blank"
             rel="noopener noreferrer"
             className="button primary round has-icon"
@@ -48,9 +48,10 @@ function Cans() {
           </a>
         </p>
         <p>
-          <b>Beginning Monday</b>, November 2nd, we will kick off our in-person
-          donations! Each school day, no-contact collection bins will be placed
-          outside the Upper Academic Building.
+          Second, <b>beginning Monday</b>, November 2nd, we will kick off our
+          in-person donations! Each school day, no-contact collection bins will
+          be placed outside the Upper Academic Building. Leave non-perishable
+          goods in your House's bin to earn House points.
         </p>
 
         <p>Thank you for your support!</p>
