@@ -78,9 +78,7 @@ function PointsEmbed() {
 
       <footer className={styles.footer}>
         <p>
-          <em>
-            Last updated: {(fileData && fileData.data[4]) || 'Loading...'}
-          </em>
+          <em>Refreshed: {(fileData && fileData.data[4]) || 'Loading...'}</em>
         </p>
       </footer>
     </section>
