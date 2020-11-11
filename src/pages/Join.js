@@ -7,8 +7,8 @@ import styles from './nope.module.sass';
 //   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 // ];
 
-const link =
-  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+// const link =
+//   'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
 
 // const currentHour = new Date().getHours();
 // let greetingMessage;
@@ -103,9 +103,9 @@ function Join() {
 
   return (
     <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
-      {/* <h4>There are no events currently using this system.</h4>
-      <p>Please check back later.</p> */}
-      <h4>Friday, October 30, 2020</h4>
+      <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p>
+      {/* <h4>Friday, October 30, 2020</h4>
       <h1>Annual Costume Contest</h1>
       <p>
         <b>
@@ -128,7 +128,7 @@ function Join() {
             {link}
           </a>
         </p>
-      </section>
+      </section> */}
 
       {/* {!students ||
         (!students.length && (
