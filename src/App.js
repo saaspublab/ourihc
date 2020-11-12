@@ -8,7 +8,6 @@ import Nope from './pages/Nope';
 import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
-import Stories from './pages/Stories';
 import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
@@ -16,9 +15,9 @@ import Discord from './pages/Discord';
 import Cans from './pages/Cans';
 
 // Lunch assignment pages
-import Lunch from './pages/Lunch';
-import LunchCurrent from './pages/lunch/Current';
-import LunchNew from './pages/lunch/New';
+// import Lunch from './pages/Lunch';
+// import LunchCurrent from './pages/lunch/Current';
+// import LunchNew from './pages/lunch/New';
 
 export default function App() {
   return (
@@ -45,9 +44,6 @@ export default function App() {
                 <Route exact path="/points">
                   <Points />
                 </Route>
-                <Route exact path="/stories">
-                  <Stories />
-                </Route>
                 <Route exact path="/join">
                   <Join />
                 </Route>
@@ -61,13 +57,13 @@ export default function App() {
                   <Discord />
                 </Route>
                 <Route exact path="/lunch">
-                  <Lunch />
+                  <Nope />
                 </Route>
                 <Route exact path="/lunch/current">
-                  <LunchCurrent />
+                  <Nope />
                 </Route>
                 <Route exact path="/lunch/new">
-                  <LunchNew />
+                  <Nope />
                 </Route>
                 {/* <Route exact path="/home">
                   <Home />
