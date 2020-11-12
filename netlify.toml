@@ -8,6 +8,11 @@
   status = 200
 
 [[redirects]]
+  from = "/talent"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSddvKfDkDiyYE7jLIta4tVz8nSVp36z_V4lCqSsYqNjyQ3g3Q/viewform"
+  status = 302
+
+[[redirects]]
   from = "/quarter"
   to = "https://docs.google.com/drawings/d/1i9vdWauHwfNQdq6gZLVxEd02Fms94IkixeOzV5QDXds/template/preview"
   status = 302
