@@ -1,4 +1,5 @@
 // import Greeting from '../components/Greeting';
+import { useEffect } from 'react';
 import styles from './nope.module.sass';
 
 // const links = [
@@ -54,6 +55,10 @@ import styles from './nope.module.sass';
 // }
 
 function Join() {
+  useEffect(() => {
+    document.title = 'Join Event';
+  }, []);
+
   // const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
   // const [students, setStudents] = useState({});
 

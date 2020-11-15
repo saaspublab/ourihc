@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Greeting from '../components/Greeting';
@@ -38,6 +39,10 @@ import spread15 from '../assets/images/press/15.jpg';
 import spread15Overlay from '../assets/images/press/15-overlay.jpg';
 
 const Press = () => {
+  useEffect(() => {
+    document.title = 'The Priory Press';
+  }, []);
+
   return (
     <div className={[styles.wrapper, 'page--purple'].join(' ')}>
       <section className="content--block">

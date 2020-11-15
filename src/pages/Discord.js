@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import styles from './nope.module.sass';
 import Greeting from '../components/Greeting';
 import abbeyDiscordLogo from '../assets/images/abbeydiscord.svg';
 
 function Discord() {
+  useEffect(() => {
+    document.title = 'Join Our Discord!';
+  }, []);
+
   return (
     <div className={[styles.wrapper, 'page--purple'].join(' ')}>
       <img
