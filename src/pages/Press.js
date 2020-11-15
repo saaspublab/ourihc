@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-
 import ProgressiveImage from '../components/ProgressiveImage';
+import Greeting from '../components/Greeting';
 
 import styles from './nope.module.sass';
-
 import prioryPressLogo from '../assets/images/press.svg';
 
 // Fall 2020 Priory Press Spreads
@@ -38,23 +37,6 @@ import spread14Overlay from '../assets/images/press/14-overlay.jpg';
 import spread15 from '../assets/images/press/15.jpg';
 import spread15Overlay from '../assets/images/press/15-overlay.jpg';
 
-const currentHour = new Date().getHours();
-let greetingMessage;
-
-if (currentHour >= 4 && currentHour < 12) {
-  // after 4:00AM and before 12:00PM
-  greetingMessage = 'Good morning';
-} else if (currentHour >= 12 && currentHour <= 17) {
-  // after 12:00PM and before 6:00pm
-  greetingMessage = 'Good afternoon';
-} else if (currentHour > 17 || currentHour < 4) {
-  // after 5:59pm or before 4:00AM (to accommodate night owls)
-  greetingMessage = 'Good evening';
-} else {
-  // if for some reason the calculation didn't work
-  greetingMessage = 'Welcome';
-}
-
 const Press = () => {
   return (
     <div className={[styles.wrapper, 'page--purple'].join(' ')}>
@@ -64,8 +46,8 @@ const Press = () => {
           The Priory Press
         </h1>
         <p>
-          {`${greetingMessage}`} and thanks for your interest in{' '}
-          <b>The Priory Press</b>!<br />
+          <Greeting /> and thanks for your interest in <b>The Priory Press</b>!
+          <br />
           Our most recent edition, <em>Fall 2020</em>, was released on September
           2, 2020.
         </p>

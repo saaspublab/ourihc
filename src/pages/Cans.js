@@ -1,23 +1,6 @@
 import styles from './nope.module.sass';
-
+import Greeting from '../components/Greeting';
 import foodDrive from '../assets/images/foodDrive.svg';
-
-const currentHour = new Date().getHours();
-let greetingMessage;
-
-if (currentHour >= 4 && currentHour < 12) {
-  // after 4:00AM and before 12:00PM
-  greetingMessage = 'Good morning';
-} else if (currentHour >= 12 && currentHour <= 17) {
-  // after 12:00PM and before 6:00pm
-  greetingMessage = 'Good afternoon';
-} else if (currentHour > 17 || currentHour < 4) {
-  // after 5:59pm or before 4:00AM (to accommodate night owls)
-  greetingMessage = 'Good evening';
-} else {
-  // if for some reason the calculation didn't work
-  greetingMessage = 'Welcome';
-}
 
 function Cans() {
   return (
@@ -26,8 +9,8 @@ function Cans() {
       <div>
         <h1>Annual Canned Food Drive</h1>
         <p>
-          {`${greetingMessage}`}! This year, we are stepping up our canned food
-          drive with two great ways to help our community.
+          <Greeting case="sentence" />! This year, we are stepping up our canned
+          food drive with two great ways to help our community.
         </p>
         <p>
           First, we are accepting monetary donations for non-perishable goods to

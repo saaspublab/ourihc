@@ -1,3 +1,4 @@
+// import Greeting from '../components/Greeting';
 import styles from './nope.module.sass';
 
 // const links = [
@@ -9,23 +10,6 @@ import styles from './nope.module.sass';
 
 // const link =
 //   'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
-
-// const currentHour = new Date().getHours();
-// let greetingMessage;
-
-// if (currentHour >= 4 && currentHour < 12) {
-//   // after 4:00AM and before 12:00PM
-//   greetingMessage = 'Good morning';
-// } else if (currentHour >= 12 && currentHour <= 17) {
-//   // after 12:00PM and before 6:00pm
-//   greetingMessage = 'Good afternoon';
-// } else if (currentHour > 17 || currentHour < 4) {
-//   // after 5:59pm or before 4:00AM (to accommodate night owls)
-//   greetingMessage = 'Good evening';
-// } else {
-//   // if for some reason the calculation didn't work
-//   greetingMessage = 'Welcome';
-// }
 
 // export const useInput = (initialValue) => {
 //   const [value, setValue] = useStickyState(initialValue, 'email');
@@ -217,7 +201,7 @@ function Join() {
         students.filter((e) => e.emailAddress === email).length > 0 && (
           <>
             <section className="content--block bordered">
-              <h3 className="heading">{`${greetingMessage}, ${nickname}!`}</h3>
+              <h3 className="heading"><Greeting />, {nickname}!</h3>
 
               <p>
                 To access <b>{house} House</b>'s meeting room, click the link

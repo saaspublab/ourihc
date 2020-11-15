@@ -1,25 +1,6 @@
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import styles from '../nope.module.sass';
-
 import prioryPressLogo from '../../assets/images/press.svg';
-
-const currentHour = new Date().getHours();
-let greetingMessage;
-
-if (currentHour >= 4 && currentHour < 12) {
-  // after 4:00AM and before 12:00PM
-  greetingMessage = 'good morning';
-} else if (currentHour >= 12 && currentHour <= 17) {
-  // after 12:00PM and before 6:00pm
-  greetingMessage = 'good afternoon';
-} else if (currentHour > 17 || currentHour < 4) {
-  // after 5:59pm or before 4:00AM (to accommodate night owls)
-  greetingMessage = 'good evening';
-} else {
-  // if for some reason the calculation didn't work
-  greetingMessage = 'welcome';
-}
 
 function encode(data) {
   return Object.keys(data)
@@ -117,8 +98,7 @@ function PressInfo() {
         The Priory Press
       </h1>
       <p>
-        First off, {`${greetingMessage}`} and thanks for your interest in{' '}
-        <b>The Priory Press</b>!
+        Thanks for your interest in <b>The Priory Press</b>!
       </p>
 
       <section className="content--block bordered">
