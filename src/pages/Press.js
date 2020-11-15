@@ -51,7 +51,8 @@ const Press = () => {
           The Priory Press
         </h1>
         <p>
-          <Greeting /> and thanks for your interest in <b>The Priory Press</b>!
+          <Greeting case="sentence" /> and thanks for your interest in{' '}
+          <b>The Priory Press</b>!
           <br />
           Our most recent edition, <em>Fall 2020</em>, was released on September
           2, 2020.

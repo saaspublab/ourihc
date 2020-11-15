@@ -3,14 +3,15 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.sass';
 
 import Header from './components/Header';
-// import Home from './pages/Home';
-import Nope from './pages/Nope';
+import Home from './pages/Home';
+// import Nope from './pages/Nope';
 import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
+import Fall2020Press from './pages/press/Fall2020Press';
 import Discord from './pages/Discord';
 import Cans from './pages/Cans';
 
@@ -33,7 +34,7 @@ export default function App() {
             <main className="bodyContent">
               <Switch>
                 <Route exact path="/">
-                  <Nope />
+                  <Home />
                 </Route>
                 <Route exact path="/cans">
                   <Cans />
@@ -50,13 +51,16 @@ export default function App() {
                 <Route exact path="/press">
                   <Press />
                 </Route>
+                <Route exact path="/press/fall-2020">
+                  <Fall2020Press />
+                </Route>
                 <Route exact path="/press/info">
                   <PressInfo />
                 </Route>
                 <Route exact path="/discord">
                   <Discord />
                 </Route>
-                <Route exact path="/lunch">
+                {/* <Route exact path="/lunch">
                   <Nope />
                 </Route>
                 <Route exact path="/lunch/current">
@@ -64,9 +68,6 @@ export default function App() {
                 </Route>
                 <Route exact path="/lunch/new">
                   <Nope />
-                </Route>
-                {/* <Route exact path="/home">
-                  <Home />
                 </Route> */}
                 <Route path="*">
                   <NoMatch />

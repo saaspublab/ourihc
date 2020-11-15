@@ -5,7 +5,7 @@ function Home() {
   return (
     <div>
       <h1>
-        <Greeting />!
+        <Greeting case="sentence" />!
       </h1>
       <p>Where does your house stand?</p>
 

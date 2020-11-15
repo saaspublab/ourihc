@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className={styles.wrapper}>
       <h1>
-        <Greeting />
+        <Greeting case="sentence" />!
       </h1>
       <p>Something's in store... you'll just have to check back later.</p>
       <br />
