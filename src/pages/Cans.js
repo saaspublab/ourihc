@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import styles from './nope.module.sass';
 import Greeting from '../components/Greeting';
 import foodDrive from '../assets/images/foodDrive.svg';
 
 function Cans() {
+  useEffect(() => {
+    document.title = 'Annual Canned Food Drive';
+  }, []);
+
   return (
     <div className={[styles.wrapper, styles.twoCol, 'page--purple'].join(' ')}>
       <img src={foodDrive} alt="Food Drive" style={{ maxWidth: '400px' }} />
@@ -30,10 +35,10 @@ function Cans() {
           </a>
         </p>
         <p>
-          Second, <b>beginning Monday</b>, November 2nd, we will kick off our
-          in-person donations! Each school day, no-contact collection bins will
-          be placed outside the Upper Academic Building. Leave non-perishable
-          goods in your House's bin to earn House points.
+          In-person donations will be accepted until Wednesday, November 18th! A
+          no-contact collection area is located just inside the Upper Academic
+          Building. Leave non-perishable goods in your House's section to earn
+          House points.
         </p>
 
         <p>Thank you for your support!</p>
