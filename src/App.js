@@ -51,6 +51,9 @@ export default function App() {
                 <Route exact path="/press">
                   <Press />
                 </Route>
+                <Route exact path="/press/thanksgiving-2020">
+                  <Press />
+                </Route>
                 <Route exact path="/press/fall-2020">
                   <Fall2020Press />
                 </Route>
