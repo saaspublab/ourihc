@@ -17,8 +17,7 @@
     "react-lazy-load-image-component": "^1.5.0",
     "react-papaparse": "^3.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
-    "sass": "^1.29.0"
+    "react-scripts": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,6 +49,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "sass": "^1.29.0"
   }
 }
