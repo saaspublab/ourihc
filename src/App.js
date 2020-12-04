@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
+import Clap from './pages/Clap';
 import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
@@ -44,6 +45,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/points">
                   <Points />
+                </Route>
+                <Route exact path="/clap">
+                  <Clap />
                 </Route>
                 <Route exact path="/join">
                   <Join />
