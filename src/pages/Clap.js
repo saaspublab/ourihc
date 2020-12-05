@@ -180,7 +180,7 @@ function Clap() {
               isWobbling ? styles.isWobbling : '',
             ].join(' ')}
             onClick={clap}
-            // disabled={isClapped}
+            disabled={isClapped}
           >
             {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
             {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
