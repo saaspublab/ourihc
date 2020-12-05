@@ -1,6 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
+import useStickyState from '../hooks/UseStickyState';
 import clapSfx from '../assets/sounds/clap.mp3';
+import disabledSfx from '../assets/sounds/disabled.mp3';
+import refreshSfx from '../assets/sounds/refresh.mp3';
 import styles from './clap.module.sass';
 import clapIcon from '../assets/images/clap.svg';
 
@@ -29,17 +33,21 @@ function Clap() {
   const [currentTalent, setCurrentTalent] = useState();
   const [isWobbling, setIsWobbling] = useState(false);
   const [isClapped, setIsClapped] = useState(false);
-  const [claps, setClaps] = useState(0);
-  const [playbackRate, setPlaybackRate] = useState(0.75);
+  const [clappedTalent, setClappedTalent] = useStickyState('', 'clappedTalent');
+  const [claps, setClaps] = useStickyState(0, 'claps');
+  const [previousClaps, setPreviousClaps] = useState();
+  const [clapPlaybackRate, setClapPlaybackRate] = useState(0.75);
 
-  const [play] = useSound(clapSfx, {
-    playbackRate,
+  const [playClap] = useSound(clapSfx, {
+    clapPlaybackRate,
     volume: 0.5,
   });
-
-  useEffect(() => {
-    document.title = 'CLAP! Show Your Enthusiasm';
-  }, []);
+  const [playDisabled] = useSound(disabledSfx, {
+    volume: 0.5,
+  });
+  const [playRefresh] = useSound(refreshSfx, {
+    volume: 0.5,
+  });
 
   async function fetchTalent() {
     await fetch('/api/talent/')
@@ -47,6 +55,27 @@ function Clap() {
       .then((res) => {
         setTalent(res.talent);
         setCurrentTalent(res.talent.find((el) => el.isCurrent === true));
+        setPreviousClaps(res.talent.find((el) => el.isCurrent === true).claps);
+        if (
+          res.talent.find((el) => el.isCurrent === true)._id !== clappedTalent
+        ) {
+          setClaps(0);
+        }
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
+  }
+
+  async function pushClaps(id, newClaps) {
+    const clapsToPush = previousClaps + newClaps;
+    setPreviousClaps(previousClaps + 1);
+
+    await fetch(`/api/clap/${id}/${clapsToPush}`)
+      .then(() => {
+        // eslint-disable-next-line no-console
+        console.log('Clap successfully pushed!');
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -55,22 +84,30 @@ function Clap() {
   }
 
   useEffect(() => {
+    document.title = 'CLAP! Show Your Enthusiasm';
     fetchTalent();
   }, []);
 
   const clap = () => {
+    if (currentTalent._id !== clappedTalent) {
+      setClaps(0);
+    }
+
     if (claps < maxClaps) {
-      setPlaybackRate(playbackRate + 0.1);
-      play();
+      setClapPlaybackRate(clapPlaybackRate + 0.1);
+      playClap();
 
       setIsClapped(true);
+      setClappedTalent(currentTalent._id);
       setClaps(claps + 1);
+      pushClaps(currentTalent._id, 1);
 
       setTimeout(() => {
         setIsClapped(false);
       }, 825);
     } else {
       setIsWobbling(true);
+      playDisabled();
 
       setTimeout(() => {
         setIsWobbling(false);
@@ -81,6 +118,7 @@ function Clap() {
   function reload() {
     setTalent();
     fetchTalent();
+    playRefresh();
   }
 
   return (
@@ -99,7 +137,6 @@ function Clap() {
             talent.map((act) => {
               return (
                 <li
-                  // eslint-disable-next-line no-underscore-dangle
                   key={act._id}
                   className={[
                     styles.act,
@@ -125,30 +162,31 @@ function Clap() {
         and who gets crowned winner!
       </p> */}
 
-      <div className={styles.clapContainer}>
-        <span className={styles.counter}>
-          {currentTalent && currentTalent.student[0].firstName}
-          {console.log(talent)}
-          <br />
-          {claps} / {maxClaps}
-        </span>
+      {talent && currentTalent && (
+        <div className={styles.clapContainer}>
+          <span className={styles.counter}>
+            {currentTalent && currentTalent.student[0].firstName}
+            <br />
+            {claps} / {maxClaps}
+          </span>
 
-        <button
-          type="button"
-          className={[
-            'link',
-            styles.clapper,
-            claps === maxClaps ? styles.maxedOut : '',
-            isClapped ? styles.isClapped : '',
-            isWobbling ? styles.isWobbling : '',
-          ].join(' ')}
-          onClick={clap}
-          disabled={isClapped}
-        >
-          {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
-          {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
-        </button>
-      </div>
+          <button
+            type="button"
+            className={[
+              'link',
+              styles.clapper,
+              claps === maxClaps ? styles.maxedOut : '',
+              isClapped ? styles.isClapped : '',
+              isWobbling ? styles.isWobbling : '',
+            ].join(' ')}
+            onClick={clap}
+            // disabled={isClapped}
+          >
+            {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
+            {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

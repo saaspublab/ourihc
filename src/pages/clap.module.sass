@@ -59,13 +59,16 @@
 .page
   display: grid
   grid-template-columns: 100%
+  grid-row-gap: 3rem
 
   +tablet
     grid-template-columns: 33% auto
+    align-items: center
+    justify-items: normal
 
 .sidebar
-  margin: 0 0 3rem 0
-  padding: 2rem
+  margin: 0
+  padding: 1.25rem 2rem 2rem
   background-color: rgba($white, .5)
   clip-path: polygon(5% 0, 100% 0%, 95% 95%, 0 100%)
 
@@ -130,7 +133,9 @@
 
 
 // .clapContainer
-//   margin: auto
+//   display: flex
+//   flex-direction: row
+//   align-items: center
 
 .counter
   display: block
