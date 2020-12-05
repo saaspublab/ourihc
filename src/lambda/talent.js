@@ -13,7 +13,7 @@ const fetchHeaders = {
 };
 
 /**
- * Fetch all students from database.
+ * Fetch all talent show acts from database.
  *
  * @method fetchTalent
  * @param query {string}

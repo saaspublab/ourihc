@@ -26,13 +26,18 @@ function Star() {
   );
 }
 
+let isClappedHandler;
+let isWobblingHandler;
+let isRefreshingHandler;
+
 function Clap() {
   const maxClaps = 5;
 
   const [talent, setTalent] = useState();
   const [currentTalent, setCurrentTalent] = useState();
-  const [isWobbling, setIsWobbling] = useState(false);
   const [isClapped, setIsClapped] = useState(false);
+  const [isWobbling, setIsWobbling] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [clappedTalent, setClappedTalent] = useStickyState('', 'clappedTalent');
   const [claps, setClaps] = useStickyState(0, 'claps');
   const [previousClaps, setPreviousClaps] = useState();
@@ -68,6 +73,32 @@ function Clap() {
       });
   }
 
+  useEffect(() => {
+    document.title = 'CLAP! Show Your Enthusiasm';
+    fetchTalent();
+
+    setIsRefreshing(true);
+    isRefreshingHandler = setTimeout(() => {
+      setIsRefreshing(false);
+    }, 15000);
+
+    // Clear timeouts
+    return () => {
+      if (isClappedHandler) {
+        clearTimeout(isClappedHandler);
+        isClappedHandler = 0;
+      }
+      if (isWobblingHandler) {
+        clearTimeout(isWobblingHandler);
+        isWobblingHandler = 0;
+      }
+      if (isRefreshingHandler) {
+        clearTimeout(isRefreshingHandler);
+        isRefreshingHandler = 0;
+      }
+    };
+  }, []);
+
   async function pushClaps(id, newClaps) {
     const clapsToPush = previousClaps + newClaps;
     setPreviousClaps(previousClaps + 1);
@@ -83,11 +114,6 @@ function Clap() {
       });
   }
 
-  useEffect(() => {
-    document.title = 'CLAP! Show Your Enthusiasm';
-    fetchTalent();
-  }, []);
-
   const clap = () => {
     if (currentTalent._id !== clappedTalent) {
       setClaps(0);
@@ -102,20 +128,24 @@ function Clap() {
       setClaps(claps + 1);
       pushClaps(currentTalent._id, 1);
 
-      setTimeout(() => {
+      isClappedHandler = setTimeout(() => {
         setIsClapped(false);
       }, 825);
     } else {
       setIsWobbling(true);
       playDisabled();
 
-      setTimeout(() => {
+      isWobblingHandler = setTimeout(() => {
         setIsWobbling(false);
       }, 825);
     }
   };
 
   function reload() {
+    setIsRefreshing(true);
+    isRefreshingHandler = setTimeout(() => {
+      setIsRefreshing(false);
+    }, 15000);
     setTalent();
     fetchTalent();
     playRefresh();
@@ -128,8 +158,9 @@ function Clap() {
           type="button"
           className={['link xtra-small', styles.refresh].join(' ')}
           onClick={() => reload()}
+          disabled={isRefreshing}
         >
-          [ Refresh ↻ ]
+          {isRefreshing ? '[ Refreshing ]' : '[ Refresh ↻ ]'}
         </button>
         <h3>Today's Talent:</h3>
         <ul>
@@ -155,15 +186,8 @@ function Clap() {
         </ul>
       </div>
 
-      {/* <h2 style={{ color: '#501111' }}>CLAP! Show Your Enthusiasm</h2>
-      <p>
-        The premise is simple: click the button below to clap for our Talent
-        Show performers. Your participation helps you shape the event's course
-        and who gets crowned winner!
-      </p> */}
-
       {talent && currentTalent && (
-        <div className={styles.clapContainer}>
+        <div>
           <span className={styles.counter}>
             {currentTalent && currentTalent.student[0].firstName}
             <br />
@@ -180,10 +204,9 @@ function Clap() {
               isWobbling ? styles.isWobbling : '',
             ].join(' ')}
             onClick={clap}
-            disabled={isClapped}
+            disabled={isClapped || isWobbling}
           >
             {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
-            {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
           </button>
         </div>
       )}

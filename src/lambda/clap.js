@@ -13,7 +13,7 @@ const fetchHeaders = {
 };
 
 /**
- * Fetch all students from database.
+ * Update talent claps in database.
  *
  * @method putClap
  * @param query {string}
