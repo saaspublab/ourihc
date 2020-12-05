@@ -38,13 +38,12 @@ exports.handler = async (event) => {
   switch (event.httpMethod) {
     case 'GET':
       /* PUT /api/talent/[id] */
-      if (segments.length === 2) {
+      if (segments.length === 1) {
         const id = segments[0];
-        const claps = segments[1];
 
         try {
-          const response = await putClap(`/${id}`, 'put', {
-            claps,
+          const response = await putClap(`/${id}`, 'patch', {
+            $inc: { claps: 1 },
           }).then((res) => res.json());
 
           return {
@@ -72,7 +71,7 @@ exports.handler = async (event) => {
         headers: responseHeaders,
         body: JSON.stringify({
           success: false,
-          error: 'Bad request: too few or too many segments in GET request',
+          error: 'Bad request: your request should have only 1 segment',
         }),
       };
 

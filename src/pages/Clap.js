@@ -40,7 +40,6 @@ function Clap() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [clappedTalent, setClappedTalent] = useStickyState('', 'clappedTalent');
   const [claps, setClaps] = useStickyState(0, 'claps');
-  const [previousClaps, setPreviousClaps] = useState();
   const [clapPlaybackRate, setClapPlaybackRate] = useState(0.75);
 
   const [playClap] = useSound(clapSfx, {
@@ -60,7 +59,6 @@ function Clap() {
       .then((res) => {
         setTalent(res.talent);
         setCurrentTalent(res.talent.find((el) => el.isCurrent === true));
-        setPreviousClaps(res.talent.find((el) => el.isCurrent === true).claps);
         if (
           res.talent.find((el) => el.isCurrent === true)._id !== clappedTalent
         ) {
@@ -99,11 +97,8 @@ function Clap() {
     };
   }, []);
 
-  async function pushClaps(id, newClaps) {
-    const clapsToPush = previousClaps + newClaps;
-    setPreviousClaps(previousClaps + 1);
-
-    await fetch(`/api/clap/${id}/${clapsToPush}`)
+  async function pushClap(id) {
+    await fetch(`/api/clap/${id}`)
       .then(() => {
         // eslint-disable-next-line no-console
         console.log('Clap successfully pushed!');
@@ -126,11 +121,11 @@ function Clap() {
       setIsClapped(true);
       setClappedTalent(currentTalent._id);
       setClaps(claps + 1);
-      pushClaps(currentTalent._id, 1);
+      pushClap(currentTalent._id, 1);
 
       isClappedHandler = setTimeout(() => {
         setIsClapped(false);
-      }, 825);
+      }, 1500);
     } else {
       setIsWobbling(true);
       playDisabled();
@@ -165,18 +160,29 @@ function Clap() {
         <h3>Today's Talent:</h3>
         <ul>
           {talent ? (
-            talent.map((act) => {
+            talent.map((t) => {
               return (
                 <li
-                  key={act._id}
+                  key={t._id}
                   className={[
-                    styles.act,
-                    act.isFinished ? styles.finished : '',
-                    act.isCurrent ? styles.current : '',
+                    styles.talent,
+                    t.isFinished ? styles.finished : '',
+                    t.isCurrent ? styles.current : '',
                   ].join(' ')}
                 >
-                  {act.isCurrent && <span />}
-                  {act.student[0].firstName} {act.student[0].lastName}
+                  <>
+                    <div className={styles.line1}>
+                      {t.isCurrent && <span className={styles.pulse} />}
+                      <span className={styles.name}>
+                        {t.student[0].nickname} {t.student[0].lastName}
+                      </span>
+                    </div>
+                    {t.isCurrent && (
+                      <div className={styles.line2}>
+                        <span className={styles.act}>{t.act}</span>
+                      </div>
+                    )}
+                  </>
                 </li>
               );
             })
@@ -189,7 +195,7 @@ function Clap() {
       {talent && currentTalent && (
         <div>
           <span className={styles.counter}>
-            {currentTalent && currentTalent.student[0].firstName}
+            {currentTalent && currentTalent.student[0].nickname}
             <br />
             {claps} / {maxClaps}
           </span>

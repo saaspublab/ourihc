@@ -104,13 +104,21 @@
   
   li
     padding: .375rem 0
-    display: flex
-    flex-direction: row
-    align-items: center
 
-    span
+    .line1
+      display: flex
+      flex-direction: row
+      align-items: center
+    
+    .line2
+      margin: 0 0 .25rem calc(10px + .55rem)
+      font-size: .75em
+      line-height: 1.1
+      color: $purple
+
+    .pulse
       display: inline-block
-      margin-right: .5rem
+      margin-right: .55rem
       position: relative
       height: 10px
       width: 10px
@@ -134,6 +142,7 @@
     
     &.finished
       text-decoration: line-through
+      opacity: .5
     
     &.current
       color: $maroon
@@ -186,7 +195,7 @@
       border-color: transparent
   
   &.isClapped
-    animation: clap .825s linear alternate
+    animation: clap 1.5s linear alternate
 
     svg
       stroke-dasharray: 1750
