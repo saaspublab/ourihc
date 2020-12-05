@@ -18,7 +18,6 @@
     "react-papaparse": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
-    "socket.io-client": "^3.0.3",
     "use-sound": "^2.0.1"
   },
   "scripts": {
