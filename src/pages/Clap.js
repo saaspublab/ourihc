@@ -25,6 +25,8 @@ function Star() {
 function Clap() {
   const maxClaps = 5;
 
+  const [talent, setTalent] = useState();
+  const [currentTalent, setCurrentTalent] = useState();
   const [isWobbling, setIsWobbling] = useState(false);
   const [isClapped, setIsClapped] = useState(false);
   const [claps, setClaps] = useState(0);
@@ -37,6 +39,23 @@ function Clap() {
 
   useEffect(() => {
     document.title = 'CLAP! Show Your Enthusiasm';
+  }, []);
+
+  async function fetchTalent() {
+    await fetch('/api/talent/')
+      .then((res) => res.json())
+      .then((res) => {
+        setTalent(res.talent);
+        setCurrentTalent(res.talent.find((el) => el.isCurrent === true));
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
+  }
+
+  useEffect(() => {
+    fetchTalent();
   }, []);
 
   const clap = () => {
@@ -59,8 +78,46 @@ function Clap() {
     }
   };
 
+  function reload() {
+    setTalent();
+    fetchTalent();
+  }
+
   return (
     <div className={styles.page}>
+      <div className={styles.sidebar}>
+        <button
+          type="button"
+          className={['link xtra-small', styles.refresh].join(' ')}
+          onClick={() => reload()}
+        >
+          [ Refresh ↻ ]
+        </button>
+        <h3>Today's Talent:</h3>
+        <ul>
+          {talent ? (
+            talent.map((act) => {
+              return (
+                <li
+                  // eslint-disable-next-line no-underscore-dangle
+                  key={act._id}
+                  className={[
+                    styles.act,
+                    act.isFinished ? styles.finished : '',
+                    act.isCurrent ? styles.current : '',
+                  ].join(' ')}
+                >
+                  {act.isCurrent && <span />}
+                  {act.student[0].firstName} {act.student[0].lastName}
+                </li>
+              );
+            })
+          ) : (
+            <p>Loading…</p>
+          )}
+        </ul>
+      </div>
+
       {/* <h2 style={{ color: '#501111' }}>CLAP! Show Your Enthusiasm</h2>
       <p>
         The premise is simple: click the button below to clap for our Talent
@@ -68,25 +125,30 @@ function Clap() {
         and who gets crowned winner!
       </p> */}
 
-      <span className={styles.counter}>
-        {claps} / {maxClaps}
-      </span>
+      <div className={styles.clapContainer}>
+        <span className={styles.counter}>
+          {currentTalent && currentTalent.student[0].firstName}
+          {console.log(talent)}
+          <br />
+          {claps} / {maxClaps}
+        </span>
 
-      <button
-        type="button"
-        className={[
-          'link',
-          styles.clapper,
-          claps === maxClaps ? styles.maxedOut : '',
-          isClapped ? styles.isClapped : '',
-          isWobbling ? styles.isWobbling : '',
-        ].join(' ')}
-        onClick={clap}
-        disabled={isClapped}
-      >
-        {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
-        {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
-      </button>
+        <button
+          type="button"
+          className={[
+            'link',
+            styles.clapper,
+            claps === maxClaps ? styles.maxedOut : '',
+            isClapped ? styles.isClapped : '',
+            isWobbling ? styles.isWobbling : '',
+          ].join(' ')}
+          onClick={clap}
+          disabled={isClapped}
+        >
+          {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
+          {/* {!isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />} */}
+        </button>
+      </div>
     </div>
   );
 }
