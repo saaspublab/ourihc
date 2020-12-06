@@ -64,7 +64,10 @@ function Clap() {
   const [claps, setClaps] = useStickyState(0, 'claps');
   const [clapPlaybackRate, setClapPlaybackRate] = useState(0.75);
 
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useStickyState(
+    false,
+    'submittedTSFeedback'
+  );
   const [formError, setFormError] = useState(false);
 
   const [playClap] = useSound(clapSfx, {
@@ -213,7 +216,7 @@ function Clap() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.sidebar}>
+      <aside className={styles.sidebar}>
         <button
           type="button"
           className={['link xtra-small', styles.refresh].join(' ')}
@@ -255,17 +258,16 @@ function Clap() {
             <p>Loading…</p>
           )}
         </ul>
-      </div>
+      </aside>
 
       {talent && currentTalent && (
-        <div>
+        <section>
           {currentTalent.student[0].nickname === 'Finale' && (
             <div className={styles.feedback}>
               {formSubmitted ? (
                 <p>Thanks for your feedback!</p>
               ) : (
                 <>
-                  {formError && <p>{formError} &mdash; please try again</p>}
                   <form
                     method="post"
                     name="talent-show-feedback"
@@ -296,6 +298,12 @@ function Clap() {
                           {...bindEmail}
                         />
                       </label>
+                    )}
+
+                    {formError && (
+                      <p className={styles.error}>
+                        ⚠️ {formError} Please try again.
+                      </p>
                     )}
 
                     {feedback.length > 5 && email.length > 10 && (
@@ -333,7 +341,7 @@ function Clap() {
           >
             {isClapped ? <Star /> : <img src={clapIcon} alt="Clap!" />}
           </button>
-        </div>
+        </section>
       )}
     </div>
   );

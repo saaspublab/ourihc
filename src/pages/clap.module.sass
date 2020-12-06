@@ -179,12 +179,12 @@
 
 .feedback
   margin: 0 auto 2rem
+  max-width: 450px
   text-align: center
   
   label
     display: block
     margin: 0 auto
-    max-width: 500px
   
   input
     margin-top: .25rem
@@ -199,6 +199,9 @@
 
     &:focus
       border-bottom-color: $maroon
+  
+  .error
+    color: $purple
   
   button[type="submit"]
     animation: fadeIn .5s ease-out forwards
