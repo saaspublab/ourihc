@@ -8,6 +8,28 @@ import refreshSfx from '../assets/sounds/refresh.mp3';
 import styles from './clap.module.sass';
 import clapIcon from '../assets/images/clap.svg';
 
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&');
+}
+
+export const useInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+
+  return {
+    value,
+    setValue,
+    reset: () => setValue(''),
+    bind: {
+      value,
+      onChange: (event) => {
+        setValue(event.target.value);
+      },
+    },
+  };
+};
+
 function Star() {
   return (
     <svg
@@ -42,6 +64,9 @@ function Clap() {
   const [claps, setClaps] = useStickyState(0, 'claps');
   const [clapPlaybackRate, setClapPlaybackRate] = useState(0.75);
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState(false);
+
   const [playClap] = useSound(clapSfx, {
     clapPlaybackRate,
     volume: 0.5,
@@ -52,6 +77,13 @@ function Clap() {
   const [playRefresh] = useSound(refreshSfx, {
     volume: 0.5,
   });
+
+  const {
+    value: feedback,
+    bind: bindFeedback,
+    reset: resetFeedback,
+  } = useInput('');
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput('');
 
   async function fetchTalent() {
     await fetch('/api/talent/')
@@ -146,6 +178,39 @@ function Clap() {
     playRefresh();
   }
 
+  const handleSubmit = (evt) => {
+    const form = evt.target;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        feedback: `${feedback}`,
+        email: `${email}`,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          setFormError('The server responded with a non-2xx code.');
+          setFormSubmitted(false);
+        } else {
+          // Reset form fields
+          resetFeedback();
+          resetEmail();
+
+          // Show message saying the form was submitted
+          // and hide the form
+          setFormSubmitted(true);
+        }
+      })
+      .catch((err) => {
+        setFormError(err);
+        setFormSubmitted(false);
+      });
+
+    evt.preventDefault();
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.sidebar}>
@@ -194,6 +259,60 @@ function Clap() {
 
       {talent && currentTalent && (
         <div>
+          {currentTalent.student[0].nickname === 'Finale' && (
+            <div className={styles.feedback}>
+              {formSubmitted ? (
+                <p>Thanks for your feedback!</p>
+              ) : (
+                <>
+                  {formError && <p>{formError} &mdash; please try again</p>}
+                  <form
+                    method="post"
+                    name="talent-show-feedback"
+                    onSubmit={handleSubmit}
+                  >
+                    <input type="hidden" name="bot-field" />
+                    <label htmlFor="feedback">
+                      What did you think?
+                      <input
+                        type="text"
+                        name="feedback"
+                        id="feedback"
+                        placeholder="Let Us Know..."
+                        required
+                        {...bindFeedback}
+                      />
+                    </label>
+
+                    {feedback.length > 5 && (
+                      <label htmlFor="email">
+                        What's your email?
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="example@saintanselms.org"
+                          required
+                          {...bindEmail}
+                        />
+                      </label>
+                    )}
+
+                    {feedback.length > 5 && email.length > 10 && (
+                      <button
+                        type="submit"
+                        className="button primary round has-icon"
+                        disabled={!feedback || !email}
+                      >
+                        Submit! <span>&rarr;</span>
+                      </button>
+                    )}
+                  </form>
+                </>
+              )}
+            </div>
+          )}
+
           <span className={styles.counter}>
             {currentTalent && currentTalent.student[0].nickname}
             <br />
