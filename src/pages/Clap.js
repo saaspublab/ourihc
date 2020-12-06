@@ -183,33 +183,42 @@ function Clap() {
 
   const handleSubmit = (evt) => {
     const form = evt.target;
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        feedback: `${feedback}`,
-        email: `${email}`,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          setFormError('The server responded with a non-2xx code.');
-          setFormSubmitted(false);
-        } else {
-          // Reset form fields
-          resetFeedback();
-          resetEmail();
 
-          // Show message saying the form was submitted
-          // and hide the form
-          setFormSubmitted(true);
-        }
+    if (!(feedback && email)) {
+      setFormError('All fields are required.');
+    } else if (feedback.length <= 5) {
+      setFormError('Your feedback seems a bit short.');
+    } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setFormError('This email address seems invalid.');
+    } else {
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': form.getAttribute('name'),
+          feedback: `${feedback}`,
+          email: `${email}`,
+        }),
       })
-      .catch((err) => {
-        setFormError(err);
-        setFormSubmitted(false);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            setFormError('The server responded with a non-2xx code.');
+            setFormSubmitted(false);
+          } else {
+            // Reset form fields
+            resetFeedback();
+            resetEmail();
+
+            // Show message saying the form was submitted
+            // and hide the form
+            setFormSubmitted(true);
+          }
+        })
+        .catch((err) => {
+          setFormError(err);
+          setFormSubmitted(false);
+        });
+    }
 
     evt.preventDefault();
   };
