@@ -9,8 +9,8 @@ import styles from './nope.module.sass';
 //   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 // ];
 
-// const link =
-//   'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+const link =
+  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
 
 // export const useInput = (initialValue) => {
 //   const [value, setValue] = useStickyState(initialValue, 'email');
@@ -56,7 +56,7 @@ import styles from './nope.module.sass';
 
 function Join() {
   useEffect(() => {
-    document.title = 'Join Event';
+    document.title = 'Join the Talent Show';
   }, []);
 
   // const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
@@ -92,32 +92,28 @@ function Join() {
 
   return (
     <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
-      <h4>There are no events currently using this system.</h4>
-      <p>Please check back later.</p>
-      {/* <h4>Friday, October 30, 2020</h4>
-      <h1>Annual Costume Contest</h1>
+      {/* <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p> */}
+      <h4>Friday, December 11, 2020</h4>
+      <h1>Abbey's Got Talent!</h1>
       <p>
         <b>
-          On Friday at 3:00 PM, wear your best Halloween costume and join us as
-          the IHC hosts our Annual Costume Contest live from campus.
+          At 2:45 PM Friday, you're invited to join the IHC and performers who
+          are streaming live from campus.
         </b>{' '}
-        The top two contestants will receive a prize. Each appropriately
-        costumed participant can help their House earn points!
-      </p>
-
-      <p>
-        Be fun. Be creative. Be smart. <b>Be there.</b>
+        The top two contestants will receive a prize. Each participant can sway
+        the judges (and earn House Points in the process!).
       </p>
 
       <section className="content--block bordered">
-        <p>To access the Zoom meeting, click the link below.</p>
+        <p>To access the event, click the link below.</p>
 
         <p>
           <a href={link} target="_blank" rel="noopener noreferrer nofollow">
             {link}
           </a>
         </p>
-      </section> */}
+      </section>
 
       {/* {!students ||
         (!students.length && (
