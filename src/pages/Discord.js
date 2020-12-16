@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import styles from './nope.module.sass';
 import Greeting from '../components/Greeting';
 import abbeyDiscordLogo from '../assets/images/abbeydiscord.svg';
 
@@ -9,7 +8,7 @@ function Discord() {
   }, []);
 
   return (
-    <div className={[styles.wrapper, 'page--purple'].join(' ')}>
+    <>
       <img
         src={abbeyDiscordLogo}
         alt="Discord | St. Anselm's Abbey School"
@@ -34,7 +33,7 @@ function Discord() {
       >
         Join Our Server <span>&rarr;</span>
       </a>
-    </div>
+    </>
   );
 }
 

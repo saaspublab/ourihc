@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styles from '../nope.module.sass';
 import prioryPressLogo from '../../assets/images/press.svg';
 
 function encode(data) {
@@ -92,7 +91,7 @@ function PressInfo() {
   };
 
   return (
-    <div className={[styles.wrapper, 'page--purple'].join(' ')}>
+    <div className="page--purple">
       <img src={prioryPressLogo} alt="The Priory Press" />
       <h1 style={{ display: 'none', visibility: 'hidden' }}>
         The Priory Press

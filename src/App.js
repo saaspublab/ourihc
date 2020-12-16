@@ -4,17 +4,14 @@ import './App.sass';
 
 import Header from './components/Header';
 import Home from './pages/Home';
-// import Nope from './pages/Nope';
-import Hunt from './pages/Hunt';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
-import Clap from './pages/Clap';
-import Join from './pages/Join';
+// import Clap from './pages/Clap';
+// import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
 import Fall2020Press from './pages/press/Fall2020Press';
 import Discord from './pages/Discord';
-import Cans from './pages/Cans';
 
 // Lunch assignment pages
 // import Lunch from './pages/Lunch';
@@ -37,21 +34,15 @@ export default function App() {
                 <Route exact path="/">
                   <Home />
                 </Route>
-                <Route exact path="/cans">
-                  <Cans />
-                </Route>
-                <Route exact path="/hunt">
-                  <Hunt />
-                </Route>
                 <Route exact path="/points">
                   <Points />
                 </Route>
-                <Route exact path="/clap">
+                {/* <Route exact path="/clap">
                   <Clap />
-                </Route>
-                <Route exact path="/join">
+                </Route> */}
+                {/* <Route exact path="/join">
                   <Join />
-                </Route>
+                </Route> */}
                 <Route exact path="/press">
                   <Press />
                 </Route>

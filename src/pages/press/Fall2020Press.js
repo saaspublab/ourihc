@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ProgressiveImage from '../../components/ProgressiveImage';
 import Greeting from '../../components/Greeting';
 
-import styles from '../nope.module.sass';
 import prioryPressLogo from '../../assets/images/press.svg';
 
 // Fall 2020 Priory Press Spreads
@@ -44,7 +43,7 @@ const Fall2020Press = () => {
   }, []);
 
   return (
-    <div className={[styles.wrapper, 'page--purple'].join(' ')}>
+    <div className="page--purple">
       <section className="content--block">
         <img src={prioryPressLogo} alt="The Priory Press" />
         <h1 style={{ display: 'none', visibility: 'hidden' }}>

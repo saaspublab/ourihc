@@ -1,6 +1,5 @@
 // import Greeting from '../components/Greeting';
-import { useEffect } from 'react';
-import styles from './nope.module.sass';
+// import { useEffect } from 'react';
 
 // const links = [
 //   'https://saintanselms.zoom.us/j/98405501386?pwd=RHhKTkpTdFY5SEJoOWF1d0gyYk1kUT09',
@@ -9,8 +8,8 @@ import styles from './nope.module.sass';
 //   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 // ];
 
-const link =
-  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+// const link =
+//   'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
 
 // export const useInput = (initialValue) => {
 //   const [value, setValue] = useStickyState(initialValue, 'email');
@@ -55,9 +54,9 @@ const link =
 // }
 
 function Join() {
-  useEffect(() => {
-    document.title = 'Join the Talent Show';
-  }, []);
+  // useEffect(() => {
+  //   document.title = 'Join the Talent Show';
+  // }, []);
 
   // const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
   // const [students, setStudents] = useState({});
@@ -91,10 +90,10 @@ function Join() {
   // }
 
   return (
-    <div className={[styles.wrapper, 'page--maroon'].join(' ')}>
-      {/* <h4>There are no events currently using this system.</h4>
-      <p>Please check back later.</p> */}
-      <h4>Friday, December 11, 2020</h4>
+    <div className="page--maroon">
+      <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p>
+      {/* <h4>Friday, December 11, 2020</h4>
       <h1>Abbey's Got Talent!</h1>
       <p>
         <b>
@@ -113,7 +112,7 @@ function Join() {
             {link}
           </a>
         </p>
-      </section>
+      </section> */}
 
       {/* {!students ||
         (!students.length && (
