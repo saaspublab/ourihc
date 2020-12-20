@@ -5,10 +5,25 @@ import { PubNubProvider } from 'pubnub-react';
 import Greeting from '../components/Greeting';
 import Bracket from '../components/Bracket';
 
-const pubNubConfig = require('../pubnub.config.json');
+let publishKey;
+let subscribeKey;
+
+if (process.env.NODE_ENV === 'development') {
+  publishKey = process.env.REACT_APP_DEV_PUBLISH_KEY;
+  subscribeKey = process.env.REACT_APP_DEV_SUBSCRIBE_KEY;
+} else {
+  publishKey = process.env.REACT_APP_PROD_PUBLISH_KEY;
+  subscribeKey = process.env.REACT_APP_PROD_SUBSCRIBE_KEY;
+}
+
+console.log(publishKey, subscribeKey);
 
 const uuid = PubNub.generateUUID();
-const pubnub = new PubNub(pubNubConfig.keySet, { uuid });
+const pubnub = new PubNub({
+  publishKey,
+  subscribeKey,
+  uuid,
+});
 
 function Discord() {
   useEffect(() => {
