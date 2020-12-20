@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
+import Trivia from './pages/Trivia';
 // import Clap from './pages/Clap';
 // import Join from './pages/Join';
 import Press from './pages/Press';
@@ -36,6 +37,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/points">
                   <Points />
+                </Route>
+                <Route exact path="/trivia">
+                  <Trivia />
                 </Route>
                 {/* <Route exact path="/clap">
                   <Clap />
