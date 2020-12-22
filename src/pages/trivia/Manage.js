@@ -6,6 +6,7 @@ import styles from '../trivia.module.sass';
 
 import Greeting from '../../components/Greeting';
 import Chat from '../../components/Chat';
+import CurrentlyWatching from '../../components/CurrentlyWatching';
 import Bracket from '../../components/Bracket';
 
 let publishKey;
@@ -55,6 +56,15 @@ function TriviaManage() {
             <PubNubProvider client={pubnub}>
               <Chat authenticated />
             </PubNubProvider>
+          </div>
+
+          <div className={(styles.section, styles.greeting)}>
+            <h3 className="heading">Currently Watching</h3>
+            <p className={styles.description}>
+              <PubNubProvider client={pubnub}>
+                <CurrentlyWatching />
+              </PubNubProvider>
+            </p>
           </div>
         </aside>
 

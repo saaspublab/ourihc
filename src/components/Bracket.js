@@ -71,7 +71,6 @@ function Bracket() {
     // Open eventSource stream only if initial data has been received
     // Establish realtime RestDB connection
     eventSource = new EventSource(eventSourceUrl);
-    setEventSourceIsCurrent(true);
 
     // check if the realtime connection is dead, reload client if dead
     setInterval(() => {
@@ -90,10 +89,9 @@ function Bracket() {
       }
 
       // Last heard from server 90+ seconds ago
-      if (diff > 90) {
-        // It's been 90 seconds. Manually refresh data
-        console.log('want to re-fetch');
-        // fetchTeams();
+      if (diff > 120) {
+        // It's been 120 seconds. Manually refresh data
+        fetchTeams();
 
         // Close eventSource stream
         eventSource.close();
@@ -105,6 +103,7 @@ function Bracket() {
 
     // Catch open
     eventSource.onopen = () => {
+      setEventSourceIsCurrent(true);
       console.log(
         '%c[EventSource] %cConnection established ✓',
         'color: #0074D9',

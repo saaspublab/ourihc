@@ -8,38 +8,67 @@ function Bracket({ authenticated }) {
 
   // PubNub data
   const [connected, setConnected] = useState(false);
-  const [channels] = useState(['trivia-ihc-messages']);
+  const [channels] = useState(['triviaIHCMessages']);
+  const [isTyping, setIsTyping] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     'Welcome to the first IHC-hosted Teacher v. Teacher Trivia Tournament!',
     'And with that we are moving onto the Quarter-Finals. Congratulations to all of the teams who are still in the running!',
   ]);
 
+  function scrollToBottom() {
+    const scrollSection = document.querySelector('.chats');
+    scrollSection.scrollTop = scrollSection.scrollHeight;
+  }
+
+  const handleTyping = (value) => {
+    setMessage(value);
+
+    if (value.length > 2) {
+      PubNubClient.setState({
+        state: { isTyping: true },
+        channels,
+      });
+    } else {
+      PubNubClient.setState({
+        state: { isTyping: false },
+        channels,
+      });
+    }
+  };
+
   const handleMessage = (event) => {
-    // console.log(event);
     const msg = event.message;
     // eslint-disable-next-line no-prototype-builtins
     if (typeof msg === 'string' || msg.hasOwnProperty('text')) {
       const text = msg.text || msg;
       // eslint-disable-next-line no-shadow
       setMessages((messages) => [...messages, text]);
+      scrollToBottom();
     }
   };
 
   const sendMessage = (m) => {
     if (m) {
-      PubNubClient.publish({ channel: channels[0], message: m }).then(() =>
-        setMessage('')
-      );
+      PubNubClient.publish({ channel: channels[0], message: m }).then(() => {
+        setMessage('');
+        scrollToBottom();
+      });
     }
   };
 
   useEffect(() => {
     // Subscribe to PubNub channel
-    PubNubClient.addListener({ message: handleMessage });
-    PubNubClient.subscribe({ channels });
-
     PubNubClient.addListener({
+      message: handleMessage,
+      presence: (event) => {
+        const { action } = event;
+        const { state } = event;
+
+        if (action === 'state-change') {
+          setIsTyping(state.isTyping);
+        }
+      },
       status: (event) => {
         const { category } = event;
         if (category === 'PNNetworkDownCategory') {
@@ -52,15 +81,20 @@ function Bracket({ authenticated }) {
         }
       },
     });
+    PubNubClient.subscribe({ channels, withPresence: true });
 
     return function cleanup() {
-      PubNubClient.unsubscribeAll();
+      PubNubClient.unsubscribe(channels);
+      PubNubClient.stop();
     };
   }, [PubNubClient, channels]);
 
   return (
     <>
-      <ul className={styles.chats}>
+      {/* <button type="button" onClick={() => checkPresence()}>
+        here goes
+      </button> */}
+      <ul className={[styles.chats, 'chats'].join(' ')}>
         {messages &&
           messages.map((msg, index) => {
             return (
@@ -73,16 +107,21 @@ function Bracket({ authenticated }) {
       </ul>
 
       <div className={styles.connectionStatus}>
-        {(connected && (
+        {(isTyping && !authenticated && (
           <>
-            <span className={styles.connected} /> Chat connected!
+            <span className={styles.connected} /> The IHC is typing...
           </>
-        )) || (
-          <>
-            <span className={styles.warning}>⚠</span> Connection lost... Check
-            your Wi-Fi.
-          </>
-        )}
+        )) ||
+          (connected && (
+            <>
+              <span className={styles.connected} /> Chat connected!
+            </>
+          )) || (
+            <>
+              <span className={styles.warning}>⚠</span> Connection lost... Check
+              your Wi-Fi.
+            </>
+          )}
       </div>
 
       {authenticated && (
@@ -95,7 +134,7 @@ function Bracket({ authenticated }) {
               if (e.key !== 'Enter') return;
               sendMessage(message);
             }}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => handleTyping(e.target.value)}
           />
           <button
             type="button"
