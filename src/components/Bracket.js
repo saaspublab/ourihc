@@ -161,7 +161,7 @@ function Bracket() {
     fetchTeams();
 
     // Establish live eventSource feed
-    // startEventSource();
+    startEventSource();
   }, []);
 
   return (
