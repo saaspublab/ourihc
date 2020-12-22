@@ -130,7 +130,7 @@ function Bracket() {
         setLastPingWithRef(new Date(e.data).getTime());
 
         console.log(
-          `%c[DB Ping] %c${lastPingRef.current}`,
+          `%c[DB Ping] %cReceived at ${lastPingRef.current}`,
           'color: #0074D9',
           'color: unset'
         );

@@ -6,7 +6,7 @@ function CurrentlyWatching() {
 
   // PubNub data
   // const [connected, setConnected] = useState(false);
-  const [channels] = useState(['triviaPresence']);
+  const [channels] = useState(['trivia']);
   const [occupants, setOccupants] = useState();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function CurrentlyWatching() {
 
         // eslint-disable-next-line no-console
         console.log(
-          `%c[Presence] %c ${action}: ${channelName} | Occupancy: ${occupancy}`,
+          `%c[Presence] %c${action}: ${channelName} | Occupancy: ${occupancy}`,
           'color: #3D9970',
           'color: unset'
         );

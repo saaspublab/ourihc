@@ -8,7 +8,7 @@ function Bracket({ authenticated }) {
 
   // PubNub data
   const [connected, setConnected] = useState(false);
-  const [channels] = useState(['triviaIHCMessages']);
+  const [channels] = useState(['trivia']);
   const [isTyping, setIsTyping] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
@@ -41,6 +41,12 @@ function Bracket({ authenticated }) {
     const msg = event.message;
     // eslint-disable-next-line no-prototype-builtins
     if (typeof msg === 'string' || msg.hasOwnProperty('text')) {
+      // eslint-disable-next-line no-console
+      console.log(
+        '%c[Chat] %cMessage received',
+        'color: #B10DC9',
+        'color: unset'
+      );
       const text = msg.text || msg;
       // eslint-disable-next-line no-shadow
       setMessages((messages) => [...messages, text]);
@@ -71,13 +77,23 @@ function Bracket({ authenticated }) {
       },
       status: (event) => {
         const { category } = event;
-        if (category === 'PNNetworkDownCategory') {
-          setConnected(false);
+
+        if (category === 'PNConnectedCategory') {
+          setConnected(true);
+
+          // eslint-disable-next-line no-console
+          console.log(
+            '%c[Chat] %cConnected  ✓',
+            'color: #B10DC9',
+            'color: #2ECC40'
+          );
         } else if (
           category === 'PNNetworkUpCategory' ||
           category === 'PNConnectedCategory'
         ) {
           setConnected(true);
+        } else if (category === 'PNNetworkDownCategory') {
+          setConnected(false);
         }
       },
     });
