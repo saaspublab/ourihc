@@ -9,7 +9,6 @@
 
   div
     margin: 0 auto
-    max-width: 960px
     padding: .875rem 1.0875rem
 
   a
@@ -17,15 +16,20 @@
     color: $whitest
     font-family: $family-sans-serif
     font-size: .67em
+  
+  &.contained div
+    max-width: 960px
 
 .bodyContent
   margin: 0 auto
-  max-width: 960px
   padding: 0 1.0875rem 1.45rem
 
   h2, p
     &::selection
       background: rgba($primary, .15)
+
+.containedWidth
+  max-width: 960px
 
 .footer
   margin: 10rem auto 0 auto

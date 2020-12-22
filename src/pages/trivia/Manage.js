@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
 
-import styles from './trivia.module.sass';
+import styles from '../trivia.module.sass';
 
-import Greeting from '../components/Greeting';
-import Chat from '../components/Chat';
-import Bracket from '../components/Bracket';
+import Greeting from '../../components/Greeting';
+import Chat from '../../components/Chat';
+import Bracket from '../../components/Bracket';
 
 let publishKey;
 let subscribeKey;
@@ -26,21 +26,23 @@ const pubnub = new PubNub({
   uuid,
 });
 
-function Trivia() {
+function TriviaManage() {
   useEffect(() => {
-    document.title = 'Trivia Tournament';
+    document.title = 'Manage: Trivia Tournament';
   }, []);
 
   return (
     <div className="page--maroon">
+      <div className={styles.banner}>
+        <h2>MANAGE</h2>
+      </div>
       <div className={styles.columns}>
         <aside className={styles.sidebar}>
           <div className={(styles.section, styles.greeting)}>
             <h2 className="heading">Trivia Tournament</h2>
             <p className={styles.description}>
               <Greeting case="sentence" />! Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Obcaecati maxime qui accusantium?
+              consectetur adipisicing elit.
             </p>
           </div>
 
@@ -50,10 +52,8 @@ function Trivia() {
               Keep an eye here for information from the IHC!
             </p>
 
-            <hr />
-
             <PubNubProvider client={pubnub}>
-              <Chat />
+              <Chat authenticated />
             </PubNubProvider>
           </div>
         </aside>
@@ -64,4 +64,4 @@ function Trivia() {
   );
 }
 
-export default Trivia;
+export default TriviaManage;

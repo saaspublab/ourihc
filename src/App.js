@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Trivia from './pages/Trivia';
+import TriviaManage from './pages/trivia/Manage';
 // import Clap from './pages/Clap';
 // import Join from './pages/Join';
 import Press from './pages/Press';
@@ -27,19 +28,32 @@ export default function App() {
           <Route exact path="/points/embed">
             <PointsEmbed />
           </Route>
-          <Route path="*">
+
+          <Route path="/trivia">
             <Header className="header" />
 
             <main className="bodyContent">
+              <Switch>
+                <Route exact path="/trivia">
+                  <Trivia />
+                </Route>
+                <Route exact path="/trivia/manage">
+                  <TriviaManage />
+                </Route>
+              </Switch>
+            </main>
+          </Route>
+
+          <Route path="*">
+            <Header className="header containedWidth" />
+
+            <main className="bodyContent containedWidth">
               <Switch>
                 <Route exact path="/">
                   <Home />
                 </Route>
                 <Route exact path="/points">
                   <Points />
-                </Route>
-                <Route exact path="/trivia">
-                  <Trivia />
                 </Route>
                 {/* <Route exact path="/clap">
                   <Clap />

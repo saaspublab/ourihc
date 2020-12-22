@@ -1,0 +1,52 @@
+@import '../assets/styles/01-abstracts/abstracts.sass'
+
+.chats
+  list-style-type: none
+
+.chat
+  font-size: .9em
+  line-height: 1.4
+
+  &:not(:first-of-type)
+    padding-top: 1rem
+
+  &:not(:last-of-type)
+    padding-bottom: 1rem
+    border-bottom: 2px dashed $main
+
+.connectionStatus
+  padding: 1rem 0 0
+  background-color: rgba($white, .5)
+  border-radius: $border-radius
+  font-size: .9em
+  text-align: left
+  animation: fadeIn .75s ease-in-out
+  display: flex
+  flex-direction: row
+  align-items: center
+
+  .connected
+    margin-right: .65rem
+    display: inline-block
+    position: relative
+    height: 10px
+    width: 10px
+    background: $maroon
+    border-radius: 50%
+
+    &:after
+      content: ''
+      position: absolute
+      top: 2px
+      left: 2px
+      height: 6px
+      width: 6px
+      border-radius: 50%
+      background: $maroon
+      animation: pulse 2s infinite
+      transform-origin: center center
+
+  .warning
+    color: $warning
+    font-weight: bold
+    margin-right: .5rem

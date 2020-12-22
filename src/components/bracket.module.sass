@@ -1,0 +1,57 @@
+@import '../assets/styles/01-abstracts/abstracts.sass'
+
+@keyframes loader
+  0%
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  50%
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  100%
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+
+.connectionStatus
+  margin-bottom: 2rem
+  padding: .4rem 1.25rem
+  background-color: rgba($white, .5)
+  border-radius: $border-radius
+  font-size: .9em
+
+  .content
+    animation: fadeIn .75s ease-in-out
+    display: flex
+    flex-direction: row
+    align-items: center
+
+  .loading
+    display: inline-block
+    margin-right: .75rem
+    width: 15px
+    height: 15px
+    background-color: $maroon
+    border-radius: $border-radius / 2
+    animation: loader 1.2s infinite ease-in-out
+
+  .connected
+    margin-right: .65rem
+    display: inline-block
+    position: relative
+    height: 10px
+    width: 10px
+    background: $maroon
+    border-radius: 50%
+
+    &:after
+      content: ''
+      position: absolute
+      top: 2px
+      left: 2px
+      height: 6px
+      width: 6px
+      border-radius: 50%
+      background: $maroon
+      animation: pulse 2s infinite
+      transform-origin: center center
+
+  .warning
+    color: $warning
+    font-weight: bold
+    margin-right: .5rem
