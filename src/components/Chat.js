@@ -83,7 +83,7 @@ function Bracket({ authenticated }) {
 
           // eslint-disable-next-line no-console
           console.log(
-            '%c[Chat] %cConnected  ✓',
+            '%c[Chat] %cConnected ✓',
             'color: #B10DC9',
             'color: #2ECC40'
           );

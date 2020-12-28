@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
+const { array } = require('prop-types');
 
 const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
@@ -13,7 +14,7 @@ const fetchHeaders = {
 };
 
 /**
- * Fetch all students from database.
+ * Fetch all people (students + faculty) from database.
  *
  * @method fetchEmails
  * @param query {string}
@@ -22,7 +23,7 @@ const fetchHeaders = {
  * @return {object}
  */
 async function fetchEmails(query, method) {
-  const response = await fetch(`${process.env.API_URL}/students${query}`, {
+  const response = await fetch(`${process.env.API_URL}/people${query}`, {
     method,
     headers: fetchHeaders,
   });
@@ -33,6 +34,11 @@ async function fetchEmails(query, method) {
 exports.handler = async (event) => {
   const path = event.path.replace(/api\/[^/]+/, '');
   const segments = path.split('/').filter((e) => e);
+
+  const countOccurrences = (arr, role) =>
+    arr.reduce((a, r) => {
+      return r.role === role ? a + 1 : a;
+    }, 0);
 
   switch (event.httpMethod) {
     case 'GET':
@@ -49,7 +55,9 @@ exports.handler = async (event) => {
             body: JSON.stringify({
               success: true,
               meta: {
-                totalStudents: response.length,
+                totalStudents: countOccurrences(response, 'student'),
+                totalFaculty: countOccurrences(response, 'faculty'),
+                totalPeople: response.length,
               },
               data: response,
             }),
