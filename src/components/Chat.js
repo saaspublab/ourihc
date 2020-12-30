@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { usePubNub } from 'pubnub-react';
+import useSound from 'use-sound';
 import styles from './chat.module.sass';
 
-function Bracket({ authenticated }) {
+import pingSfx from '../assets/sounds/continue.mp3';
+
+function Chat({ authenticated }) {
   const PubNubClient = usePubNub();
 
   // PubNub data
@@ -15,6 +18,11 @@ function Bracket({ authenticated }) {
     'Welcome to the first IHC-hosted Teacher v. Teacher Trivia Tournament!',
     'And with that we are moving onto the Quarter-Finals. Congratulations to all of the teams who are still in the running!',
   ]);
+
+  // Sounds
+  const [playPing] = useSound(pingSfx, {
+    volume: 0.5,
+  });
 
   function scrollToBottom() {
     const scrollSection = document.querySelector('.chats');
@@ -41,16 +49,16 @@ function Bracket({ authenticated }) {
     const msg = event.message;
     // eslint-disable-next-line no-prototype-builtins
     if (typeof msg === 'string' || msg.hasOwnProperty('text')) {
+      const text = msg.text || msg;
+      // eslint-disable-next-line no-shadow
+      setMessages((messages) => [...messages, text]);
+      scrollToBottom();
       // eslint-disable-next-line no-console
       console.log(
         '%c[Chat] %cMessage received',
         'color: #B10DC9',
         'color: unset'
       );
-      const text = msg.text || msg;
-      // eslint-disable-next-line no-shadow
-      setMessages((messages) => [...messages, text]);
-      scrollToBottom();
     }
   };
 
@@ -105,11 +113,13 @@ function Bracket({ authenticated }) {
     };
   }, [PubNubClient, channels]);
 
+  useEffect(() => {
+    // Play sound effect when new message received
+    playPing();
+  }, [messages]);
+
   return (
     <>
-      {/* <button type="button" onClick={() => checkPresence()}>
-        here goes
-      </button> */}
       <ul className={[styles.chats, 'chats'].join(' ')}>
         {messages &&
           messages.map((msg, index) => {
@@ -168,12 +178,12 @@ function Bracket({ authenticated }) {
   );
 }
 
-export default Bracket;
+export default Chat;
 
-Bracket.propTypes = {
+Chat.propTypes = {
   authenticated: PropTypes.bool,
 };
 
-Bracket.defaultProps = {
+Chat.defaultProps = {
   authenticated: false,
 };

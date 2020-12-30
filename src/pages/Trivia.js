@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
 
+import useSound from 'use-sound';
+
 import styles from './trivia.module.sass';
 
 import Greeting from '../components/Greeting';
@@ -9,6 +11,9 @@ import EmailLookup from '../components/EmailLookup';
 import Chat from '../components/Chat';
 import CurrentlyWatching from '../components/CurrentlyWatching';
 import Bracket from '../components/Bracket';
+
+// Sounds
+import continueSfx from '../assets/sounds/continue.mp3';
 
 let publishKey;
 let subscribeKey;
@@ -29,8 +34,14 @@ const pubnub = new PubNub({
 });
 
 function Trivia() {
+  // EmailLookup
   const [user, setUser] = useState({});
   const [authenticated, setAuthenticated] = useState(false);
+
+  // Sounds
+  const [playContinue] = useSound(continueSfx, {
+    volume: 0.5,
+  });
 
   const sendDataToParent = (data) => {
     setUser(data);
@@ -39,6 +50,11 @@ function Trivia() {
   useEffect(() => {
     document.title = 'Trivia Tournament';
   }, []);
+
+  useEffect(() => {
+    // Play sound effect when user's nickname is set
+    playContinue();
+  }, [user.nickname]);
 
   return (
     <div className="page--maroon">
@@ -69,39 +85,36 @@ function Trivia() {
         </div>
       ) : (
         <div className={[styles.columns, 'fadeIn'].join(' ')}>
-          <aside className={styles.sidebar}>
-            <div className={(styles.section, styles.greeting)}>
-              <h2 className="heading">Trivia Tournament</h2>
-              <p className={styles.description}>
-                <Greeting case="sentence" />, {user.nickname}! Lorem ipsum dolor
-                sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit
-                amet consectetur adipisicing elit. Obcaecati maxime qui
-                accusantium?
-              </p>
-            </div>
+          <PubNubProvider client={pubnub}>
+            <aside className={styles.sidebar}>
+              <div className={(styles.section, styles.greeting)}>
+                <h2 className="heading">Trivia Tournament</h2>
+                <p className={styles.description}>
+                  <Greeting case="sentence" />, {user.nickname}! Lorem ipsum
+                  dolor sit amet consectetur adipisicing elit. Lorem ipsum
+                  dolor, sit amet consectetur adipisicing elit. Obcaecati maxime
+                  qui accusantium?
+                </p>
+              </div>
 
-            <div className={(styles.section, styles.greeting)}>
-              <h3 className="heading">Chat</h3>
-              <p className={styles.description}>
-                Keep an eye here for information from the IHC!
-              </p>
+              <div className={(styles.section, styles.greeting)}>
+                <h3 className="heading">Chat</h3>
+                <p className={styles.description}>
+                  Keep an eye here for information from the IHC!
+                </p>
 
-              <hr />
-
-              <PubNubProvider client={pubnub}>
+                <hr />
                 <Chat />
-              </PubNubProvider>
-            </div>
+              </div>
 
-            <div className={(styles.section, styles.greeting)}>
-              <h3 className="heading">Currently Watching</h3>
-              <p className={styles.description}>
-                <PubNubProvider client={pubnub}>
+              <div className={(styles.section, styles.greeting)}>
+                <h3 className="heading">Currently Watching</h3>
+                <p className={styles.description}>
                   <CurrentlyWatching />
-                </PubNubProvider>
-              </p>
-            </div>
-          </aside>
+                </p>
+              </div>
+            </aside>
+          </PubNubProvider>
 
           <Bracket />
         </div>

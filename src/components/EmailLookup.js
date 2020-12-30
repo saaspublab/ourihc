@@ -2,8 +2,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
+import useSound from 'use-sound';
 import useStickyState from '../hooks/UseStickyState';
 import Greeting from './Greeting';
+
+import continueSfx from '../assets/sounds/continue.mp3';
 
 export const useInput = (initialValue) => {
   const [value, setValue] = useStickyState(initialValue, 'email');
@@ -27,6 +30,11 @@ function EmailLookup({ sendDataToParent }) {
   const [nickname, setNickname] = useState('');
   const [house, setHouse] = useState('');
   const [triviaAdmin, setTriviaAdmin] = useState(false);
+
+  // Sounds
+  const [playContinue] = useSound(continueSfx, {
+    volume: 0.25,
+  });
 
   async function fetchEmails() {
     await fetch('/api/emails/')
@@ -58,6 +66,9 @@ function EmailLookup({ sendDataToParent }) {
         people.find((obj) => obj.email === email).triviaAdmin || false
       );
       sendDataToParent({ email, nickname, house, triviaAdmin });
+
+      // Play sound effect once data is validated
+      playContinue();
     }
 
     return function cleanup() {
@@ -73,13 +84,13 @@ function EmailLookup({ sendDataToParent }) {
             <h3 className="heading">Loading... Please wait...</h3>
             <p>
               If this message remains for more than 10 seconds, please message
-              us on <Link to="/discord">Discord</Link> or by{' '}
+              us on <Link to="/discord">Discord</Link> or by email &rarr;{' '}
               <a
                 href="mailto:ihc@saintanselms.org"
                 target="_blank"
                 rel="noopener noreferrer nofoollow"
               >
-                email &rarr; ihc@saintanselms.org
+                ihc@saintanselms.org
               </a>
               .
             </p>
@@ -113,13 +124,13 @@ function EmailLookup({ sendDataToParent }) {
                   address.
                 </b>{' '}
                 Duoble-check your spelling, and if the error persists, message
-                us on <Link to="/discord">Discord</Link> or by{' '}
+                us on <Link to="/discord">Discord</Link> or by email &rarr;{' '}
                 <a
                   href="mailto:ihc@saintanselms.org"
                   target="_blank"
                   rel="noopener noreferrer nofoollow"
                 >
-                  email &rarr; ihc@saintanselms.org
+                  ihc@saintanselms.org
                 </a>
                 .
               </p>

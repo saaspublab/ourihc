@@ -1,8 +1,12 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useRef, Fragment } from 'react';
+import useSound from 'use-sound';
+
 import styles from './bracket.module.sass';
+
+// Sounds
+import updateSfx from '../assets/sounds/update.mp3';
 
 const eventSourceUrl = `${process.env.REACT_APP_REALTIME_URL}/realtime?apikey=${process.env.REACT_APP_X_API_KEY}`;
 
@@ -37,6 +41,11 @@ function Bracket() {
     lastPingRef.current = data;
     setLastPing(data);
   };
+
+  // Sounds
+  const [playUpdate] = useSound(updateSfx, {
+    volume: 0.5,
+  });
 
   async function fetchTeams() {
     setFetchingTeams(true);
@@ -162,6 +171,11 @@ function Bracket() {
     // Establish live eventSource feed
     startEventSource();
   }, []);
+
+  useEffect(() => {
+    // Play sound effect when teams are updated
+    playUpdate();
+  }, [teams]);
 
   return (
     <div>
