@@ -1,6 +1,5 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
-const { array } = require('prop-types');
 
 const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
@@ -11,6 +10,7 @@ const fetchHeaders = {
   'cache-control': 'no-cache',
   'content-type': 'application/json',
   'x-apikey': process.env.X_API_KEY,
+  'Cache-Control': 'max-age=300,immutable',
 };
 
 /**
@@ -27,6 +27,9 @@ async function fetchEmails(query, method) {
     method,
     headers: fetchHeaders,
   });
+
+  // eslint-disable-next-line no-console
+  console.log('[/api/emails] Fetched from remote.');
 
   return response;
 }
