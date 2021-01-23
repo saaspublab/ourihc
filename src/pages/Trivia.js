@@ -11,7 +11,7 @@ import EmailLookup from '../components/EmailLookup';
 import Buzzer from '../components/Buzzer';
 import Chat from '../components/Chat';
 import CurrentlyWatching from '../components/CurrentlyWatching';
-// import Bracket from '../components/Bracket';
+import Bracket from '../components/Bracket';
 
 // Sounds
 import continueSfx from '../assets/sounds/continue.mp3';
@@ -128,7 +128,7 @@ function Trivia() {
             </aside>
           </PubNubProvider>
 
-          {/* <Bracket /> */}
+          <Bracket />
         </div>
       )}
     </div>
