@@ -46,19 +46,21 @@ function Chat({ authenticated }) {
   };
 
   const handleMessage = (event) => {
-    const msg = event.message;
-    // eslint-disable-next-line no-prototype-builtins
-    if (typeof msg === 'string' || msg.hasOwnProperty('text')) {
-      const text = msg.text || msg;
-      // eslint-disable-next-line no-shadow
-      setMessages((messages) => [...messages, text]);
-      scrollToBottom();
-      // eslint-disable-next-line no-console
-      console.log(
-        '%c[Chat] %cMessage received',
-        'color: #B10DC9',
-        'color: unset'
-      );
+    if (event.channel === channels[0]) {
+      const msg = event.message;
+      // eslint-disable-next-line no-prototype-builtins
+      if (typeof msg === 'string' || msg.hasOwnProperty('text')) {
+        const text = msg.text || msg;
+        // eslint-disable-next-line no-shadow
+        setMessages((messages) => [...messages, text]);
+        scrollToBottom();
+        // eslint-disable-next-line no-console
+        console.log(
+          '%c[Chat] %cMessage received',
+          'color: #B10DC9',
+          'color: unset'
+        );
+      }
     }
   };
 
@@ -157,18 +159,19 @@ function Chat({ authenticated }) {
             placeholder="Type your message"
             value={message}
             onKeyPress={(e) => {
-              if (e.key !== 'Enter') return;
+              if (e.key !== 'Enter' || !connected) return;
               sendMessage(message);
             }}
             onChange={(e) => handleTyping(e.target.value)}
           />
           <button
             type="button"
-            className="button primary round has-icon"
+            className="button primary full round has-icon"
             onClick={(e) => {
               e.preventDefault();
               sendMessage(message);
             }}
+            disabled={!connected}
           >
             Send <span>&rarr;</span>
           </button>

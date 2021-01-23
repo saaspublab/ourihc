@@ -8,9 +8,10 @@ import styles from './trivia.module.sass';
 
 import Greeting from '../components/Greeting';
 import EmailLookup from '../components/EmailLookup';
+import Buzzer from '../components/Buzzer';
 import Chat from '../components/Chat';
 import CurrentlyWatching from '../components/CurrentlyWatching';
-import Bracket from '../components/Bracket';
+// import Bracket from '../components/Bracket';
 
 // Sounds
 import continueSfx from '../assets/sounds/continue.mp3';
@@ -97,6 +98,19 @@ function Trivia() {
                 </p>
               </div>
 
+              {user.triviaParticipant && (
+                <div className={(styles.section, styles.greeting)}>
+                  <h3 className="heading">Buzzer</h3>
+                  <p className={styles.description}>
+                    Press the button below if you think you know the answer!
+                  </p>
+
+                  <hr />
+
+                  <Buzzer participant={user.nickname} />
+                </div>
+              )}
+
               <div className={(styles.section, styles.greeting)}>
                 <h3 className="heading">Chat</h3>
                 <p className={styles.description}>
@@ -109,14 +123,12 @@ function Trivia() {
 
               <div className={(styles.section, styles.greeting)}>
                 <h3 className="heading">Currently Watching</h3>
-                <p className={styles.description}>
-                  <CurrentlyWatching />
-                </p>
+                <CurrentlyWatching descriptionStyles={styles.description} />
               </div>
             </aside>
           </PubNubProvider>
 
-          <Bracket />
+          {/* <Bracket /> */}
         </div>
       )}
     </div>

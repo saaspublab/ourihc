@@ -30,6 +30,7 @@ function EmailLookup({ sendDataToParent }) {
   const [nickname, setNickname] = useState('');
   const [house, setHouse] = useState('');
   const [triviaAdmin, setTriviaAdmin] = useState(false);
+  const [triviaParticipant, setTriviaParticipant] = useState(false);
 
   // Sounds
   const [playContinue] = useSound(continueSfx, {
@@ -65,7 +66,16 @@ function EmailLookup({ sendDataToParent }) {
       setTriviaAdmin(
         people.find((obj) => obj.email === email).triviaAdmin || false
       );
-      sendDataToParent({ email, nickname, house, triviaAdmin });
+      setTriviaParticipant(
+        people.find((obj) => obj.email === email).triviaParticipant || false
+      );
+      sendDataToParent({
+        email,
+        nickname,
+        house,
+        triviaAdmin,
+        triviaParticipant,
+      });
 
       // Play sound effect once data is validated
       playContinue();
@@ -74,7 +84,7 @@ function EmailLookup({ sendDataToParent }) {
     return function cleanup() {
       isMounted = false;
     };
-  }, [people, email, nickname, house, triviaAdmin]);
+  }, [people, email, nickname, house, triviaAdmin, triviaParticipant]);
 
   return (
     <>

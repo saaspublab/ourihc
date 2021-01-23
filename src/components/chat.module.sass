@@ -1,5 +1,14 @@
 @import '../assets/styles/01-abstracts/abstracts.sass'
 
+.clock
+  display: inline-block
+  // background-color: rgba($maroon, .15)
+  border: $border-width solid rgba($maroon, .25)
+  border-radius: $border-radius
+  padding: .25rem .5rem
+  min-width: 100px
+  text-align: center
+
 .chats
   margin-top: 1rem
   list-style-type: none
@@ -7,8 +16,10 @@
   overflow-y: auto
 
 .chat
+  display: block
   font-size: .9em
   line-height: 1.4
+  animation: highlightIn 2.5s ease-in-out
 
   &:not(:first-of-type)
     padding-top: 1rem
