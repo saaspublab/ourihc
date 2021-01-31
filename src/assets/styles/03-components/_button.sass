@@ -6,7 +6,7 @@
     &:hover
         border-color: darken($bg, 7.5%)
         background: darken($bg, 7.5%)
-        
+
     &.shadow
         box-shadow: 0px 8px 15px rgba($bg, .25)
 
@@ -44,7 +44,6 @@
 
 button, .button
     display: inline-block
-    padding: 0 5px
     font-family: $family-sans-serif
     font-size: 15px
     font-weight: 600
@@ -59,16 +58,16 @@ button, .button
         padding: 5px 15px
         background-color: transparent
         border-radius: 0
-        letter-spacing: .1rem
+        letter-spacing: .025em
         text-align: center
-    
+
     &.round
         border-radius: $border-radius
         font-size: 14px
-        
+
         &.large
             border-radius: $border-radius * 2
-    
+
     &.xtra-small
         font-size: 12px
 
@@ -80,7 +79,7 @@ button, .button
         font-size: 12px
 
         &:not(.link)
-            padding: 5px 11.75px
+            padding: .125em 1em
 
     &.large
         font-size: 18px
@@ -95,20 +94,21 @@ button, .button
     &.has-icon
         svg, span
             display: inline-block
-            transition: transform .5s ease
+            transition: transform .3s ease-out
+            margin-left: .25em
 
         &:hover
             svg, span
-                transform: translateX(7.5px)
+                transform: translateX(.3em)
 
         &.small
             &:hover
                 svg, span
-                    transform: translateX(3.5px)
+                    transform: translateX(.25em)
 
         &.large
             svg, span
-                margin-left: 7.5px
+                margin-left: .3em
 
         &_left
             svg, span
@@ -118,16 +118,16 @@ button, .button
 
             &:hover
                 svg, span
-                    transform: translateX(-7.5px)
+                    transform: translateX(-.3em)
 
             &.small
                 &:hover
                     svg, span
-                        transform: translateX(-3.5px)
+                        transform: translateX(-.25em)
 
             &.large
                 svg, span
-                    margin-right: 7.5px
+                    margin-right: .3em
                     margin-left: 0
 
     &:disabled, &.disabled
@@ -165,6 +165,18 @@ button, .button
 
                 &:not(.hollow)
                     +button($white, $primary)
+
+    &.gold
+        +button-clear($gold)
+
+        &:not(.clear)
+            +button-link($gold)
+
+            &:not(.link)
+                +button-hollow($gold, $black)
+
+                &:not(.hollow)
+                    +button($gold, $black)
 
     &.success
         +button-clear($success)

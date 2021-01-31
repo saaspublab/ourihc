@@ -37,6 +37,7 @@ function Trivia() {
 
   const sendDataToParent = (data) => {
     setUser(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -55,7 +56,7 @@ function Trivia() {
 
           <SmallScreenWarning />
 
-          <EmailLookup sendDataToParent={sendDataToParent} />
+          <EmailLookup guestEnabled sendDataToParent={sendDataToParent} />
 
           {user &&
             user.email &&
