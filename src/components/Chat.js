@@ -15,8 +15,7 @@ function Chat({ authenticated }) {
   const [isTyping, setIsTyping] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
-    'Welcome to the first IHC-hosted Teacher v. Teacher Trivia Tournament!',
-    'And with that we are moving onto the Quarter-Finals. Congratulations to all of the teams who are still in the running!',
+    'Welcome to the Teacher Trivia Tournament, hosted by the IHC!',
   ]);
 
   // Sounds
@@ -134,6 +133,33 @@ function Chat({ authenticated }) {
           })}
       </ul>
 
+      {authenticated && (
+        <>
+          <textarea
+            type="text"
+            className={styles.chatInput}
+            placeholder="Type your message"
+            value={message}
+            onChange={(e) => handleTyping(e.target.value)}
+            rows={3}
+          />
+          <button
+            type="button"
+            className={[
+              'button primary full round has-icon',
+              styles.sendChat,
+            ].join(' ')}
+            onClick={(e) => {
+              e.preventDefault();
+              sendMessage(message);
+            }}
+            disabled={!connected}
+          >
+            Send <span>&rarr;</span>
+          </button>
+        </>
+      )}
+
       <div className={styles.connectionStatus}>
         {(isTyping && !authenticated && (
           <>
@@ -151,32 +177,6 @@ function Chat({ authenticated }) {
             </>
           )}
       </div>
-
-      {authenticated && (
-        <>
-          <input
-            type="text"
-            placeholder="Type your message"
-            value={message}
-            onKeyPress={(e) => {
-              if (e.key !== 'Enter' || !connected) return;
-              sendMessage(message);
-            }}
-            onChange={(e) => handleTyping(e.target.value)}
-          />
-          <button
-            type="button"
-            className="button primary full round has-icon"
-            onClick={(e) => {
-              e.preventDefault();
-              sendMessage(message);
-            }}
-            disabled={!connected}
-          >
-            Send <span>&rarr;</span>
-          </button>
-        </>
-      )}
     </>
   );
 }

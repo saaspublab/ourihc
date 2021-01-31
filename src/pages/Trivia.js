@@ -37,7 +37,6 @@ function Trivia() {
 
   const sendDataToParent = (data) => {
     setUser(data);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -82,14 +81,13 @@ function Trivia() {
               <div className={(styles.section, styles.greeting)}>
                 <h2 className="heading">Trivia Tournament</h2>
                 <p className={styles.description}>
-                  <Greeting case="sentence" />, {user.nickname}! Lorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Lorem ipsum
-                  dolor, sit amet consectetur adipisicing elit. Obcaecati maxime
-                  qui accusantium?
+                  <Greeting case="sentence" />, {user.nickname}! Follow along
+                  with our live-updating bracket, chat messages from the IHC,
+                  and more!
                 </p>
               </div>
 
-              {user.triviaParticipant && (
+              {user.triviaParticipant ? (
                 <div className={(styles.section, styles.greeting)}>
                   <h3 className="heading">Buzzer</h3>
                   <p className={styles.description}>
@@ -100,6 +98,17 @@ function Trivia() {
 
                   <Buzzer participant={user.nickname} />
                 </div>
+              ) : (
+                <div className={(styles.section, styles.greeting)}>
+                  <h3 className="heading">Buzzer</h3>
+                  <p className={styles.description}>
+                    Follow along as participants press their buzzer!
+                  </p>
+
+                  <hr />
+
+                  <Buzzer />
+                </div>
               )}
 
               <div className={(styles.section, styles.greeting)}>
@@ -109,6 +118,7 @@ function Trivia() {
                 </p>
 
                 <hr />
+
                 <Chat />
               </div>
 

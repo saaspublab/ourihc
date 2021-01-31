@@ -152,20 +152,7 @@ function Chat({ participant }) {
             })}
       </ul>
 
-      <div className={styles.connectionStatus}>
-        {connected ? (
-          <>
-            <span className={styles.connected} /> Buzzer connected!
-          </>
-        ) : (
-          <>
-            <span className={styles.warning}>⚠</span> Connection lost... Check
-            your Wi-Fi.
-          </>
-        )}
-      </div>
-
-      <>
+      {participant && (
         <button
           type="button"
           className="button primary full round has-icon"
@@ -178,7 +165,20 @@ function Chat({ participant }) {
         >
           BUZZ! <span>&rarr;</span>
         </button>
-      </>
+      )}
+
+      <div className={styles.connectionStatus}>
+        {connected ? (
+          <>
+            <span className={styles.connected} /> Buzzer connected!
+          </>
+        ) : (
+          <>
+            <span className={styles.warning}>⚠</span> Connection lost... Check
+            your Wi-Fi.
+          </>
+        )}
+      </div>
     </>
   );
 }

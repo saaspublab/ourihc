@@ -28,17 +28,16 @@ input:not([type="radio"])
 
     &.input--has-errors
         border-radius: 0
-    
+
     &[type=checkbox]
         appearance: checkmark
-    
+
     &[disabled]
         cursor: not-allowed
 
 textarea
     @extend input
-    height: 125px
-    resize: none
+    resize: vertical
 
 select, .select
     @extend input
@@ -48,7 +47,7 @@ select, .select
 
         option:checked
             padding-left: .75rem
-            
+
             &:before
                 content: '\2713 '
 
@@ -62,10 +61,10 @@ select, .select
 
         & > div:nth-of-type(2)
             cursor: pointer
-            
+
             & > span
                 background-color: $primary
-            
+
             & > div
                 color: $primary
 
@@ -90,10 +89,10 @@ button[type=submit]
 
 fieldset
   // max-width: 500px
-  padding: .5rem 1.0875rem 1.45rem
+    padding: .5rem 1.0875rem 1.45rem
 
 legend
-  padding: 0 1rem
+    padding: 0 1rem
 
 // Radio custom styles
 

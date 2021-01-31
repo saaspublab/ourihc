@@ -5,8 +5,10 @@ import { PubNubProvider } from 'pubnub-react';
 
 import styles from '../trivia.module.sass';
 
+import SmallScreenWarning from '../../components/SmallScreenWarning';
 import Greeting from '../../components/Greeting';
 import EmailLookup from '../../components/EmailLookup';
+import Buzzer from '../../components/Buzzer';
 import Chat from '../../components/Chat';
 import CurrentlyWatching from '../../components/CurrentlyWatching';
 import Bracket from '../../components/Bracket';
@@ -30,6 +32,7 @@ const pubnub = new PubNub({
 });
 
 function TriviaManage() {
+  // EmailLookup
   const [user, setUser] = useState({});
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -55,9 +58,12 @@ function TriviaManage() {
             need to confirm who you are.
           </p>
 
+          <SmallScreenWarning />
+
           <EmailLookup sendDataToParent={sendDataToParent} />
 
-          {user && user.triviaAdmin === false && (
+          {((user && user.triviaAdmin === false) ||
+            user.email === 'guest@saintanselms.org') && (
             <>
               <p>
                 Unfortunately you do not have permission to access this page.
@@ -86,35 +92,45 @@ function TriviaManage() {
         </div>
       ) : (
         <div className={styles.columns}>
-          <aside className={styles.sidebar}>
-            <div className={(styles.section, styles.greeting)}>
-              <h2 className="heading">Trivia Tournament</h2>
-              <p className={styles.description}>
-                <Greeting case="sentence" />, {user.nickname}! Lorem ipsum dolor
-                sit amet consectetur adipisicing elit.
-              </p>
-            </div>
+          <PubNubProvider client={pubnub}>
+            <aside className={styles.sidebar}>
+              <SmallScreenWarning />
 
-            <div className={(styles.section, styles.greeting)}>
-              <h3 className="heading">Chat</h3>
-              <p className={styles.description}>
-                Keep an eye here for information from the IHC!
-              </p>
+              <div className={(styles.section, styles.greeting)}>
+                <h2 className="heading">Trivia Tournament</h2>
+                <p className={styles.description}>
+                  <Greeting case="sentence" />, {user.nickname}! You've reached
+                  the admin portal.
+                </p>
+              </div>
 
-              <PubNubProvider client={pubnub}>
+              <div className={(styles.section, styles.greeting)}>
+                <h3 className="heading">Buzzer</h3>
+
+                <hr />
+
+                <Buzzer />
+              </div>
+
+              <div className={(styles.section, styles.greeting)}>
+                <h3 className="heading">Chat</h3>
+                <p className={styles.description}>
+                  Keep an eye here for information from the IHC!
+                </p>
+
+                <hr />
+
                 <Chat authenticated />
-              </PubNubProvider>
-            </div>
+              </div>
 
-            <div className={(styles.section, styles.greeting)}>
-              <h3 className="heading">Currently Watching</h3>
-              <p className={styles.description}>
-                <PubNubProvider client={pubnub}>
-                  <CurrentlyWatching />
-                </PubNubProvider>
-              </p>
-            </div>
-          </aside>
+              <div className={(styles.section, styles.greeting)}>
+                <h3 className="heading">Currently Watching</h3>
+                <p className={styles.description}>
+                  <CurrentlyWatching descriptionStyles={styles.description} />
+                </p>
+              </div>
+            </aside>
+          </PubNubProvider>
 
           <Bracket />
         </div>
