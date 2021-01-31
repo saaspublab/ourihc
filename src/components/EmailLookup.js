@@ -26,6 +26,7 @@ export const useInput = (initialValue) => {
 // eslint-disable-next-line react/prop-types
 function EmailLookup({ sendDataToParent }) {
   const { value: email, bind: bindEmail } = useInput('@saintanselms.org');
+  const [touched, setTouched] = useState(false);
   const [people, setPeople] = useState({});
   const [nickname, setNickname] = useState('');
   const [house, setHouse] = useState('');
@@ -78,7 +79,9 @@ function EmailLookup({ sendDataToParent }) {
       });
 
       // Play sound effect once data is validated
-      playContinue();
+      if (touched) {
+        playContinue();
+      }
     }
 
     return function cleanup() {
@@ -118,6 +121,7 @@ function EmailLookup({ sendDataToParent }) {
                   name="email"
                   placeholder="lserif@saintanselms.org"
                   required
+                  onClick={() => setTouched(true)}
                   {...bindEmail}
                 />
               </label>

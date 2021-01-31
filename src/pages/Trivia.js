@@ -2,19 +2,15 @@ import { useState, useEffect } from 'react';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
 
-import useSound from 'use-sound';
-
 import styles from './trivia.module.sass';
 
+import SmallScreenWarning from '../components/SmallScreenWarning';
 import Greeting from '../components/Greeting';
 import EmailLookup from '../components/EmailLookup';
 import Buzzer from '../components/Buzzer';
 import Chat from '../components/Chat';
 import CurrentlyWatching from '../components/CurrentlyWatching';
 import Bracket from '../components/Bracket';
-
-// Sounds
-import continueSfx from '../assets/sounds/continue.mp3';
 
 let publishKey;
 let subscribeKey;
@@ -39,11 +35,6 @@ function Trivia() {
   const [user, setUser] = useState({});
   const [authenticated, setAuthenticated] = useState(false);
 
-  // Sounds
-  const [playContinue] = useSound(continueSfx, {
-    volume: 0.5,
-  });
-
   const sendDataToParent = (data) => {
     setUser(data);
   };
@@ -51,11 +42,6 @@ function Trivia() {
   useEffect(() => {
     document.title = 'Trivia Tournament';
   }, []);
-
-  useEffect(() => {
-    // Play sound effect when user's nickname is set
-    playContinue();
-  }, [user.nickname]);
 
   return (
     <div className="page--maroon">
@@ -66,6 +52,8 @@ function Trivia() {
             Before you can participate in this interactive trivia tournament, we
             need to confirm who you are.
           </p>
+
+          <SmallScreenWarning />
 
           <EmailLookup sendDataToParent={sendDataToParent} />
 
@@ -88,6 +76,8 @@ function Trivia() {
         <div className={[styles.columns, 'fadeIn'].join(' ')}>
           <PubNubProvider client={pubnub}>
             <aside className={styles.sidebar}>
+              <SmallScreenWarning />
+
               <div className={(styles.section, styles.greeting)}>
                 <h2 className="heading">Trivia Tournament</h2>
                 <p className={styles.description}>
