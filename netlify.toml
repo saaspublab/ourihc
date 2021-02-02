@@ -8,8 +8,8 @@
   status = 200
 
 [[redirects]]
-  from = "/sicknick"
-  to = "https://www.gofundme.com/f/95xqrr-officer-brian-d-sicknick-memorial"
+  from = "/dunk"
+  to = "https://forms.gle/y1odfrKx5YHPRJcX7"
   status = 302
 
 [[redirects]]
