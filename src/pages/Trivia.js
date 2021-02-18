@@ -30,6 +30,10 @@ const pubnub = new PubNub({
   uuid,
 });
 
+const zoomLink =
+  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+const youtubeLink = '';
+
 function Trivia() {
   // EmailLookup
   const [user, setUser] = useState({});
@@ -78,17 +82,49 @@ function Trivia() {
             <aside className={styles.sidebar}>
               <SmallScreenWarning />
 
-              <div className={(styles.section, styles.greeting)}>
+              <div
+                className={[styles.section, styles.greeting, styles.links].join(
+                  ' '
+                )}
+              >
                 <h2 className="heading">Trivia Tournament</h2>
                 <p className={styles.description}>
                   <Greeting case="sentence" />, {user.nickname}! Follow along
                   with our live-updating bracket, chat messages from the IHC,
                   and more!
                 </p>
+
+                <div className={styles.actions}>
+                  {(user.nickname !== 'Guest' || user.triviaParticipant) &&
+                    zoomLink && (
+                      <a
+                        href={zoomLink}
+                        target="__blank"
+                        rel="noopener noreferrer"
+                        className="button primary full round has-icon"
+                      >
+                        Zoom <span>&rarr;</span>
+                      </a>
+                    )}
+
+                  {youtubeLink && (
+                    <a
+                      href={zoomLink}
+                      target="__blank"
+                      rel="noopener noreferrer"
+                      className={[
+                        'button primary full round has-icon',
+                        user.nickname !== 'Guest' ? 'hollow' : '',
+                      ].join(' ')}
+                    >
+                      YouTube <span>&rarr;</span>
+                    </a>
+                  )}
+                </div>
               </div>
 
               {user.triviaParticipant ? (
-                <div className={(styles.section, styles.greeting)}>
+                <div className={[styles.section, styles.greeting].join(' ')}>
                   <h3 className="heading">Buzzer</h3>
                   <p className={styles.description}>
                     Press the button below if you think you know the answer!
@@ -99,7 +135,7 @@ function Trivia() {
                   <Buzzer participant={user.nickname} />
                 </div>
               ) : (
-                <div className={(styles.section, styles.greeting)}>
+                <div className={[styles.section, styles.greeting].join(' ')}>
                   <h3 className="heading">Buzzer</h3>
                   <p className={styles.description}>
                     Follow along as participants press their buzzer!
@@ -111,7 +147,7 @@ function Trivia() {
                 </div>
               )}
 
-              <div className={(styles.section, styles.greeting)}>
+              <div className={[styles.section, styles.greeting].join(' ')}>
                 <h3 className="heading">Chat</h3>
                 <p className={styles.description}>
                   Keep an eye here for information from the IHC!
@@ -122,8 +158,8 @@ function Trivia() {
                 <Chat />
               </div>
 
-              <div className={(styles.section, styles.greeting)}>
-                <h3 className="heading">Currently Watching</h3>
+              <div className={[styles.section, styles.greeting].join(' ')}>
+                <h3 className="heading">Currently Following</h3>
                 <CurrentlyWatching descriptionStyles={styles.description} />
               </div>
             </aside>

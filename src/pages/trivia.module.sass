@@ -51,6 +51,15 @@
     &:not(:last-of-type)
       margin-bottom: 1.75rem
 
+  .actions
+    +tablet
+      grid-template-columns: repeat(2, 1fr)
+
+    display: grid
+    grid-template-columns: 100%
+    grid-gap: .5rem
+    margin-top: 1.15rem
+
   .description
     margin-top: .25rem
     font-size: .9em
