@@ -8,6 +8,7 @@ import PointsEmbed from './components/Points';
 import Points from './pages/Points';
 import Trivia from './pages/Trivia';
 import TriviaManage from './pages/trivia/Manage';
+import TriviaBracket from './pages/trivia/Bracket';
 // import Clap from './pages/Clap';
 // import Join from './pages/Join';
 import Press from './pages/Press';
@@ -39,6 +40,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/trivia/manage">
                   <TriviaManage />
+                </Route>
+                <Route exact path="/trivia/bracket">
+                  <TriviaBracket />
                 </Route>
               </Switch>
             </main>
