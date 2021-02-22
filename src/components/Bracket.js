@@ -14,7 +14,7 @@ import updateSfx from '../assets/sounds/update.mp3';
 const eventSourceUrl = `${process.env.REACT_APP_REALTIME_URL}/realtime?apikey=${process.env.REACT_APP_X_API_KEY}`;
 
 const roundNames = [
-  'Rounds of 8',
+  'Round of 8',
   'Quarter-Finals',
   'Semi-Finals',
   'Championship',
