@@ -5,12 +5,12 @@ const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Cache-Control': 'max-age=300,immutable',
 };
 const fetchHeaders = {
   'cache-control': 'no-cache',
   'content-type': 'application/json',
   'x-apikey': process.env.X_API_KEY,
-  'Cache-Control': 'max-age=300,immutable',
 };
 
 /**
