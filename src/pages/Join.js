@@ -8,8 +8,8 @@
 //   'https://saintanselms.zoom.us/j/95266370870?pwd=Tm9MdDhZUW1jRWZrMU9haDBWTlpSdz09',
 // ];
 
-// const link =
-//   'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
+const link =
+  'https://saintanselms.zoom.us/j/91060697276?pwd=NFJVNXdzS3NoeEwzSWJQSTVJQnJxdz09';
 
 // export const useInput = (initialValue) => {
 //   const [value, setValue] = useStickyState(initialValue, 'email');
@@ -91,28 +91,21 @@ function Join() {
 
   return (
     <div className="page--maroon">
-      <h4>There are no events currently using this system.</h4>
-      <p>Please check back later.</p>
-      {/* <h4>Friday, December 11, 2020</h4>
-      <h1>Abbey's Got Talent!</h1>
+      {/* <h4>There are no events currently using this system.</h4>
+      <p>Please check back later.</p> */}
+      <h2 className="heading">Welcome to Spirit Week!</h2>
       <p>
-        <b>
-          At 2:45 PM Friday, you're invited to join the IHC and performers who
-          are streaming live from campus.
-        </b>{' '}
-        The top two contestants will receive a prize. Each participant can sway
-        the judges (and earn House Points in the process!).
+        Each day this week, the IHC is hosting school-wide events during 10th
+        Period (from 3:00-3:30 PM). Use the link below to join each day's
+        festivities.
       </p>
+      <p>We can't wait to see you!</p>
 
-      <section className="content--block bordered">
-        <p>To access the event, click the link below.</p>
-
-        <p>
-          <a href={link} target="_blank" rel="noopener noreferrer nofollow">
-            {link}
-          </a>
-        </p>
-      </section> */}
+      <p>
+        <a href={link} target="_blank" rel="noopener noreferrer nofollow">
+          {link}
+        </a>
+      </p>
 
       {/* {!students ||
         (!students.length && (

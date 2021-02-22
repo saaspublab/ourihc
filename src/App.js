@@ -10,7 +10,7 @@ import Trivia from './pages/Trivia';
 import TriviaManage from './pages/trivia/Manage';
 import TriviaBracket from './pages/trivia/Bracket';
 // import Clap from './pages/Clap';
-// import Join from './pages/Join';
+import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
 import Fall2020Press from './pages/press/Fall2020Press';
@@ -62,9 +62,9 @@ export default function App() {
                 {/* <Route exact path="/clap">
                   <Clap />
                 </Route> */}
-                {/* <Route exact path="/join">
+                <Route exact path="/join">
                   <Join />
-                </Route> */}
+                </Route>
                 <Route exact path="/press">
                   <Press />
                 </Route>
