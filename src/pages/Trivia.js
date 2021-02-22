@@ -165,7 +165,7 @@ function Trivia() {
             </aside>
           </PubNubProvider>
 
-          <Bracket />
+          <Bracket emailAddress={user && user.email ? user.email : ''} />
         </div>
       )}
     </div>

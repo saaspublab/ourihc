@@ -50,7 +50,7 @@ export const useInput = (initialValue) => {
   };
 };
 
-function Bracket({ fullPage }) {
+function Bracket({ emailAddress, fullPage }) {
   let eventSource;
 
   // Handle user-visible status messages
@@ -243,7 +243,13 @@ function Bracket({ fullPage }) {
     bind: bindFeedback,
     reset: resetFeedback,
   } = useInput('');
-  const { value: email, bind: bindEmail, reset: resetEmail } = useInput('');
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput(
+    emailAddress &&
+      emailAddress.length > 5 &&
+      emailAddress !== 'guest@saintanselms.org'
+      ? emailAddress
+      : ''
+  );
 
   const handleSubmit = (evt) => {
     const form = evt.target;
@@ -427,6 +433,13 @@ function Bracket({ fullPage }) {
                             name="email"
                             id="email"
                             placeholder="example@saintanselms.org"
+                            disabled={
+                              emailAddress &&
+                              emailAddress.length > 5 &&
+                              emailAddress !== 'guest@saintanselms.org'
+                                ? emailAddress
+                                : ''
+                            }
                             required
                             {...bindEmail}
                           />
@@ -628,9 +641,11 @@ function Bracket({ fullPage }) {
 export default Bracket;
 
 Bracket.propTypes = {
+  emailAddress: PropTypes.string,
   fullPage: PropTypes.bool,
 };
 
 Bracket.defaultProps = {
+  emailAddress: '',
   fullPage: false,
 };
