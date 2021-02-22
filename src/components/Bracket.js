@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useRef, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import useSound from 'use-sound';
 import useStickyState from '../hooks/UseStickyState';
 
@@ -49,7 +50,7 @@ export const useInput = (initialValue) => {
   };
 };
 
-function Bracket() {
+function Bracket({ fullPage }) {
   let eventSource;
 
   // Handle user-visible status messages
@@ -340,7 +341,8 @@ function Bracket() {
       </div>
 
       <section className="tournament-container">
-        {teams &&
+        {!fullPage &&
+          teams &&
           teams.filter((team) => {
             return team.winner === true;
           }).length > 0 &&
@@ -624,3 +626,11 @@ function Bracket() {
 }
 
 export default Bracket;
+
+Bracket.propTypes = {
+  fullPage: PropTypes.bool,
+};
+
+Bracket.defaultProps = {
+  fullPage: false,
+};
