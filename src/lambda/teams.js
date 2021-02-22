@@ -5,7 +5,7 @@ const responseHeaders = {
   'Access-Control-Allow-Origin': process.env.CORS_URL,
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Cache-Control': 'max-age=120,immutable',
+  'Cache-Control': 'no-cache',
 };
 const fetchHeaders = {
   'cache-control': 'no-cache',

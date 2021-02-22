@@ -1,6 +1,31 @@
 // Thanks to Shaun Dowling
 // https://codepen.io/efy/pen/RRRyJW
 
+.tournament-container
+  position: relative
+
+.bracket-overlay
+  animation: fadeIn .2s ease-in
+  border-radius: $border-radius
+  position: absolute
+  height: 100%
+  width: 100%
+  display: flex
+  align-items: center
+  justify-items: center
+  text-align: center
+
+  .overlay-content
+    padding: 2rem
+    text-align: center
+    margin: 0 auto
+    min-width: 650px
+    z-index: 9999
+
+  ~ .tournament-headers, ~ .tournament-brackets
+    filter: blur(10px)
+    transition: transform .2s ease-in
+
 .tournament-headers
   flex-grow: 1
   display: flex

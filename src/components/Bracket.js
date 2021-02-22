@@ -2,12 +2,14 @@
 /* eslint-disable no-underscore-dangle */
 import { useState, useEffect, useRef, Fragment } from 'react';
 import useSound from 'use-sound';
+import useStickyState from '../hooks/UseStickyState';
 
 import styles from './bracket.module.sass';
 
 // Sounds
 import updateSfx from '../assets/sounds/update.mp3';
 
+// Constants
 const eventSourceUrl = `${process.env.REACT_APP_REALTIME_URL}/realtime?apikey=${process.env.REACT_APP_X_API_KEY}`;
 
 const roundNames = [
@@ -24,6 +26,28 @@ const round4 = [0, 1];
 const winner = [0];
 
 let forceRefreshHandler;
+
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&');
+}
+
+export const useInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+
+  return {
+    value,
+    setValue,
+    reset: () => setValue(''),
+    bind: {
+      value,
+      onChange: (event) => {
+        setValue(event.target.value);
+      },
+    },
+  };
+};
 
 function Bracket() {
   let eventSource;
@@ -49,6 +73,14 @@ function Bracket() {
   const [playUpdate] = useSound(updateSfx, {
     volume: 0.5,
   });
+
+  // Feedback form
+  const [feedbackPanel, setFeedbackPanel] = useState(true);
+  const [formSubmitted, setFormSubmitted] = useStickyState(
+    false,
+    'submittedTTFeedback'
+  );
+  const [formError, setFormError] = useState(false);
 
   async function fetchTeams() {
     setFetchingTeams(true);
@@ -205,6 +237,59 @@ function Bracket() {
     playUpdate();
   }, [teams]);
 
+  const {
+    value: feedback,
+    bind: bindFeedback,
+    reset: resetFeedback,
+  } = useInput('');
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput('');
+
+  const handleSubmit = (evt) => {
+    const form = evt.target;
+
+    if (!(feedback && email)) {
+      setFormError('All fields are required.');
+    } else if (feedback.length <= 5) {
+      setFormError('Your feedback seems a bit short.');
+    } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setFormError('Your email address is invalid.');
+    } else {
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': form.getAttribute('name'),
+          feedback: `${feedback}`,
+          email: `${email}`,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            setFormError('The server responded with a non-2xx code.');
+            setFormSubmitted(false);
+          } else {
+            // Reset form fields
+            resetFeedback();
+            resetEmail();
+
+            // Show message saying the form was submitted
+            // and hide the form
+            setFormSubmitted(true);
+          }
+        })
+        .catch((err) => {
+          setFormError(err);
+          setFormSubmitted(false);
+        });
+    }
+
+    evt.preventDefault();
+  };
+
+  function closeFeedback() {
+    setFeedbackPanel(false);
+  }
+
   return (
     <div>
       {/* Tournament Bracket
@@ -255,6 +340,126 @@ function Bracket() {
       </div>
 
       <section className="tournament-container">
+        {teams &&
+          teams.filter((team) => {
+            return team.winner === true;
+          }).length > 0 &&
+          feedbackPanel && (
+            <div className="bracket-overlay">
+              <div className="overlay-content">
+                <p>
+                  Congratulations{' '}
+                  <b className={styles.winningTeam}>
+                    {teams &&
+                      teams.filter((team) => {
+                        return team.winner === true;
+                      })[0].name}
+                  </b>
+                  !
+                </p>
+
+                <p>
+                  <button
+                    className="button primary small round"
+                    type="button"
+                    onClick={() => closeFeedback()}
+                  >
+                    CLOSE ×
+                  </button>
+                </p>
+
+                <div className={styles.feedback}>
+                  <h3>Share Your Thoughts:</h3>
+                  {formSubmitted ? (
+                    <p className={styles.thanksForFeedback}>
+                      ✓ Thanks for your feedback!{' '}
+                      <span>
+                        [
+                        <button
+                          className={['link', styles.closeFeedbackButton].join(
+                            ' '
+                          )}
+                          type="button"
+                          onClick={() => closeFeedback()}
+                        >
+                          CLOSE
+                        </button>
+                        ]
+                      </span>
+                    </p>
+                  ) : (
+                    <>
+                      <form
+                        method="post"
+                        name="trivia-tournament-feedback"
+                        onSubmit={handleSubmit}
+                      >
+                        <input
+                          type="hidden"
+                          name="form-name"
+                          value="trivia-tournament-feedback"
+                        />
+                        <input type="hidden" name="bot-field" />
+                        <label htmlFor="feedback">
+                          What did you think of this event?
+                          <input
+                            type="text"
+                            name="feedback"
+                            id="feedback"
+                            placeholder="Let Us Know..."
+                            required
+                            {...bindFeedback}
+                          />
+                        </label>
+
+                        <label
+                          htmlFor="email"
+                          className={[
+                            styles.formElement,
+                            feedback.length > 5 ? '' : styles.hidden,
+                          ].join(' ')}
+                        >
+                          What's your email?
+                          <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="example@saintanselms.org"
+                            required
+                            {...bindEmail}
+                          />
+                        </label>
+
+                        <p
+                          className={[
+                            styles.error,
+                            formError ? '' : styles.hidden,
+                          ].join(' ')}
+                        >
+                          ⚠️ {formError} Please try again.
+                        </p>
+
+                        <button
+                          type="submit"
+                          className={[
+                            'button primary round has-icon full',
+                            styles.formElement,
+                            feedback.length > 5 && email.length > 10
+                              ? ''
+                              : styles.hidden,
+                          ].join(' ')}
+                          disabled={!feedback || !email}
+                        >
+                          Submit! <span>&rarr;</span>
+                        </button>
+                      </form>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
         <div className="tournament-headers">
           {roundNames.map((round) => (
             <h3 key={round.toLowerCase()}>{round}</h3>

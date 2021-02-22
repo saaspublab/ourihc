@@ -8,6 +8,45 @@
   100%
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
 
+.hidden
+  display: none
+
+.formElement
+  animation: fadeIn .15s ease-in
+
+.closeFeedbackButton
+  color: $maroon
+
+  &:hover
+    text-decoration: underline
+
+.winningTeam
+  color: $maroon
+
+.feedback
+  border-top: 2px solid $maroon
+  padding: 2rem 0
+
+  input
+    border-radius: $border-radius !important
+    border-width: 2px !important
+
+.error
+  padding: .5rem .75rem
+  background-color: rgba($warning, .15)
+  border: $border-width solid $warning
+  border-radius: $border-radius
+  color: $black
+  font-weight: bold
+
+.thanksForFeedback
+  padding: .5rem .75rem
+  background-color: rgba($maroon, .15)
+  border: $border-width solid $maroon
+  border-radius: $border-radius
+  color: $maroon
+  animation: fadeIn .15s ease-in
+
 .connectionStatus
   margin-bottom: 2rem
   padding: .4rem 1.25rem
