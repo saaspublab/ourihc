@@ -51,6 +51,16 @@
       animation: pulse 2s infinite
       transform-origin: center center
 
+  .refresh
+    padding: 0 .25em
+    animation: fadeIn .5s ease-in
+
+  .refreshButton
+    color: $maroon
+
+    &:not(:disabled):hover
+      text-decoration: underline
+
   .warning
     color: $warning
     font-weight: bold

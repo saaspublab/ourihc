@@ -23,6 +23,8 @@ const round3 = [0, 1, 2, 3];
 const round4 = [0, 1];
 const winner = [0];
 
+let forceRefreshHandler;
+
 function Bracket() {
   let eventSource;
 
@@ -31,6 +33,7 @@ function Bracket() {
 
   // Store teams from DB
   const [fetchingTeams, setFetchingTeams] = useState(false);
+  const [forceRefreshLock, setForceRefreshLock] = useState();
   const [teams, setTeams] = useState();
 
   // Store EventStream data
@@ -54,6 +57,7 @@ function Bracket() {
       'color: #F012BE',
       'color: #7FDBFF'
     );
+
     await fetch('/api/teams/')
       .then((res) => res.json())
       .then((res) => {
@@ -164,12 +168,36 @@ function Bracket() {
     );
   }
 
+  function forceRefresh() {
+    // Fetch teams from API
+    fetchTeams();
+
+    // Start "Force Refresh" button lock timeout
+    setForceRefreshLock(true);
+    forceRefreshHandler = setTimeout(() => {
+      setForceRefreshLock(false);
+    }, 120000);
+  }
+
   useEffect(() => {
     // Fetch teams from API
     fetchTeams();
 
+    // Start "Force Refresh" button lock timeout
+    setForceRefreshLock(true);
+    forceRefreshHandler = setTimeout(() => {
+      setForceRefreshLock(false);
+    }, 120000);
+
     // Establish live eventSource feed
     startEventSource();
+
+    return () => {
+      if (forceRefreshHandler) {
+        clearTimeout(forceRefreshHandler);
+        forceRefreshHandler = 0;
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -203,6 +231,20 @@ function Bracket() {
             <div className={styles.content}>
               <span className={styles.connected} /> Bracket connected &amp;
               updating live!
+              {!forceRefreshLock && (
+                <span className={styles.refresh}>
+                  {' ['}
+                  <button
+                    type="button"
+                    className={['link', styles.refreshButton].join(' ')}
+                    onClick={() => forceRefresh()}
+                    disabled={forceRefreshLock}
+                  >
+                    Force Refresh...
+                  </button>
+                  ]
+                </span>
+              )}
             </div>
           )) ||
           (teams && (
