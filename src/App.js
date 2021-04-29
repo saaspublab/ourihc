@@ -10,6 +10,7 @@ import Trivia from './pages/Trivia';
 import TriviaManage from './pages/trivia/Manage';
 import TriviaBracket from './pages/trivia/Bracket';
 // import Clap from './pages/Clap';
+import Video from './pages/Video';
 import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
@@ -62,6 +63,9 @@ export default function App() {
                 {/* <Route exact path="/clap">
                   <Clap />
                 </Route> */}
+                <Route exact path="/video">
+                  <Video />
+                </Route>
                 <Route exact path="/join">
                   <Join />
                 </Route>
@@ -97,8 +101,8 @@ export default function App() {
 
             <footer className="footer">
               <p>
-                © {new Date().getFullYear()} Jay Sella and SAAS Inter-House
-                Council
+                © {new Date().getFullYear()} Jay Sella and 2020-2021 SAAS
+                Inter-House Council
               </p>
               <p>All Rights Reserved</p>
             </footer>
