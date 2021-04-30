@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const link = '';
+const link = 'https://www.youtube.com/watch?v=KIuHHlSkAWU';
 
 function Video() {
   useEffect(() => {
@@ -11,8 +11,8 @@ function Video() {
     <div className="page--maroon">
       <h2 className="heading">Welcome to Surf's Up!</h2>
       <p>
-        The Class of 2021 Commitment Ceremonies video will be available on this
-        page at 8:00 AM on Friday, April 30th. Check back then.
+        The Class of 2021 Commitment Ceremonies video will be live at 8:00 AM on
+        Friday, April 30th. Click the link below.
       </p>
 
       {link && (
