@@ -8,13 +8,8 @@
   status = 200
 
 [[redirects]]
-  from = "/dunk"
-  to = "https://forms.gle/y1odfrKx5YHPRJcX7"
-  status = 302
-
-[[redirects]]
-  from = "/word"
-  to = "https://forms.gle/xy5xb9hDT6owcWec7"
+  from = "/video"
+  to = "https://www.youtube.com/watch?v=-HnYcEZOrNU"
   status = 302
 
 [[redirects]]
@@ -42,10 +37,10 @@
   to = "https://support.google.com/docs/answer/179740"
   status = 302
 
-[[redirects]]
-  from = "/send-spread"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLScT-pL94mSZYSwINd0O3GpOerCwCqxk7NWboMuXbZ10veDDtA/viewform"
-  status = 302
+# [[redirects]]
+#   from = "/send-spread"
+#   to = "https://docs.google.com/forms/d/e/1FAIpQLScT-pL94mSZYSwINd0O3GpOerCwCqxk7NWboMuXbZ10veDDtA/viewform"
+#   status = 302
 
 [[redirects]]
   from = "/*"
