@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import './App.sass';
@@ -10,12 +11,14 @@ import Trivia from './pages/Trivia';
 import TriviaManage from './pages/trivia/Manage';
 import TriviaBracket from './pages/trivia/Bracket';
 // import Clap from './pages/Clap';
+// eslint-disable-next-line no-unused-vars
 import Video from './pages/Video';
 import Join from './pages/Join';
 import Press from './pages/Press';
 import PressInfo from './pages/press/Info';
 import Fall2020Press from './pages/press/Fall2020Press';
 import Discord from './pages/Discord';
+import HouseDayVideo from './pages/HouseDayVideo';
 
 // Lunch assignment pages
 // import Lunch from './pages/Lunch';
@@ -64,7 +67,7 @@ export default function App() {
                   <Clap />
                 </Route> */}
                 <Route exact path="/video">
-                  <Video />
+                  <HouseDayVideo />
                 </Route>
                 <Route exact path="/join">
                   <Join />
