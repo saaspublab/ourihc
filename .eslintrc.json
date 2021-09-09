@@ -56,7 +56,7 @@
         "custom": "enforce"
       }
     ],
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "quotes": [
       2,
       "single",
