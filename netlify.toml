@@ -12,10 +12,10 @@
   to = "https://saintanselms.zoom.us/j/98009822202?pwd=WWQ5LzVhRlg3MEJ1anp0cC8wYVZZQT09"
   status = 302
 
-# [[redirects]]
-#  from = "/video"
-#  to = "https://www.youtube.com/watch?v=-HnYcEZOrNU"
-#  status = 302
+ [[redirects]]
+  from = "/video"
+  to = "https://www.youtube.com/watch?v=zpasvLESasY"
+  status = 302
 
 [[redirects]]
   from = "/quarter"
